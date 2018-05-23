@@ -25,10 +25,16 @@ All data is loaded up into PostgreSQL, including the Descriptions which we pull
 down as
 [`COMMENTS`](https://www.postgresql.org/docs/current/static/sql-syntax.html).
 
+You can find the readmes from the Texas Ethics Commission added in this project,
+
+* [Contribution Data Readme](./data/TEC_CF_CSV/ReadMe.txt)
+* [Lobby Data Readme](data/TEC_LA_CSV/LobbyLAR-ReadMe.txt)
+
+
 Links
 ====
 
-* [the TEC data](https://www.ethics.state.tx.us/dfs/search_CF.htm).
+* [TEC data](https://www.ethics.state.tx.us/dfs/search_CF.htm).
 * [PDSERF](https://dba.stackexchange.com/a/207425/2639) format
 
 Background
