@@ -4,11 +4,13 @@ Texas Ethics Commission - Schema Loader
 This is a [PostgreSQL schema loader](https://www.postgresql.org/) for the data
 provided by [Texas Ethics Commission](https://www.ethics.state.tx.us/).
 
-We provide a utility to extract schema from [PDSERF/Plus
-format](https://dba.stackexchange.com/a/207425/2639) export. We read the ReadMe
-files and parse them to determine the schema, types, and keys and constraints.
+We provide a utility to
 
-Internally, lines from the readme are either,
+* extract schema from [PDSERF/Plus format](https://dba.stackexchange.com/a/207425/2639) export by reading the ReadMe files and parse them to determine the schema, types, and keys and constraints.
+* create the tables needed to load up the 1295 certs -- these are hand written from the pdf documentation by provided by TEC
+* load the data up from csv format into the tables we create
+
+Internally, lines from PDSERF readme are either,
 
  * Table Description rows
  * Column Description-cotd rows
@@ -16,10 +18,10 @@ Internally, lines from the readme are either,
  * Start-rows for table (Start with "Record #:")
  * End-rows for table   (Containing just a `-`)
 
-Column rows are either
+Column lines are either
 
-	* Indented as part of a group (array) replicated a certain amount of times
-	* Derived from a "single line"
+ * Indented as part of a group (array) replicated a certain amount of times
+ * Derived from a "single line"
 
 All data is loaded up into PostgreSQL, including the Descriptions which we pull
 down as
@@ -29,6 +31,7 @@ You can find the readmes from the Texas Ethics Commission added in this project,
 
 * [Contribution Data Readme](./data/TEC_CF_CSV/ReadMe.txt)
 * [Lobby Data Readme](data/TEC_LA_CSV/LobbyLAR-ReadMe.txt)
+* [Form 1295](1295CertificatesCSVFormat.pdf)
 
 
 Links
