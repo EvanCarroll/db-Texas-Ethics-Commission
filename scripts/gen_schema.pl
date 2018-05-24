@@ -24,17 +24,16 @@ use autodie;
 ## Globals are funn!!
 use constant {
 	INROOT  => './data',
-	OUTROOT => './out',
+	OUTROOT => './sql',
 	INSTALL_SCHEMA => 'tec'
 };
 
+use File::Path ();
+use File::Spec ();
+use IO::File   ();
 
-use File::Spec;
-use IO::File;
-
-use PDSERF::Parser;
-
-mkdir (OUTROOT) unless -x OUTROOT;
+use lib 'lib';
+use PDSERF::Parser ();
 
 my @files = (
 	{ DIR => 'TEC_CF_CSV', FILE => 'ReadMe.txt' },
@@ -69,10 +68,12 @@ foreach my $file ( @files ) {
 
 	foreach my $t ( @{PDSERF::Parser::parse($fh)} ) {
 		say "Generating " . $t->name;
-		my $indir = File::Spec->catdir( INROOT, $file->{DIR} );
+		my $indir  = File::Spec->catdir( INROOT, $file->{DIR} );
+		my $outdir = File::Spec->catdir( OUTROOT, 'gen', $file->{DIR} );
+		File::Path::make_path( $outdir, error => \$_ );
 		my $fh = IO::File->new(
 			File::Spec->catfile(
-				'out',
+				$outdir,
 				sprintf("%02s_%s.sql", $t->order, $t->name)
 			),
 			'w'
@@ -86,7 +87,26 @@ foreach my $file ( @files ) {
 
 }
 
-__DATA__
+
+{
+	my $fh_comb   = IO::File->new( './data/1295Certificates.csv', 'r' );
+	my $fh_box123 = IO::File->new( './data/1295Certificates_BOX123.csv', 'w' );
+	my $fh_party  = IO::File->new( './data/1295Certificates_PARTY.csv', 'w' );
+
+	while ( my $line = <$fh_comb> ) {
+		chomp $line;
+
+		if ( $line =~ /^BOX123/ ) {
+			$fh_box123->write($line."\n");
+		}
+		elsif ( $line =~ /^PARTY/ ) {
+			$fh_party->write($line."\n");
+		}
+
+	}
+
+}
+
 __END__
 
 =head1 NAME
@@ -97,6 +117,23 @@ generate_from_readme.pl
 
 Schema generater and parser
 
-A loader that takes a readme file in dumps out representative SQL
+A loader that takes the readme files produced by the TEC and dumps out
+representative SQL DDL
 
-=cut
+=head2 1295 Forms
+
+This script expects one combined file to be in F<./data/1295Certificates.csv>
+and splits it into 
+
+=over 4
+
+=item F<./data/1295Certificates_BOX123.csv>
+
+If the first characters are BOX123
+
+=item F<./data/1295Certificates_PARTY.csv>
+
+If the first characters are PARTY
+
+=back
+

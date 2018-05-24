@@ -20,34 +20,38 @@ DROP SCHEMA IF EXISTS tec CASCADE;
 CREATE SCHEMA tec;
 COMMENT ON SCHEMA tec IS $$Texas Ethics Comission dataset$$;
 
-\i out/01_CoverSheetLaData.sql
-\i out/02_IndividualReportingData.sql
-\i out/03_SubjectMatterData.sql
-\i out/04_DocketData.sql
-\i out/05_TransportationData.sql
-\i out/06_FoodBeverageData.sql
-\i out/07_EntertainmentData.sql
-\i out/08_GiftData.sql
-\i out/09_AwardMementoData.sql
-\i out/10_EventData.sql
+\echo LOADING FORM 1295 [1295Certificates.csv]
+\i sql/form1295.sql
 
-\i out/10_ExpendCategory.sql
-\i out/11_FilerData.sql
-\i out/12_FinalData.sql
-\i out/13_LoanData.sql
-\i out/14_PledgeData.sql
-\i out/15_SpacData.sql
-\i out/16_TravelData.sql
-\i out/01_AssetData.sql
-\i out/02_CandidateData.sql
-\i out/03_ContributionData.sql
-\i out/04_CoverSheet1Data.sql
-\i out/05_CoverSheet2Data.sql
-\i out/06_CoverSheet3Data.sql
-\i out/07_CreditData.sql
-\i out/08_DebtData.sql
-\i out/09_ExpendData.sql
+\echo LOADING CAMPAIGN FINANCE REPORTS [TEC_CF_CSV.zip]
+\i sql/gen/TEC_CF_CSV/10_ExpendCategory.sql
+\i sql/gen/TEC_CF_CSV/11_FilerData.sql
+\i sql/gen/TEC_CF_CSV/12_FinalData.sql
+\i sql/gen/TEC_CF_CSV/13_LoanData.sql
+\i sql/gen/TEC_CF_CSV/14_PledgeData.sql
+\i sql/gen/TEC_CF_CSV/15_SpacData.sql
+\i sql/gen/TEC_CF_CSV/16_TravelData.sql
+\i sql/gen/TEC_CF_CSV/01_AssetData.sql
+\i sql/gen/TEC_CF_CSV/02_CandidateData.sql
+\i sql/gen/TEC_CF_CSV/03_ContributionData.sql
+\i sql/gen/TEC_CF_CSV/04_CoverSheet1Data.sql
+\i sql/gen/TEC_CF_CSV/05_CoverSheet2Data.sql
+\i sql/gen/TEC_CF_CSV/06_CoverSheet3Data.sql
+\i sql/gen/TEC_CF_CSV/07_CreditData.sql
+\i sql/gen/TEC_CF_CSV/08_DebtData.sql
+\i sql/gen/TEC_CF_CSV/09_ExpendData.sql
 
+\echo LOADING LOBY REPORTS [TEC_LA_CSV.zip]
+\i sql/gen/TEC_LA_CSV/01_CoverSheetLaData.sql
+\i sql/gen/TEC_LA_CSV/02_IndividualReportingData.sql
+\i sql/gen/TEC_LA_CSV/03_SubjectMatterData.sql
+\i sql/gen/TEC_LA_CSV/04_DocketData.sql
+\i sql/gen/TEC_LA_CSV/05_TransportationData.sql
+\i sql/gen/TEC_LA_CSV/06_FoodBeverageData.sql
+\i sql/gen/TEC_LA_CSV/07_EntertainmentData.sql
+\i sql/gen/TEC_LA_CSV/08_GiftData.sql
+\i sql/gen/TEC_LA_CSV/09_AwardMementoData.sql
+\i sql/gen/TEC_LA_CSV/10_EventData.sql
 
 \COPY tec.ContributionData FROM './data/TEC_CF_CSV/contribs_01.csv' WITH ( FORMAT CSV , HEADER true )
 \COPY tec.ContributionData FROM './data/TEC_CF_CSV/contribs_02.csv' WITH ( FORMAT CSV , HEADER true )
