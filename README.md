@@ -30,8 +30,10 @@ down as
 You can find the readmes from the Texas Ethics Commission added in this project,
 
 * [Contribution Data Readme](./data/TEC_CF_CSV/ReadMe.txt)
-* [Lobby Data Readme](data/TEC_LA_CSV/LobbyLAR-ReadMe.txt)
-* [Form 1295](1295CertificatesCSVFormat.pdf)
+* [Lobby Data Readme](./data/TEC_LA_CSV/LobbyLAR-ReadMe.txt)
+* [Form 1295](./data/tec_docs/1295CertificatesCSVFormat.pdf)
+* [Texas PDSERF/Plus
+Electronic Reporting Format](./data/tec_docs/TX_ERF13_7.pdf)
 
 
 Links
