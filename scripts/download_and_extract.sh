@@ -14,18 +14,24 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-echo <<'EOF'
+cat <<'EOF'
 	Texas Ethics Commission - downloader
 	Starting to downoad now, make sure you have `curl`
 EOF
 
-mkdir data;
+if [ ! -d "./data" ]; then
+	mkdir "./data";
+fi
 
 curl --progress-bar --remote-name-all -- \
 	"https://www.ethics.state.tx.us/tedd/TEC_CF_CSV.zip" \
 	"https://www.ethics.state.tx.us/tedd/TEC_LA_CSV.zip" \
 	"https://www.ethics.state.tx.us/tedd/1295Certificates.csv";
 
+cat <<'EOF'
+	Unzipping contents
+	Acknowledge yes to update any ReadMe.txt with the latest version
+EOF
 unzip -d "./data/TEC_LA_CSV" "TEC_LA_CSV.zip"
 unzip -d "./data/TEC_CF_CSV" "TEC_CF_CSV.zip"
 mv "1295Certificates.csv" "./data/1295Certificates.csv"
