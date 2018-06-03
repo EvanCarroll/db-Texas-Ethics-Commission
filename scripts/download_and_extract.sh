@@ -21,7 +21,7 @@ EOF
 
 mkdir data;
 
-curl --progress-bar --remote-name -- \
+curl --progress-bar --remote-name-all -- \
 	"https://www.ethics.state.tx.us/tedd/TEC_CF_CSV.zip" \
 	"https://www.ethics.state.tx.us/tedd/TEC_LA_CSV.zip" \
 	"https://www.ethics.state.tx.us/tedd/1295Certificates.csv";
