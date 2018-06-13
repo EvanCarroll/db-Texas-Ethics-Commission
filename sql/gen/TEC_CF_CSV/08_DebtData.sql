@@ -107,7 +107,8 @@ CREATE TABLE tec.debtdata (
 	guarantorStreetCountyCd5                text,
 	guarantorStreetCountryCd5               text,
 	guarantorStreetPostalCode5              text,
-	guarantorStreetRegion5                  text
+	guarantorStreetRegion5                  text,
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
 );
 
 COMMENT ON TABLE tec.debtdata IS $$Debts - Schedule L - Outstanding judicial loans. File: debts.csv$$;

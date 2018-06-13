@@ -59,7 +59,8 @@ CREATE TABLE tec.transportationdata (
 	departureDt                             date,
 	arrivalCity                             text,
 	arrivalDt                               date,
-	travelPurpose                           text
+	travelPurpose                           text,
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
 );
 
 COMMENT ON TABLE tec.transportationdata IS $$Form LA Schedule B - Transportation and Lodging. File: LaTran.csv$$;

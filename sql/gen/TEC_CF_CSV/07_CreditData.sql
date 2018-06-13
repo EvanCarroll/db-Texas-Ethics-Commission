@@ -46,7 +46,8 @@ CREATE TABLE tec.creditdata (
 	payorStreetCountyCd                     text,
 	payorStreetCountryCd                    text,
 	payorStreetPostalCode                   text,
-	payorStreetRegion                       text
+	payorStreetRegion                       text,
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
 );
 
 COMMENT ON TABLE tec.creditdata IS $$Credits - Schedule K - Interest, credits, gains, refunds, and contributions returned to filer. File: credits.csv$$;

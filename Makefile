@@ -14,12 +14,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.PHONY: all clean unzip
+.PHONY: all clean unzip devgen
 	
-all: download extract textify
+all: download extract 1295_seperator.pl
 
 DIR_DATA=./data
 DIR_TEC_DOCS=$(DIR_DATA)/tec_docs
+
+devgen: download extract textify gen_schema.pl
+
+%.pl:
+	perl "scripts/$@"
 
 textify: $(DIR_TEC_DOCS)/cf_new.txt $(DIR_TEC_DOCS)/cf_old.txt
 unzip:   $(DIR_DATA)/TEC_CF_CSV     $(DIR_DATA)/TEC_LA_CSV
@@ -34,17 +39,16 @@ download:
 		"https://www.ethics.state.tx.us/software/CampaignFinanceCSVFileFormat.pdf" \
 		"https://www.ethics.state.tx.us/tedd/1295CertificatesCSVFormat.pdf" \
 
-
 %TEC_LA_CSV:
 	unzip -o -d "$@" "$@.zip"
 
 %TEC_CF_CSV:
 	unzip -o -d "$@" "$@.zip"
 
-%cf_new.txt:
+%cf_old.txt:
 	ps2txt "$(DIR_TEC_DOCS)/TX_ERF13_7.pdf" > "$@"
 
-%cf_old.txt:
+%cf_new.txt:
 	ps2txt "$(DIR_TEC_DOCS)/CampaignFinanceCSVFileFormat.pdf" > "$@"
 
 clean:

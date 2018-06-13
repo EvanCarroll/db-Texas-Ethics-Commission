@@ -20,6 +20,8 @@ use strict;
 use feature ':5.26';
 use autodie;
 
+use PDSERF::Client ();
+
 use Moose;
 use PDSERF::Table;
 
@@ -83,7 +85,7 @@ sub fully_qualified_identifier {
 	my $self = shift;
 	my $fqn =  sprintf(
 		"%s.%s.%s",
-		main::INSTALL_SCHEMA,
+		PDSERF::Client::INSTALL_SCHEMA,
 		$self->table->name,
 		$self->name
 	);

@@ -64,7 +64,8 @@ CREATE TABLE tec.coversheetladata (
 	corrExplMemo                            text,
 	coverSheetMemo                          text,
 	subjectMatterMemo                       text,
-	docketsMemo                             text
+	docketsMemo                             text,
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
 );
 
 COMMENT ON TABLE tec.coversheetladata IS $$Form LA Cover Sheet information. NOTE: Records are included only if the due date assigned by TEC staff is after January 10, 2005. Most Lobby Activities reports due 01/10/2005 were filed on paper;  most reports due afterwards were filed electronically. TEC staff enters totals from the cover page of paper reports, but does not enter any information from the schedules. File: LaCvr.csv$$;

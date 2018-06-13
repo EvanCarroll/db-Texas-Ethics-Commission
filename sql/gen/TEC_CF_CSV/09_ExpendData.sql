@@ -54,7 +54,8 @@ CREATE TABLE tec.expenddata (
 	payeeStreetCountyCd                     text,
 	payeeStreetCountryCd                    text,
 	payeeStreetPostalCode                   text,
-	payeeStreetRegion                       text
+	payeeStreetRegion                       text,
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
 );
 
 COMMENT ON TABLE tec.expenddata IS $$Expenditures - Schedules F/G/H/I - Expenditures from special pre-election (formerly Telegram) reports are stored in the file expn_t. They are kept separate from the expends file to avoid creating duplicates, because they are supposed to be re-reported on the next regular campaign finance report. Files: expend_##.csv, expn_t.csv$$;

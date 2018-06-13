@@ -46,7 +46,8 @@ CREATE TABLE tec.awardmementodata (
 	recipientNameSuffixCd                   text,
 	recipientNameFirst                      text,
 	recipientNamePrefixCd                   text,
-	recipientNameShort                      text
+	recipientNameShort                      text,
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
 );
 
 COMMENT ON TABLE tec.awardmementodata IS $$Form LA Schedule F - Awards / Mementos. File: LaAwrd.csv$$;

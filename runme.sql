@@ -20,6 +20,13 @@ DROP SCHEMA IF EXISTS tec CASCADE;
 CREATE SCHEMA tec;
 COMMENT ON SCHEMA tec IS $$Texas Ethics Comission dataset$$;
 
+
+\echo LOADING CODES GENERATED FROM PDF
+\i sql/cf_new/02_data/6_office.sql
+\i sql/cf_new/02_data/7_report.sql
+\i sql/cf_new/02_data/8_counties.sql
+\i sql/cf_new/02_data/9_total.sql
+
 \echo LOADING FORM 1295 [1295Certificates.csv]
 \i sql/form1295.sql
 

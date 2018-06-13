@@ -51,7 +51,8 @@ CREATE TABLE tec.foodbeveragedata (
 	restaurantStreetStateCd                 text,
 	restaurantStreetCountryCd               text,
 	restaurantStreetPostalCode              text,
-	restaurantStreetRegion                  text
+	restaurantStreetRegion                  text,
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
 );
 
 COMMENT ON TABLE tec.foodbeveragedata IS $$Form LA Schedule C - Food and Beverages. File: LaFood.csv$$;

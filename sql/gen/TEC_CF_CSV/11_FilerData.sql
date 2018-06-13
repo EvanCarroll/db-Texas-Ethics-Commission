@@ -150,7 +150,8 @@ CREATE TABLE tec.filerdata (
 	chairMailingRegion                      text,
 	chairPrimaryUsaPhoneFlag                bool,
 	chairPrimaryPhoneNumber                 text,
-	chairPrimaryPhoneExt                    text
+	chairPrimaryPhoneExt                    text,
+	PRIMARY KEY (filerIdent, filerTypeCd)
 );
 
 COMMENT ON TABLE tec.filerdata IS $$Filer index. The names, addresses and offices in this file are entered by TEC staff from various sources; e.g., amended campaign treasurer appointments, change-of-address notices, and ballot information from the Texas Secretary of State. File: filers.csv$$;

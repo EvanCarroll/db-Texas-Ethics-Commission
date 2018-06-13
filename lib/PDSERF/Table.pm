@@ -21,6 +21,7 @@ use feature ':5.26';
 use autodie;
 
 use PDSERF::Column;
+use PDSERF::Client ();
 
 use Moose;
 use Moose::Util::TypeConstraints;
@@ -51,7 +52,10 @@ has order => ( isa => 'Int', is => 'ro', required => 1 );
 sub pg_ddl {
 	my $self = shift;
 
-	my @body = (map $_->pg_ddl, @{$self->columns}), $self->_pg_table_attributes;
+	my @body = grep defined, (
+		(map $_->pg_ddl, @{$self->columns}),
+		$self->_pg_table_attributes
+	);
 	s/\s+$// for @body;
 	
 	my $ddl = sprintf (
@@ -67,7 +71,7 @@ sub pg_ddl {
 
 sub _pg_table_attributes {
 	my $self = shift;
-	my $a = '';
+	my $a = undef;
 	## Handles linking and composite key for Filer
 	if (
 		$self->col_by_name('filerTypeCd')
@@ -79,7 +83,7 @@ sub _pg_table_attributes {
 		else {
 			$a = sprintf(
 				"\tFOREIGN KEY (filerIdent, filerTypeCd) REFERENCES %s",
-				sprintf("%s.%s", main::INSTALL_SCHEMA, "FilerData" )
+				sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, "FilerData" )
 			);
 		}
 	}
@@ -88,7 +92,7 @@ sub _pg_table_attributes {
 
 sub fully_qualified_identifier {
 	my $self = shift;
-	lc(sprintf( "%s.%s", main::INSTALL_SCHEMA, $self->name));
+	lc(sprintf( "%s.%s", PDSERF::Client::INSTALL_SCHEMA, $self->name));
 }
 
 sub pg_comment {

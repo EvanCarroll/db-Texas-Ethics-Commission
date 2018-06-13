@@ -44,7 +44,8 @@ CREATE TABLE tec.individualreportingdata (
 	onbehalfMailingRegion                   text,
 	onbehalfPrimaryUsaPhoneFlag             bool,
 	onbehalfPrimaryPhoneNumber              text,
-	onbehalfPrimaryPhoneExt                 text
+	onbehalfPrimaryPhoneExt                 text,
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
 );
 
 COMMENT ON TABLE tec.individualreportingdata IS $$Form LA Cover Sheet Box 9 - Indivduals Reporting For Entity. NOTE: Form LA Instructions for this box state Check 'YES' if you are reporting expenditures at the request of an entity that has chosen not to register pursuant to Ethics Commission rule 34.45. If you check 'YES' provide the name, address and phone number of the entity. Checking  'YES' indicates that you are reporting not only expenditures attributable to you but also expenditures attributable to the entity listed. File: LaI4E.csv$$;

@@ -29,7 +29,8 @@ CREATE TABLE tec.assetdata (
 	filerTypeCd                             text,
 	filerName                               text,
 	assetInfoId                             bigint              PRIMARY KEY,
-	assetDescr                              text
+	assetDescr                              text,
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
 );
 
 COMMENT ON TABLE tec.assetdata IS $$Assets - Schedule M - Assets valued at $500 or more for judicial filers only. File: assets.csv$$;

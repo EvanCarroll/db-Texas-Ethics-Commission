@@ -54,7 +54,8 @@ CREATE TABLE tec.contributiondata (
 	contributorOosPacFlag                   bool,
 	contributorSpouseLawFirmName            text,
 	contributorParent1LawFirmName           text,
-	contributorParent2LawFirmName           text
+	contributorParent2LawFirmName           text,
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
 );
 
 COMMENT ON TABLE tec.contributiondata IS $$Contributions - Schedules A/C - Contributions from special session and special pre-election (formerly Telegram) reports are stored in the file cont_ss and cont_t. These records are kept separate from the contribs files to avoid creating duplicates, because they are supposed to be re-reported on the next regular campaign finance report. Files: contribs_##.csv, cont_ss.csv, cont_t.csv$$;

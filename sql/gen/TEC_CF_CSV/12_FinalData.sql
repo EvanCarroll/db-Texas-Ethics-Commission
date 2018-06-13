@@ -29,7 +29,8 @@ CREATE TABLE tec.finaldata (
 	filerName                               text,
 	finalUnexpendContribFlag                bool,
 	finalRetainedAssetsFlag                 bool,
-	finalOfficeholderAckFlag                bool
+	finalOfficeholderAckFlag                bool,
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
 );
 
 COMMENT ON TABLE tec.finaldata IS $$Final reports. File: final.csv$$;
