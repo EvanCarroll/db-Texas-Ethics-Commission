@@ -27,7 +27,7 @@ All data is loaded up into PostgreSQL, including the Descriptions which we pull
 down as
 [`COMMENTS`](https://www.postgresql.org/docs/current/static/sql-syntax.html).
 
-You can find the readmes from the Texas Ethics Commission added in this project,
+You can find the readmes from the Texas Ethics Commission added in this project here:
 
 * [Contribution Data Readme](./data/TEC_CF_CSV/ReadMe.txt)
 * [Lobby Data Readme](./data/TEC_LA_CSV/LobbyLAR-ReadMe.txt)
@@ -35,12 +35,25 @@ You can find the readmes from the Texas Ethics Commission added in this project,
 * [Texas PDSERF/Plus
 Electronic Reporting Format](./data/tec_docs/TX_ERF13_7.pdf)
 
-
 Links
 ====
 
 * [TEC data](https://www.ethics.state.tx.us/dfs/search_CF.htm).
 * [PDSERF](https://dba.stackexchange.com/a/207425/2639) format
+
+Installation
+====
+
+Requirements: PostgreSQL, git, curl
+
+Repo download and database setup (example in bash):
+```
+$ git clone https://github.com/EvanCarroll/db-Texas-Ethics-Commission.git
+$ cd ./db-Texas-Ethics-Commission
+$ ./scripts/download_and_extract.sh
+$ createdb mydb
+$ psql -d mydb -f ./runme.sql
+```
 
 Background
 ====
@@ -51,8 +64,8 @@ work of Evan Carroll.
 License
 ====
 
-If you use this, open source all your (100%) of your stuff or I'll litigate.
-The GPL is not the AGPL. Please read and be advised.
+If you use this, open source all (100%) of your stuff, or I'll litigate.
+The GPL is not the AGPL. Please read, and be advised:
 
 [GNU Affero General Public License
 v3](https://www.gnu.org/licenses/agpl-3.0.html), see included
