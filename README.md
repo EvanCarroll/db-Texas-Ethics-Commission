@@ -50,9 +50,10 @@ Repo download and database setup (example in bash):
 ```
 $ git clone https://github.com/EvanCarroll/db-Texas-Ethics-Commission.git
 $ cd ./db-Texas-Ethics-Commission
-$ ./scripts/download_and_extract.sh
+$ make
 $ createdb mydb
 $ psql -d mydb -f ./runme.sql
+$ make clean
 ```
 
 Background
