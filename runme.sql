@@ -60,10 +60,28 @@ COMMENT ON SCHEMA tec IS $$Texas Ethics Comission dataset$$;
 \i sql/gen/TEC_LA_CSV/09_AwardMementoData.sql
 \i sql/gen/TEC_LA_CSV/10_EventData.sql
 
-UPDATE tec.CandidateData
-	SET expendCatCd = NULL
-	WHERE expendCatCd IN ('', 'UNKNOWN');
+BEGIN;
+	UPDATE tec.CandidateData
+		SET expendCatCd = NULL
+		WHERE expendCatCd IN ('', 'UNKNOWN');
 
-ALTER TABLE tec.CandidateData
-	ADD FOREIGN KEY ( expendCatCd )
-	REFERENCES tec.ExpendCategory;
+	ALTER TABLE tec.CandidateData
+		ADD FOREIGN KEY ( expendCatCd )
+		REFERENCES tec.ExpendCategory;
+COMMIT;
+
+-- The CSV schema dumps as seperate columns
+-- But the readme shows it as an array
+-- So we convert back to array
+BEGIN;
+	ALTER TABLE tec.coversheet1data
+		ADD COLUMN reporttype text[];
+	UPDATE tec.coversheet1data
+		SET reporttype = array_remove(ARRAY[
+			reportTypeCd1,reportTypeCd2,reportTypeCd3,reportTypeCd4,reportTypeCd5,
+			reportTypeCd6,reportTypeCd7,reportTypeCd8,reportTypeCd9,reportTypeCd10
+	],null);
+	ALTER TABLE tec.coversheet1data
+		DROP COLUMN reportTypeCd1, DROP COLUMN reportTypeCd2, DROP COLUMN reportTypeCd3, DROP COLUMN reportTypeCd4, DROP COLUMN reportTypeCd5,
+		DROP COLUMN reportTypeCd6, DROP COLUMN reportTypeCd7, DROP COLUMN reportTypeCd8, DROP COLUMN reportTypeCd9, DROP COLUMN reportTypeCd10;
+COMMIT;
