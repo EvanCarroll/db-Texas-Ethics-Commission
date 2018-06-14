@@ -1,5 +1,3 @@
-# Download and Extract utility for ethics.state.tx.us
-# Copyright (C) 2018  Evan Carroll
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -21,7 +19,7 @@ all: download extract 1295_seperator.pl
 DIR_DATA=./data
 DIR_TEC_DOCS=$(DIR_DATA)/tec_docs
 
-devgen: download extract textify gen_schema.pl
+devgen: download unzip textify gen_schema.pl
 
 %.pl:
 	perl "scripts/$@"
@@ -30,14 +28,14 @@ textify: $(DIR_TEC_DOCS)/cf_new.txt $(DIR_TEC_DOCS)/cf_old.txt
 unzip:   $(DIR_DATA)/TEC_CF_CSV     $(DIR_DATA)/TEC_LA_CSV
 
 download:
-	(cd "$(DIR_DATA)" && curl --progress-bar --remote-name-all -C - -- \
+	(cd "$(DIR_DATA)"     && curl --progress-bar --remote-name-all -C - -- \
 		"https://www.ethics.state.tx.us/tedd/TEC_CF_CSV.zip" \
 		"https://www.ethics.state.tx.us/tedd/TEC_LA_CSV.zip" \
 		"https://www.ethics.state.tx.us/tedd/1295Certificates.csv"; )
-	(cd "$(DIR_TEC_DOCS)" && curl --progress-bar --remote-name-all -C - -- \
+	(cd "$(DIR_TEC_DOCS)" && curl --progress-bar --remote-name-all -- \
 		"https://www.ethics.state.tx.us/software/TX_ERF13_7.pdf" \
 		"https://www.ethics.state.tx.us/software/CampaignFinanceCSVFileFormat.pdf" \
-		"https://www.ethics.state.tx.us/tedd/1295CertificatesCSVFormat.pdf" \
+		"https://www.ethics.state.tx.us/tedd/1295CertificatesCSVFormat.pdf"; )
 
 %TEC_LA_CSV:
 	unzip -o -d "$@" "$@.zip"
