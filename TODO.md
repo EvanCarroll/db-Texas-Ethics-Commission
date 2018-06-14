@@ -19,7 +19,7 @@ columns that end in `id` or `cd` that do *not* already have indexes, like this..
 ```
 SELECT table_catalog, table_schema, table_name, column_name
 FROM information_schema.columns AS c
-WHERE EXISTS (
+WHERE NOT EXISTS (
     SELECT
     FROM information_schema.table_constraints AS tc
     JOIN information_schema.key_column_usage AS kcu ON tc.constraint_name = kcu.constraint_name
@@ -55,7 +55,7 @@ JOIN pg_namespace AS nsp
   ON cls.relnamespace = nsp.oid
 WHERE convalidated IS FALSE
   -- or delete it for all constraints in all schemas
-  AND nsp.nspname = 'mySchema';
+  AND nsp.nspname = 'tec';
 ```
 
 Not everyting will validate, much will fail. Things that fail should be
