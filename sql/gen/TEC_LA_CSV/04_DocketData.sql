@@ -36,7 +36,7 @@ CREATE TABLE tec.docketdata (
 	lobbyDocketdesigId                      bigint,
 	designationText                         text,
 	agencyName                              text,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
 );
 
 COMMENT ON TABLE tec.docketdata IS $$Form LA Schedule A - Docket Nos or Other Designation. NOTE: Form LA Instructions for this box state List the docket number and the name of the state agency at which any administrative matter is pending about which you, anyone you retain or employ to appear on your behalf, or anyone who appears on your behalf communicated with an officer of the executive or legislative branch of state government during the reporting period. File: LaDock.csv$$;

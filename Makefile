@@ -14,7 +14,7 @@
 
 .PHONY: all clean unzip devgen
 	
-all: download extract 1295_seperator.pl
+all: download unzip 1295_seperator.pl
 
 DIR_DATA=./data
 DIR_TEC_DOCS=$(DIR_DATA)/tec_docs
@@ -27,15 +27,15 @@ devgen: download unzip textify gen_schema.pl
 textify: $(DIR_TEC_DOCS)/cf_new.txt $(DIR_TEC_DOCS)/cf_old.txt
 unzip:   $(DIR_DATA)/TEC_CF_CSV     $(DIR_DATA)/TEC_LA_CSV
 
-download:
-	(cd "$(DIR_DATA)"     && curl --progress-bar --remote-name-all -C - -- \
-		"https://www.ethics.state.tx.us/tedd/TEC_CF_CSV.zip" \
-		"https://www.ethics.state.tx.us/tedd/TEC_LA_CSV.zip" \
-		"https://www.ethics.state.tx.us/tedd/1295Certificates.csv"; )
+download: TEC_CF_CSV.zip TEC_LA_CSV.zip 1295Certificates.csv
 	(cd "$(DIR_TEC_DOCS)" && curl --progress-bar --remote-name-all -- \
 		"https://www.ethics.state.tx.us/software/TX_ERF13_7.pdf" \
 		"https://www.ethics.state.tx.us/software/CampaignFinanceCSVFileFormat.pdf" \
 		"https://www.ethics.state.tx.us/tedd/1295CertificatesCSVFormat.pdf"; )
+
+%.zip %.csv:
+	(cd "$(DIR_DATA)"     && curl --progress-bar --remote-name-all -- \
+		"https://www.ethics.state.tx.us/tedd/$@"; )
 
 %TEC_LA_CSV:
 	unzip -o -d "$@" "$@.zip"

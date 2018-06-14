@@ -26,6 +26,8 @@ use PDSERF::Client ();
 use Moose;
 use Moose::Util::TypeConstraints;
 
+use constant PSQL_COPY_LOAD_FORMAT => "\n\\COPY %s FROM '%s' WITH ( FORMAT CSV , HEADER true )";
+
 subtype 'ArrayOfColumns', as 'ArrayRef[PDSERF::Column]';
 
 coerce 'PDSERF::Column'
@@ -82,7 +84,7 @@ sub _pg_table_attributes {
 		}
 		else {
 			$a = sprintf(
-				"\tFOREIGN KEY (filerIdent, filerTypeCd) REFERENCES %s",
+				"\tFOREIGN KEY (filerIdent, filerTypeCd) REFERENCES %s NOT VALID", # THANKS TEC
 				sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, "FilerData" )
 			);
 		}
@@ -111,16 +113,28 @@ sub psql_copy {
 	my $desc = $self->description;
 	while ( $desc =~ m/(\S+.csv)/g ) {
 		my $file = $1;
-		next if $file =~ /_#/;
 
 		## XXX typo!
 		$file = 'finals.csv' if $file eq 'final.csv';
 		
-		push @loads, sprintf(
-			"\n\\COPY %s FROM '%s' WITH ( FORMAT CSV , HEADER true )",
-			$self->fully_qualified_identifier,
-			File::Spec->catfile($dir, $file)
- 		);
+		
+		## Migrates the _## pattern to the perl glob _*
+		if ( (my $pattern = $file) =~ s/_#+/_*/ ) {
+			foreach my $file ( sort glob( File::Spec->catfile($dir, $pattern) ) ) {
+				push @loads, sprintf(
+					PSQL_COPY_LOAD_FORMAT,
+					$self->fully_qualified_identifier,
+					File::Spec->catfile($dir, $file)
+				);
+			}
+		}
+		else {
+			push @loads, sprintf(
+				PSQL_COPY_LOAD_FORMAT,
+				$self->fully_qualified_identifier,
+				File::Spec->catfile($dir, $file)
+			);
+		}
 	}
 
 	return join "\n", @loads;

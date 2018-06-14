@@ -55,7 +55,7 @@ CREATE TABLE tec.pledgedata (
 	pledgerSpouseLawFirmName                text,
 	pledgerParent1LawFirmName               text,
 	pledgerParent2LawFirmName               text,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
 );
 
 COMMENT ON TABLE tec.pledgedata IS $$Pledges - Schedule B - Pledges from special session and special pre-election (formerly Telegram) reports are stored in the file pldg_ss and pldg_t. These records are kept separate from the pledges files to avoid creating duplicates, because they are supposed to be re-reported on the next regular campaign finance report. Files: pledges.csv, pldg_ss.csv, pldg_t.csv$$;

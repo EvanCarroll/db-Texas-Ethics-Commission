@@ -47,7 +47,7 @@ CREATE TABLE tec.giftdata (
 	recipientNameFirst                      text,
 	recipientNamePrefixCd                   text,
 	recipientNameShort                      text,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
 );
 
 COMMENT ON TABLE tec.giftdata IS $$Form LA Schedule E - Gifts. File: LaGift.csv$$;

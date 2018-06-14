@@ -48,7 +48,7 @@ CREATE TABLE tec.traveldata (
 	travellerNameFirst                      text,
 	travellerNamePrefixCd                   text,
 	travellerNameShort                      text,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
 );
 
 COMMENT ON TABLE tec.traveldata IS $$Travel outside the State of Texas - Schedule T - Travel records are linked to records in contribs, pledges and expenditure files through the fields parentType and parentId. They store information about in-kind contributions accepted for travel outside the State of Texas and for expenditures made for travel outside the State of Texas. File: travel.csv$$;

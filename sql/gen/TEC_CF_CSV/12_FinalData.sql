@@ -30,7 +30,7 @@ CREATE TABLE tec.finaldata (
 	finalUnexpendContribFlag                bool,
 	finalRetainedAssetsFlag                 bool,
 	finalOfficeholderAckFlag                bool,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
 );
 
 COMMENT ON TABLE tec.finaldata IS $$Final reports. File: final.csv$$;

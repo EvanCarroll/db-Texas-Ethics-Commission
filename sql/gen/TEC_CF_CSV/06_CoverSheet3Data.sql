@@ -45,7 +45,7 @@ CREATE TABLE tec.coversheet3data (
 	activitySeekOfficeDescr                 text,
 	activitySeekOfficeCountyCd              text,
 	activitySeekOfficeCountyDescr           text,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
 );
 
 COMMENT ON TABLE tec.coversheet3data IS $$Cover Sheet 3 - Committee purpose. The committee purpose is reported at the top of Cover Sheet Page 2 FORMNAME = CEC, GPAC, JSPAC, MCEC, MPAC, SCSPAC, SPAC, SPACSS. File: purpose.csv$$;

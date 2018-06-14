@@ -59,7 +59,7 @@ CREATE TABLE tec.candidatedata (
 	candidateSeekOfficeDescr                text,
 	candidateSeekOfficeCountyCd             text,
 	candidateSeekOfficeCountyDescr          text,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
 );
 
 COMMENT ON TABLE tec.candidatedata IS $$Candidate benefiting from a direct campaign expenditure. A direct campaign expenditure to benefit a candidate is not a political contribution to that candidate. Instead, a direct campaign expenditure is a campaign expenditure made on someone else's behalf and without the prior consent or approval of that person. A given EXPN record can have zero or more related CAND records. Any CAND records are written to the file immediately after their related EXPN record. File: cand.csv$$;

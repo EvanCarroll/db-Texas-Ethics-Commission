@@ -159,7 +159,7 @@ CREATE TABLE tec.loandata (
 	guarantorSpouseLawFirmName5             text,
 	guarantorParent1LawFirmName5            text,
 	guarantorParent2LawFirmName5            text,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
 );
 
 COMMENT ON TABLE tec.loandata IS $$Loans - Schedule E. File: loans.csv$$;

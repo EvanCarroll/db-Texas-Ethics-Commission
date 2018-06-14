@@ -51,7 +51,7 @@ CREATE TABLE tec.eventdata (
 	beneficiaryNameFirst                    text,
 	beneficiaryNamePrefixCd                 text,
 	beneficiaryNameShort                    text,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
 );
 
 COMMENT ON TABLE tec.eventdata IS $$Form LA Schedule G - Pol. Fundraisers and Charity Events. File: LaEvnt.csv$$;

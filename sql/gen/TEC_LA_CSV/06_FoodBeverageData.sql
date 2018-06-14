@@ -52,7 +52,7 @@ CREATE TABLE tec.foodbeveragedata (
 	restaurantStreetCountryCd               text,
 	restaurantStreetPostalCode              text,
 	restaurantStreetRegion                  text,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
 );
 
 COMMENT ON TABLE tec.foodbeveragedata IS $$Form LA Schedule C - Food and Beverages. File: LaFood.csv$$;

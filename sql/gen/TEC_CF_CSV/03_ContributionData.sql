@@ -55,7 +55,7 @@ CREATE TABLE tec.contributiondata (
 	contributorSpouseLawFirmName            text,
 	contributorParent1LawFirmName           text,
 	contributorParent2LawFirmName           text,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
 );
 
 COMMENT ON TABLE tec.contributiondata IS $$Contributions - Schedules A/C - Contributions from special session and special pre-election (formerly Telegram) reports are stored in the file cont_ss and cont_t. These records are kept separate from the contribs files to avoid creating duplicates, because they are supposed to be re-reported on the next regular campaign finance report. Files: contribs_##.csv, cont_ss.csv, cont_t.csv$$;
@@ -95,6 +95,76 @@ COMMENT ON COLUMN tec.contributiondata.contributoroospacflag IS $$Indicates if c
 COMMENT ON COLUMN tec.contributiondata.contributorspouselawfirmname IS $$Contributor spouse law firm name$$;
 COMMENT ON COLUMN tec.contributiondata.contributorparent1lawfirmname IS $$Contributor parent #1 law firm name$$;
 COMMENT ON COLUMN tec.contributiondata.contributorparent2lawfirmname IS $$Contributor parent #2 law firm name$$;
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_01.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_02.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_03.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_04.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_05.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_06.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_07.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_08.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_09.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_10.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_11.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_12.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_13.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_14.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_15.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_16.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_17.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_18.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_19.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_20.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_21.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_22.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_23.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_24.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_25.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_26.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_27.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_28.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_29.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_30.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_31.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_32.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_33.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_34.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.contributiondata FROM 'data/TEC_CF_CSV/data/TEC_CF_CSV/contribs_35.csv' WITH ( FORMAT CSV , HEADER true )
+
 \COPY tec.contributiondata FROM 'data/TEC_CF_CSV/cont_ss.csv' WITH ( FORMAT CSV , HEADER true )
 
 \COPY tec.contributiondata FROM 'data/TEC_CF_CSV/cont_t.csv' WITH ( FORMAT CSV , HEADER true )

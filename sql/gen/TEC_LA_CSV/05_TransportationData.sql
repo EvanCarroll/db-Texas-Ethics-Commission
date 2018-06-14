@@ -60,7 +60,7 @@ CREATE TABLE tec.transportationdata (
 	arrivalCity                             text,
 	arrivalDt                               date,
 	travelPurpose                           text,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
 );
 
 COMMENT ON TABLE tec.transportationdata IS $$Form LA Schedule B - Transportation and Lodging. File: LaTran.csv$$;

@@ -37,7 +37,7 @@ CREATE TABLE tec.subjectmatterdata (
 	subjectMatterCd                         text,
 	subjectMatterCodeValue                  text,
 	subjectMatterDescr                      text,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
 );
 
 COMMENT ON TABLE tec.subjectmatterdata IS $$Form LA Schedule A - Subject Matter Categories. NOTE: Form LA Schedule A Box 4 states If your lobby communications pertained to subject matters not marked on your original lobby registration or on a previous amendment, check the appropriate boxes. Unlike other tables in this document, subject matter is based on the Year Applicable rather than due date. This information was not entered from paper reports prior to the year 2000. File: LaSub.csv$$;

@@ -147,7 +147,7 @@ CREATE TABLE tec.coversheet1data (
 	chairPrimaryUsaPhoneFlag                bool,
 	chairPrimaryPhoneNumber                 text,
 	chairPrimaryPhoneExt                    text,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
 );
 
 COMMENT ON TABLE tec.coversheet1data IS $$Cover Sheet 1 - Cover sheet information and totals. cover_ss and cover_t contain cover sheet information for special session reports and special pre-election (formerly Telegram) Reports. Cover sheets for these reports do not contain totals. Files: cover.csv, cover_ss.csv, cover_t.csv$$;

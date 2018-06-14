@@ -59,7 +59,7 @@ CREATE TABLE tec.coversheet2data (
 	treasStreetCountryCd                    text,
 	treasStreetPostalCode                   text,
 	treasStreetRegion                       text,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
 );
 
 COMMENT ON TABLE tec.coversheet2data IS $$Cover Sheet 2 - Notices received by candidates/office holders. These notices are reported at the bottom of Cover Sheet Page 1 and the top of Cover Sheet Page 2 for FORMNAME = COH, COHFR, CORCOH, JCOH, SCCOH, SCSPAC. File: notices.csv$$;

@@ -54,7 +54,7 @@ CREATE TABLE tec.entertainmentdata (
 	entertainmentStreetCountryCd            text,
 	entertainmentStreetPostalCode           text,
 	entertainmentStreetRegion               text,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData
+	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
 );
 
 COMMENT ON TABLE tec.entertainmentdata IS $$Form LA Schedule D - Entertainment. File: LaEnt.csv$$;
