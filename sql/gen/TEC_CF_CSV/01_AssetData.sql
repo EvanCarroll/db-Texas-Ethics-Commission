@@ -29,8 +29,7 @@ CREATE TABLE tec.assetdata (
 	filerTypeCd                             text,
 	filerName                               text,
 	assetInfoId                             bigint              PRIMARY KEY,
-	assetDescr                              text,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
+	assetDescr                              text
 );
 
 COMMENT ON TABLE tec.assetdata IS $$Assets - Schedule M - Assets valued at $500 or more for judicial filers only. File: assets.csv$$;
@@ -46,3 +45,7 @@ COMMENT ON COLUMN tec.assetdata.filername IS $$Filer name$$;
 COMMENT ON COLUMN tec.assetdata.assetinfoid IS $$Asset unique identifier$$;
 COMMENT ON COLUMN tec.assetdata.assetdescr IS $$Description of asset$$;
 \COPY tec.assetdata FROM 'data/TEC_CF_CSV/assets.csv' WITH ( FORMAT CSV , HEADER true )
+ALTER TABLE tec.AssetData
+	ADD FOREIGN KEY (filerIdent, filerTypeCd)
+	REFERENCES tec.FilerData
+	NOT VALID

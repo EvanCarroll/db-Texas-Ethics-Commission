@@ -46,8 +46,7 @@ CREATE TABLE tec.creditdata (
 	payorStreetCountyCd                     text,
 	payorStreetCountryCd                    text,
 	payorStreetPostalCode                   text,
-	payorStreetRegion                       text,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
+	payorStreetRegion                       text
 );
 
 COMMENT ON TABLE tec.creditdata IS $$Credits - Schedule K - Interest, credits, gains, refunds, and contributions returned to filer. File: credits.csv$$;
@@ -80,3 +79,7 @@ COMMENT ON COLUMN tec.creditdata.payorstreetcountrycd IS $$Payor street address 
 COMMENT ON COLUMN tec.creditdata.payorstreetpostalcode IS $$Payor street address - postal code - for USA addresses only$$;
 COMMENT ON COLUMN tec.creditdata.payorstreetregion IS $$Payor street address - region for country other than USA$$;
 \COPY tec.creditdata FROM 'data/TEC_CF_CSV/credits.csv' WITH ( FORMAT CSV , HEADER true )
+ALTER TABLE tec.CreditData
+	ADD FOREIGN KEY (filerIdent, filerTypeCd)
+	REFERENCES tec.FilerData
+	NOT VALID

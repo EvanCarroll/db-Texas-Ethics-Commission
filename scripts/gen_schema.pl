@@ -56,6 +56,7 @@ foreach my $file ( @files ) {
 		$fh->write( sprintf( "\\echo LOADING %s\n", $t->name ) );
 		$fh->write( $t->pg_ddl );
 		$fh->write( $t->psql_copy($indir) );
+		$fh->write( $_ ) for @{$t->post_statements};
 		$fh->close;
 	} 
 

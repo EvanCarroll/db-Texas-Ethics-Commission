@@ -59,8 +59,7 @@ CREATE TABLE tec.transportationdata (
 	departureDt                             date,
 	arrivalCity                             text,
 	arrivalDt                               date,
-	travelPurpose                           text,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
+	travelPurpose                           text
 );
 
 COMMENT ON TABLE tec.transportationdata IS $$Form LA Schedule B - Transportation and Lodging. File: LaTran.csv$$;
@@ -106,3 +105,7 @@ COMMENT ON COLUMN tec.transportationdata.arrivalcity IS $$Arrival city$$;
 COMMENT ON COLUMN tec.transportationdata.arrivaldt IS $$Arrival date$$;
 COMMENT ON COLUMN tec.transportationdata.travelpurpose IS $$Purpose of travel$$;
 \COPY tec.transportationdata FROM 'data/TEC_LA_CSV/LaTran.csv' WITH ( FORMAT CSV , HEADER true )
+ALTER TABLE tec.TransportationData
+	ADD FOREIGN KEY (filerIdent, filerTypeCd)
+	REFERENCES tec.FilerData
+	NOT VALID

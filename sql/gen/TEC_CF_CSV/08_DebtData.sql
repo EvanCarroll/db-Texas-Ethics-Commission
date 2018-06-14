@@ -107,8 +107,7 @@ CREATE TABLE tec.debtdata (
 	guarantorStreetCountyCd5                text,
 	guarantorStreetCountryCd5               text,
 	guarantorStreetPostalCode5              text,
-	guarantorStreetRegion5                  text,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
+	guarantorStreetRegion5                  text
 );
 
 COMMENT ON TABLE tec.debtdata IS $$Debts - Schedule L - Outstanding judicial loans. File: debts.csv$$;
@@ -202,3 +201,7 @@ COMMENT ON COLUMN tec.debtdata.guarantorstreetcountrycd5 IS $$5: Guarantor stree
 COMMENT ON COLUMN tec.debtdata.guarantorstreetpostalcode5 IS $$5: Guarantor street address - postal code - for USA addresses only$$;
 COMMENT ON COLUMN tec.debtdata.guarantorstreetregion5 IS $$5: Guarantor street address - region for country other than USA$$;
 \COPY tec.debtdata FROM 'data/TEC_CF_CSV/debts.csv' WITH ( FORMAT CSV , HEADER true )
+ALTER TABLE tec.DebtData
+	ADD FOREIGN KEY (filerIdent, filerTypeCd)
+	REFERENCES tec.FilerData
+	NOT VALID

@@ -35,8 +35,7 @@ CREATE TABLE tec.docketdata (
 	lobbyFormType                           text,
 	lobbyDocketdesigId                      bigint,
 	designationText                         text,
-	agencyName                              text,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
+	agencyName                              text
 );
 
 COMMENT ON TABLE tec.docketdata IS $$Form LA Schedule A - Docket Nos or Other Designation. NOTE: Form LA Instructions for this box state List the docket number and the name of the state agency at which any administrative matter is pending about which you, anyone you retain or employ to appear on your behalf, or anyone who appears on your behalf communicated with an officer of the executive or legislative branch of state government during the reporting period. File: LaDock.csv$$;
@@ -58,3 +57,7 @@ COMMENT ON COLUMN tec.docketdata.lobbydocketdesigid IS $$Lobby docket designatio
 COMMENT ON COLUMN tec.docketdata.designationtext IS $$Docket designation text$$;
 COMMENT ON COLUMN tec.docketdata.agencyname IS $$Agency name$$;
 \COPY tec.docketdata FROM 'data/TEC_LA_CSV/LaDock.csv' WITH ( FORMAT CSV , HEADER true )
+ALTER TABLE tec.DocketData
+	ADD FOREIGN KEY (filerIdent, filerTypeCd)
+	REFERENCES tec.FilerData
+	NOT VALID

@@ -48,6 +48,17 @@ has 'columns' => (
 		push_column => 'push'
 	}
 );
+
+has 'post_statements' => (
+	isa     => 'ArrayRef',
+	traits  => ['Array'],
+	is      => 'ro',
+	default => sub { [] },
+	handles => {
+		push_post_load => 'push'
+	}
+);
+
 has [qw/description name/] => ( isa => 'Str', is => 'ro', required => 1 );
 has order => ( isa => 'Int', is => 'ro', required => 1 );
 
@@ -83,10 +94,12 @@ sub _pg_table_attributes {
 			$a = "\tPRIMARY KEY (filerIdent, filerTypeCd)"
 		}
 		else {
-			$a = sprintf(
-				"\tFOREIGN KEY (filerIdent, filerTypeCd) REFERENCES %s NOT VALID", # THANKS TEC
+			$self->push_post_load( sprintf(
+				"\nALTER TABLE %s\n\tADD FOREIGN KEY %s\n\tREFERENCES %s\n\tNOT VALID", # THANKS TEC
+				sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, $self->name),
+				"(filerIdent, filerTypeCd)",
 				sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, "FilerData" )
-			);
+			) );
 		}
 	}
 	$a;
@@ -117,14 +130,13 @@ sub psql_copy {
 		## XXX typo!
 		$file = 'finals.csv' if $file eq 'final.csv';
 		
-		
 		## Migrates the _## pattern to the perl glob _*
 		if ( (my $pattern = $file) =~ s/_#+/_*/ ) {
 			foreach my $file ( sort glob( File::Spec->catfile($dir, $pattern) ) ) {
 				push @loads, sprintf(
 					PSQL_COPY_LOAD_FORMAT,
 					$self->fully_qualified_identifier,
-					File::Spec->catfile($dir, $file)
+					$file
 				);
 			}
 		}

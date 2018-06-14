@@ -46,8 +46,7 @@ CREATE TABLE tec.giftdata (
 	recipientNameSuffixCd                   text,
 	recipientNameFirst                      text,
 	recipientNamePrefixCd                   text,
-	recipientNameShort                      text,
-	FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.FilerData NOT VALID
+	recipientNameShort                      text
 );
 
 COMMENT ON TABLE tec.giftdata IS $$Form LA Schedule E - Gifts. File: LaGift.csv$$;
@@ -80,3 +79,7 @@ COMMENT ON COLUMN tec.giftdata.recipientnamefirst IS $$For INDIVIDUAL, the recip
 COMMENT ON COLUMN tec.giftdata.recipientnameprefixcd IS $$For INDIVIDUAL, the recipient name prefix (e.g. MR, MRS, MS)$$;
 COMMENT ON COLUMN tec.giftdata.recipientnameshort IS $$For INDIVIDUAL, the recipient short name (nickname)$$;
 \COPY tec.giftdata FROM 'data/TEC_LA_CSV/LaGift.csv' WITH ( FORMAT CSV , HEADER true )
+ALTER TABLE tec.GiftData
+	ADD FOREIGN KEY (filerIdent, filerTypeCd)
+	REFERENCES tec.FilerData
+	NOT VALID
