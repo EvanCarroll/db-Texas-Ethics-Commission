@@ -2,6 +2,13 @@
 
 ## Technical
 
+### Constraint
+
+It would be nice to abstract out column and table constraints to an fkey
+constraint object which we could render on either one. All column constraints
+are table constraints, but I could see it useful to have both. Currently we're
+suffering from shortcomming of column constraints that we need to make null.
+
 ### Examine and create foreign keys
 
 All things that are marked end in,
