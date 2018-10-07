@@ -27,15 +27,13 @@ devgen: download unzip textify gen_schema.pl
 textify: $(DIR_TEC_DOCS)/cf_new.txt $(DIR_TEC_DOCS)/cf_old.txt
 unzip:   $(DIR_DATA)/TEC_CF_CSV     $(DIR_DATA)/TEC_LA_CSV
 
-download: TEC_CF_CSV.zip TEC_LA_CSV.zip 1295Certificates.csv
-	(cd "$(DIR_TEC_DOCS)" && curl --progress-bar --remote-name-all -- \
-		"https://www.ethics.state.tx.us/software/TX_ERF13_7.pdf" \
-		"https://www.ethics.state.tx.us/software/CampaignFinanceCSVFileFormat.pdf" \
-		"https://www.ethics.state.tx.us/tedd/1295CertificatesCSVFormat.pdf"; )
-
-%.zip %.csv:
-	(cd "$(DIR_DATA)"     && curl --progress-bar --remote-name-all -- \
-		"https://www.ethics.state.tx.us/tedd/$@"; )
+download:
+	curl --progress-bar \
+		-o "$(DIR_TEC_DOCS)/TX_ERF13_7.pdf"                   "https://www.ethics.state.tx.us/software/TX_ERF13_7.pdf"                   \
+		-o "$(DIR_TEC_DOCS)/CampaignFinanceCSVFileFormat.pdf" "https://www.ethics.state.tx.us/software/CampaignFinanceCSVFileFormat.pdf" \
+		-o "$(DIR_TEC_DOCS)/1295CertificatesCSVFormat.pdf"    "https://www.ethics.state.tx.us/tedd/1295CertificatesCSVFormat.pdf"        \
+		-o "$(DIR_DATA)/TEC_LA_CSV.zip"                       "https://www.ethics.state.tx.us/tedd/TEC_LA_CSV.zip"                       \
+		-o "$(DIR_DATA)/TEC_CF_CSV.zip"                       "https://www.ethics.state.tx.us/tedd/TEC_CF_CSV.zip";
 
 %TEC_LA_CSV:
 	unzip -o -d "$@" "$@.zip"
