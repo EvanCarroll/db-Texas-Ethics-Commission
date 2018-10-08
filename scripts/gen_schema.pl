@@ -29,8 +29,10 @@ use PDSERF::Parser ();
 use PDSERF::Client ();
 
 my @files = (
-	{ DIR => 'TEC_CF_CSV', FILE => 'ReadMe.txt' },
-	{ DIR => 'TEC_LA_CSV', FILE => 'LobbyLAR-ReadMe.txt' }
+	## Campaign finance
+	{ DIR => 'TEC_CF_CSV', ARCHIVE => 'c', FILE => 'ReadMe.txt' },
+	## Lobby
+	{ DIR => 'TEC_LA_CSV', ARCHIVE => 'l', FILE => 'LobbyLAR-ReadMe.txt' }
 );
 
 foreach my $file ( @files ) {
@@ -40,7 +42,7 @@ foreach my $file ( @files ) {
 		'r'
 	);
 
-	foreach my $t ( @{PDSERF::Parser::parse($fh)} ) {
+	foreach my $t ( @{PDSERF::Parser::parse({fh=>$fh, archive => $file->{ARCHIVE}})} ) {
 		say "Generating " . $t->name;
 		my $indir  = File::Spec->catdir( PDSERF::Client::INROOT, $file->{DIR} );
 		my $outdir = File::Spec->catdir( PDSERF::Client::OUTROOT, 'gen', $file->{DIR} );

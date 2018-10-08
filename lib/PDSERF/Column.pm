@@ -96,7 +96,10 @@ sub fkey_constraint {
 	my $fmt = sprintf( 'ADD FOREIGN KEY (%s) REFERENCES %%s NOT VALID', $self->name );
 
 	if ( $self->name =~ /expendCatCd/ ) {
-		return sprintf( $fmt, 'tec.expendcategory' );
+		return sprintf( $fmt, 'tec.c_expendcategory' );
+	}
+	elsif ( $self->table->name =~ /^l_/ and $self->name =~ /reportInfoIdent/ ) {
+		return sprintf( $fmt, 'tec.l_coversheetladata' );
 	}
 	
 	elsif ( $self->name =~ /CountyCd/ ) {

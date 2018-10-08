@@ -24,14 +24,15 @@ use PDSERF::Table;
 use DataExtract::FixedWidth;
 
 sub parse {
-	my $fh = shift;
+	my $args = shift;
+	my $fh = $args->{fh};
 	local $/ = "\r\n";
 
 	my @sections;
 	while ( my $line = $fh->getline ) {
 		chomp $line;
 
-		my %section;
+		my %section = ( archive => $args->{archive} );
 		if ( $line =~ /^Record #: (?<order>\d+) \s+ Record Name: (?<name>\w+)/ ) {
 			$section{order}  = $+{order};
 			$section{name}   = $+{name};
@@ -90,7 +91,8 @@ sub _build_table {
 	my $text = shift;
 
 	my $t = PDSERF::Table->new({
-		name        => $text->{name},
+		archive     => $text->{archive},
+		name        => (defined $text->{archive} ? $text->{archive} . '_' : '') . $text->{name},
 		description => $text->{description},
 		order       => $text->{order},
 		columns     => []

@@ -14,11 +14,11 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING FinalData
+\echo LOADING c_FinalData
 
 
 
-CREATE TABLE tec.finaldata (
+CREATE TABLE tec.c_finaldata (
 	recordType                              text,
 	formTypeCd                              text,
 	reportInfoIdent                         int,
@@ -33,21 +33,21 @@ CREATE TABLE tec.finaldata (
 	PRIMARY KEY (reportInfoIdent)
 );
 
-COMMENT ON TABLE tec.finaldata IS $$Final reports. File: final.csv$$;
-COMMENT ON COLUMN tec.finaldata.recordtype IS $$Record type code - always FINL$$;
-COMMENT ON COLUMN tec.finaldata.formtypecd IS $$TEC form used$$;
-COMMENT ON COLUMN tec.finaldata.reportinfoident IS $$Unique report #$$;
-COMMENT ON COLUMN tec.finaldata.receiveddt IS $$Date report received by TEC$$;
-COMMENT ON COLUMN tec.finaldata.infoonlyflag IS $$Superseded by other report$$;
-COMMENT ON COLUMN tec.finaldata.filerident IS $$Filer account #$$;
-COMMENT ON COLUMN tec.finaldata.filertypecd IS $$Type of filer$$;
-COMMENT ON COLUMN tec.finaldata.filername IS $$Filer name$$;
-COMMENT ON COLUMN tec.finaldata.finalunexpendcontribflag IS $$Unexpended contributions indicator$$;
-COMMENT ON COLUMN tec.finaldata.finalretainedassetsflag IS $$Retained assets indicator$$;
-COMMENT ON COLUMN tec.finaldata.finalofficeholderackflag IS $$Office holder ack indicator$$;
-\COPY tec.finaldata FROM 'data/TEC_CF_CSV/finals.csv' WITH ( FORMAT CSV , HEADER true );
+COMMENT ON TABLE tec.c_finaldata IS $$Final reports. File: final.csv$$;
+COMMENT ON COLUMN tec.c_finaldata.recordtype IS $$Record type code - always FINL$$;
+COMMENT ON COLUMN tec.c_finaldata.formtypecd IS $$TEC form used$$;
+COMMENT ON COLUMN tec.c_finaldata.reportinfoident IS $$Unique report #$$;
+COMMENT ON COLUMN tec.c_finaldata.receiveddt IS $$Date report received by TEC$$;
+COMMENT ON COLUMN tec.c_finaldata.infoonlyflag IS $$Superseded by other report$$;
+COMMENT ON COLUMN tec.c_finaldata.filerident IS $$Filer account #$$;
+COMMENT ON COLUMN tec.c_finaldata.filertypecd IS $$Type of filer$$;
+COMMENT ON COLUMN tec.c_finaldata.filername IS $$Filer name$$;
+COMMENT ON COLUMN tec.c_finaldata.finalunexpendcontribflag IS $$Unexpended contributions indicator$$;
+COMMENT ON COLUMN tec.c_finaldata.finalretainedassetsflag IS $$Retained assets indicator$$;
+COMMENT ON COLUMN tec.c_finaldata.finalofficeholderackflag IS $$Office holder ack indicator$$;
+\COPY tec.c_finaldata FROM 'data/TEC_CF_CSV/finals.csv' WITH ( FORMAT CSV , HEADER true );
 
-ALTER TABLE tec.FinalData
+ALTER TABLE tec.c_FinalData
 	ADD FOREIGN KEY (filerIdent, filerTypeCd)
-	REFERENCES tec.FilerData
+	REFERENCES tec.c_FilerData
 	NOT VALID;

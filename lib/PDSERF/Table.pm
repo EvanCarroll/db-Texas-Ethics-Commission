@@ -60,13 +60,14 @@ has 'post_statements' => (
 		if (
 			$self->col_by_name('filerTypeCd')
 			and $self->col_by_name('filerIdent')
-			and $self->name ne 'FilerData'
+			and $self->name =~ /^c_/
+			and $self->name ne 'c_FilerData'
 		) {
 			push @post, sprintf(
 				"\nALTER TABLE %s\n\tADD FOREIGN KEY %s\n\tREFERENCES %s\n\tNOT VALID;", # THANKS TEC
 				sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, $self->name),
 				"(filerIdent, filerTypeCd)",
-				sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, "FilerData" )
+				sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, "c_FilerData" )
 			);
 
 		}
@@ -118,21 +119,21 @@ sub _primary_key {
 	my @cols;
 
 	## Handles linking and composite key for Filer
-	if ( $self->name eq 'FilerData' ) {
+	if ( $self->name =~ /FilerData$/ ) {
 		## $self->col_by_name('filerTypeCd') and $self->col_by_name('filerIdent')
 		$a = "\tPRIMARY KEY (filerIdent, filerTypeCd)";
 	}
 
-	elsif ( $self->name eq 'ExpendCategory') {
+	elsif ( $self->name =~ /ExpendCategory$/ ) {
 		$a = "\tPRIMARY KEY (expendCategoryCodeValue)";
 	}
 
-	elsif ( $self->name eq 'CandidateData' ) {
+	elsif ( $self->name =~ /CandidateData$/ ) {
 		$a = "\tPRIMARY KEY (expendPersentId)";
 	}
 
 	## Also has lobbyActivityId
-	elsif( $self->name eq 'TransportationData' ) {
+	elsif( $self->name =~ /TransportationData$/ ) {
 		$a = "\tPRIMARY KEY (lobactivityTravelId)";
 	}
 
