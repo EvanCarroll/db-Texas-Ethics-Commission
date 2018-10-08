@@ -36,7 +36,8 @@ CREATE TABLE tec.subjectmatterdata (
 	lobbySubjectmatterId                    bigint,
 	subjectMatterCd                         text,
 	subjectMatterCodeValue                  text,
-	subjectMatterDescr                      text
+	subjectMatterDescr                      text,
+	PRIMARY KEY (lobbySubjectmatterId)
 );
 
 COMMENT ON TABLE tec.subjectmatterdata IS $$Form LA Schedule A - Subject Matter Categories. NOTE: Form LA Schedule A Box 4 states If your lobby communications pertained to subject matters not marked on your original lobby registration or on a previous amendment, check the appropriate boxes. Unlike other tables in this document, subject matter is based on the Year Applicable rather than due date. This information was not entered from paper reports prior to the year 2000. File: LaSub.csv$$;
@@ -58,8 +59,9 @@ COMMENT ON COLUMN tec.subjectmatterdata.lobbysubjectmatterid IS $$Lobby subject 
 COMMENT ON COLUMN tec.subjectmatterdata.subjectmattercd IS $$Subject matter code$$;
 COMMENT ON COLUMN tec.subjectmatterdata.subjectmattercodevalue IS $$Code table lookup of subject matter code$$;
 COMMENT ON COLUMN tec.subjectmatterdata.subjectmatterdescr IS $$Description of other subject matter$$;
-\COPY tec.subjectmatterdata FROM 'data/TEC_LA_CSV/LaSub.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.subjectmatterdata FROM 'data/TEC_LA_CSV/LaSub.csv' WITH ( FORMAT CSV , HEADER true );
+
 ALTER TABLE tec.SubjectMatterData
 	ADD FOREIGN KEY (filerIdent, filerTypeCd)
 	REFERENCES tec.FilerData
-	NOT VALID
+	NOT VALID;

@@ -28,7 +28,7 @@ CREATE TABLE tec.traveldata (
 	filerIdent                              int,
 	filerTypeCd                             text,
 	filerName                               text,
-	travelInfoId                            bigint              PRIMARY KEY,
+	travelInfoId                            bigint,
 	parentType                              text,
 	parentId                                bigint,
 	parentDt                                date,
@@ -47,7 +47,8 @@ CREATE TABLE tec.traveldata (
 	travellerNameSuffixCd                   text,
 	travellerNameFirst                      text,
 	travellerNamePrefixCd                   text,
-	travellerNameShort                      text
+	travellerNameShort                      text,
+	PRIMARY KEY ( travelInfoId )
 );
 
 COMMENT ON TABLE tec.traveldata IS $$Travel outside the State of Texas - Schedule T - Travel records are linked to records in contribs, pledges and expenditure files through the fields parentType and parentId. They store information about in-kind contributions accepted for travel outside the State of Texas and for expenditures made for travel outside the State of Texas. File: travel.csv$$;
@@ -80,8 +81,9 @@ COMMENT ON COLUMN tec.traveldata.travellernamesuffixcd IS $$For INDIVIDUAL, the 
 COMMENT ON COLUMN tec.traveldata.travellernamefirst IS $$For INDIVIDUAL, the traveller first name$$;
 COMMENT ON COLUMN tec.traveldata.travellernameprefixcd IS $$For INDIVIDUAL, the traveller name prefix (e.g. MR, MRS, MS)$$;
 COMMENT ON COLUMN tec.traveldata.travellernameshort IS $$For INDIVIDUAL, the traveller short name (nickname)$$;
-\COPY tec.traveldata FROM 'data/TEC_CF_CSV/travel.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.traveldata FROM 'data/TEC_CF_CSV/travel.csv' WITH ( FORMAT CSV , HEADER true );
+
 ALTER TABLE tec.TravelData
 	ADD FOREIGN KEY (filerIdent, filerTypeCd)
 	REFERENCES tec.FilerData
-	NOT VALID
+	NOT VALID;

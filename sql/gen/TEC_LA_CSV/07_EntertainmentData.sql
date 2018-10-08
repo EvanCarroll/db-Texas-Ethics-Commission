@@ -53,7 +53,8 @@ CREATE TABLE tec.entertainmentdata (
 	entertainmentStreetStateCd              text,
 	entertainmentStreetCountryCd            text,
 	entertainmentStreetPostalCode           text,
-	entertainmentStreetRegion               text
+	entertainmentStreetRegion               text,
+	PRIMARY KEY (lobbyActivityId)
 );
 
 COMMENT ON TABLE tec.entertainmentdata IS $$Form LA Schedule D - Entertainment. File: LaEnt.csv$$;
@@ -92,8 +93,9 @@ COMMENT ON COLUMN tec.entertainmentdata.entertainmentstreetstatecd IS $$Entertai
 COMMENT ON COLUMN tec.entertainmentdata.entertainmentstreetcountrycd IS $$Entertainment street address - country (e.g. USA, UMI, MEX, CAN)$$;
 COMMENT ON COLUMN tec.entertainmentdata.entertainmentstreetpostalcode IS $$Entertainment street address - postal code - for USA addresses   only$$;
 COMMENT ON COLUMN tec.entertainmentdata.entertainmentstreetregion IS $$Entertainment street address - region for country other than USA$$;
-\COPY tec.entertainmentdata FROM 'data/TEC_LA_CSV/LaEnt.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.entertainmentdata FROM 'data/TEC_LA_CSV/LaEnt.csv' WITH ( FORMAT CSV , HEADER true );
+
 ALTER TABLE tec.EntertainmentData
 	ADD FOREIGN KEY (filerIdent, filerTypeCd)
 	REFERENCES tec.FilerData
-	NOT VALID
+	NOT VALID;

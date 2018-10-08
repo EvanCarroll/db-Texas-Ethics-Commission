@@ -20,12 +20,13 @@
 
 CREATE TABLE tec.expendcategory (
 	recordType                              text,
-	expendCategoryCodeValue                 text                PRIMARY KEY,
-	expendCategoryCodeLabel                 text
+	expendCategoryCodeValue                 text,
+	expendCategoryCodeLabel                 text,
+	PRIMARY KEY (expendCategoryCodeValue)
 );
 
 COMMENT ON TABLE tec.expendcategory IS $$Expenditure category codes. File: expn_catg.csv$$;
 COMMENT ON COLUMN tec.expendcategory.recordtype IS $$Record type code - always EXCAT$$;
 COMMENT ON COLUMN tec.expendcategory.expendcategorycodevalue IS $$Expenditure category code$$;
 COMMENT ON COLUMN tec.expendcategory.expendcategorycodelabel IS $$Expenditure category description$$;
-\COPY tec.expendcategory FROM 'data/TEC_CF_CSV/expn_catg.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.expendcategory FROM 'data/TEC_CF_CSV/expn_catg.csv' WITH ( FORMAT CSV , HEADER true );

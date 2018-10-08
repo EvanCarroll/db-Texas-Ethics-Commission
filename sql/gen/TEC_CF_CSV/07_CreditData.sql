@@ -28,7 +28,7 @@ CREATE TABLE tec.creditdata (
 	filerIdent                              int,
 	filerTypeCd                             text,
 	filerName                               text,
-	creditInfoId                            bigint              PRIMARY KEY,
+	creditInfoId                            bigint,
 	creditDt                                date,
 	creditAmount                            numeric(10,2),
 	creditDescr                             text,
@@ -46,7 +46,8 @@ CREATE TABLE tec.creditdata (
 	payorStreetCountyCd                     text,
 	payorStreetCountryCd                    text,
 	payorStreetPostalCode                   text,
-	payorStreetRegion                       text
+	payorStreetRegion                       text,
+	PRIMARY KEY ( creditInfoId )
 );
 
 COMMENT ON TABLE tec.creditdata IS $$Credits - Schedule K - Interest, credits, gains, refunds, and contributions returned to filer. File: credits.csv$$;
@@ -78,8 +79,11 @@ COMMENT ON COLUMN tec.creditdata.payorstreetcountycd IS $$Payor street address -
 COMMENT ON COLUMN tec.creditdata.payorstreetcountrycd IS $$Payor street address - country (e.g. USA, UMI, MEX, CAN)$$;
 COMMENT ON COLUMN tec.creditdata.payorstreetpostalcode IS $$Payor street address - postal code - for USA addresses only$$;
 COMMENT ON COLUMN tec.creditdata.payorstreetregion IS $$Payor street address - region for country other than USA$$;
-\COPY tec.creditdata FROM 'data/TEC_CF_CSV/credits.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.creditdata FROM 'data/TEC_CF_CSV/credits.csv' WITH ( FORMAT CSV , HEADER true );
+
 ALTER TABLE tec.CreditData
 	ADD FOREIGN KEY (filerIdent, filerTypeCd)
 	REFERENCES tec.FilerData
-	NOT VALID
+	NOT VALID;
+ALTER TABLE tec.creditdata
+	ADD FOREIGN KEY (payorStreetCountyCd) REFERENCES tec.codes_counties NOT VALID;

@@ -44,7 +44,8 @@ CREATE TABLE tec.individualreportingdata (
 	onbehalfMailingRegion                   text,
 	onbehalfPrimaryUsaPhoneFlag             bool,
 	onbehalfPrimaryPhoneNumber              text,
-	onbehalfPrimaryPhoneExt                 text
+	onbehalfPrimaryPhoneExt                 text,
+	PRIMARY KEY (lobbyExpendOnbehalfId)
 );
 
 COMMENT ON TABLE tec.individualreportingdata IS $$Form LA Cover Sheet Box 9 - Indivduals Reporting For Entity. NOTE: Form LA Instructions for this box state Check 'YES' if you are reporting expenditures at the request of an entity that has chosen not to register pursuant to Ethics Commission rule 34.45. If you check 'YES' provide the name, address and phone number of the entity. Checking  'YES' indicates that you are reporting not only expenditures attributable to you but also expenditures attributable to the entity listed. File: LaI4E.csv$$;
@@ -74,8 +75,11 @@ COMMENT ON COLUMN tec.individualreportingdata.onbehalfmailingregion IS $$On-beha
 COMMENT ON COLUMN tec.individualreportingdata.onbehalfprimaryusaphoneflag IS $$On-behalf of primary phone number - Y if number is a USA phone, Notherwise$$;
 COMMENT ON COLUMN tec.individualreportingdata.onbehalfprimaryphonenumber IS $$On-behalf of primary phone number$$;
 COMMENT ON COLUMN tec.individualreportingdata.onbehalfprimaryphoneext IS $$On-behalf of primary phone extension$$;
-\COPY tec.individualreportingdata FROM 'data/TEC_LA_CSV/LaI4E.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.individualreportingdata FROM 'data/TEC_LA_CSV/LaI4E.csv' WITH ( FORMAT CSV , HEADER true );
+
 ALTER TABLE tec.IndividualReportingData
 	ADD FOREIGN KEY (filerIdent, filerTypeCd)
 	REFERENCES tec.FilerData
-	NOT VALID
+	NOT VALID;
+ALTER TABLE tec.individualreportingdata
+	ADD FOREIGN KEY (onbehalfMailingCountyCd) REFERENCES tec.codes_counties NOT VALID;

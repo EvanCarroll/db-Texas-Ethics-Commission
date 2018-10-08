@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS tec.codes_office;
+
 CREATE TABLE tec.codes_office (
 	office_id   text PRIMARY KEY,
 	office_name text UNIQUE

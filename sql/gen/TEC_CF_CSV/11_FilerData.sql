@@ -287,4 +287,19 @@ COMMENT ON COLUMN tec.filerdata.chairmailingregion IS $$Chair mailing address - 
 COMMENT ON COLUMN tec.filerdata.chairprimaryusaphoneflag IS $$Chair primary phone number - Y if number is a USA phone, N       otherwise$$;
 COMMENT ON COLUMN tec.filerdata.chairprimaryphonenumber IS $$Chair primary phone number$$;
 COMMENT ON COLUMN tec.filerdata.chairprimaryphoneext IS $$Chair primary phone extension$$;
-\COPY tec.filerdata FROM 'data/TEC_CF_CSV/filers.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.filerdata FROM 'data/TEC_CF_CSV/filers.csv' WITH ( FORMAT CSV , HEADER true );
+
+ALTER TABLE tec.filerdata
+	ADD FOREIGN KEY (ctaSeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
+	ADD FOREIGN KEY (ctaSeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (filerStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (filerMailingCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (filerHoldOfficeCd) REFERENCES tec.codes_office NOT VALID,
+	ADD FOREIGN KEY (filerHoldOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (contestSeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
+	ADD FOREIGN KEY (contestSeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (treasStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (treasMailingCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (assttreasStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (chairStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (chairMailingCountyCd) REFERENCES tec.codes_counties NOT VALID;

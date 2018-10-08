@@ -28,7 +28,7 @@ CREATE TABLE tec.pledgedata (
 	filerIdent                              int,
 	filerTypeCd                             text,
 	filerName                               text,
-	pledgeInfoId                            bigint              PRIMARY KEY,
+	pledgeInfoId                            bigint,
 	pledgeDt                                date,
 	pledgeAmount                            numeric(10,2),
 	pledgeDescr                             text,
@@ -54,7 +54,8 @@ CREATE TABLE tec.pledgedata (
 	pledgerOosPacFlag                       bool,
 	pledgerSpouseLawFirmName                text,
 	pledgerParent1LawFirmName               text,
-	pledgerParent2LawFirmName               text
+	pledgerParent2LawFirmName               text,
+	PRIMARY KEY ( pledgeInfoId )
 );
 
 COMMENT ON TABLE tec.pledgedata IS $$Pledges - Schedule B - Pledges from special session and special pre-election (formerly Telegram) reports are stored in the file pldg_ss and pldg_t. These records are kept separate from the pledges files to avoid creating duplicates, because they are supposed to be re-reported on the next regular campaign finance report. Files: pledges.csv, pldg_ss.csv, pldg_t.csv$$;
@@ -94,12 +95,17 @@ COMMENT ON COLUMN tec.pledgedata.pledgeroospacflag IS $$Indicates if pledger is 
 COMMENT ON COLUMN tec.pledgedata.pledgerspouselawfirmname IS $$Pledger spouse law firm name$$;
 COMMENT ON COLUMN tec.pledgedata.pledgerparent1lawfirmname IS $$Pledger parent #1 law firm name$$;
 COMMENT ON COLUMN tec.pledgedata.pledgerparent2lawfirmname IS $$Pledger parent #2 law firm name$$;
-\COPY tec.pledgedata FROM 'data/TEC_CF_CSV/pledges.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.pledgedata FROM 'data/TEC_CF_CSV/pledges.csv' WITH ( FORMAT CSV , HEADER true );
 
-\COPY tec.pledgedata FROM 'data/TEC_CF_CSV/pldg_ss.csv' WITH ( FORMAT CSV , HEADER true )
 
-\COPY tec.pledgedata FROM 'data/TEC_CF_CSV/pldg_t.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.pledgedata FROM 'data/TEC_CF_CSV/pldg_ss.csv' WITH ( FORMAT CSV , HEADER true );
+
+
+\COPY tec.pledgedata FROM 'data/TEC_CF_CSV/pldg_t.csv' WITH ( FORMAT CSV , HEADER true );
+
 ALTER TABLE tec.PledgeData
 	ADD FOREIGN KEY (filerIdent, filerTypeCd)
 	REFERENCES tec.FilerData
-	NOT VALID
+	NOT VALID;
+ALTER TABLE tec.pledgedata
+	ADD FOREIGN KEY (pledgerStreetCountyCd) REFERENCES tec.codes_counties NOT VALID;

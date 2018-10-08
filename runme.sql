@@ -61,6 +61,17 @@ COMMENT ON SCHEMA tec IS $$Texas Ethics Comission dataset$$;
 \i sql/gen/TEC_LA_CSV/10_EventData.sql
 
 BEGIN;
+	INSERT INTO tec.codes_office (office_id)
+	VALUES ('DISTATTY_HR'), ('JUSTICEAPP'), ('SCJ'), ('JUDGECRIM'), ('DISTATTY_MULTI_KL_KN'), ('COMPTROLLR'), ('CRIMAL_DISTATTY');
+
+	UPDATE tec.candidatedata
+	SET candidateholdofficecd = NULL
+	WHERE candidateholdofficecd = 'T';
+
+	UPDATE tec.coversheet1data
+	SET filerholdofficecd = NULL
+	WHERE filerholdofficecd = 'T';
+
 	UPDATE tec.CandidateData
 		SET expendCatCd = NULL
 		WHERE expendCatCd IN ('', 'UNKNOWN');

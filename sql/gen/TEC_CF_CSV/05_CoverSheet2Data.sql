@@ -58,7 +58,8 @@ CREATE TABLE tec.coversheet2data (
 	treasStreetCountyCd                     text,
 	treasStreetCountryCd                    text,
 	treasStreetPostalCode                   text,
-	treasStreetRegion                       text
+	treasStreetRegion                       text,
+	PRIMARY KEY (committeeActivityId)
 );
 
 COMMENT ON TABLE tec.coversheet2data IS $$Cover Sheet 2 - Notices received by candidates/office holders. These notices are reported at the bottom of Cover Sheet Page 1 and the top of Cover Sheet Page 2 for FORMNAME = COH, COHFR, CORCOH, JCOH, SCCOH, SCSPAC. File: notices.csv$$;
@@ -102,8 +103,12 @@ COMMENT ON COLUMN tec.coversheet2data.treasstreetcountycd IS $$Treasurer street 
 COMMENT ON COLUMN tec.coversheet2data.treasstreetcountrycd IS $$Treasurer street address - country (e.g. USA, UMI, MEX, CAN)$$;
 COMMENT ON COLUMN tec.coversheet2data.treasstreetpostalcode IS $$Treasurer street address - postal code - for USA addresses only$$;
 COMMENT ON COLUMN tec.coversheet2data.treasstreetregion IS $$Treasurer street address - region for country other than USA$$;
-\COPY tec.coversheet2data FROM 'data/TEC_CF_CSV/notices.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.coversheet2data FROM 'data/TEC_CF_CSV/notices.csv' WITH ( FORMAT CSV , HEADER true );
+
 ALTER TABLE tec.CoverSheet2Data
 	ADD FOREIGN KEY (filerIdent, filerTypeCd)
 	REFERENCES tec.FilerData
-	NOT VALID
+	NOT VALID;
+ALTER TABLE tec.coversheet2data
+	ADD FOREIGN KEY (notifierStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (treasStreetCountyCd) REFERENCES tec.codes_counties NOT VALID;

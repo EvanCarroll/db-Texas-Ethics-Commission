@@ -26,7 +26,7 @@ use PDSERF::Client ();
 use Moose;
 use Moose::Util::TypeConstraints;
 
-use constant PSQL_COPY_LOAD_FORMAT => "\n\\COPY %s FROM '%s' WITH ( FORMAT CSV , HEADER true )";
+use constant PSQL_COPY_LOAD_FORMAT => "\n\\COPY %s FROM '%s' WITH ( FORMAT CSV , HEADER true );\n";
 
 subtype 'ArrayOfColumns', as 'ArrayRef[PDSERF::Column]';
 
@@ -53,10 +53,39 @@ has 'post_statements' => (
 	isa     => 'ArrayRef',
 	traits  => ['Array'],
 	is      => 'ro',
-	default => sub { [] },
+	default => sub {
+		my $self = shift;
+	
+		my @post;
+		if (
+			$self->col_by_name('filerTypeCd')
+			and $self->col_by_name('filerIdent')
+			and $self->name ne 'FilerData'
+		) {
+			push @post, sprintf(
+				"\nALTER TABLE %s\n\tADD FOREIGN KEY %s\n\tREFERENCES %s\n\tNOT VALID;", # THANKS TEC
+				sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, $self->name),
+				"(filerIdent, filerTypeCd)",
+				sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, "FilerData" )
+			);
+
+		}
+
+		my $fkey_constraints = [grep defined, map $_->fkey_constraint, @{$self->columns}];
+		if ( @$fkey_constraints ) {
+			push @post, sprintf(
+				"\nALTER TABLE %s\n\t%s;",
+				$self->fully_qualified_identifier,
+				join ",\n\t", @$fkey_constraints
+			);
+		}
+		return \@post;
+
+	},
 	handles => {
 		push_post_load => 'push'
-	}
+	},
+	lazy => 1
 );
 
 has [qw/description name/] => ( isa => 'Str', is => 'ro', required => 1 );
@@ -67,7 +96,7 @@ sub pg_ddl {
 
 	my @body = grep defined, (
 		(map $_->pg_ddl, @{$self->columns}),
-		$self->_pg_table_attributes
+		$self->_primary_key
 	);
 	s/\s+$// for @body;
 	
@@ -76,33 +105,62 @@ sub pg_ddl {
 		$self->fully_qualified_identifier,
 		join(",\n", @body)
 	);
+	
 	$ddl .= $self->pg_comment;
 	$ddl .= $_->pg_comment for @{$self->columns};
 
 	$ddl;
 }
 
-sub _pg_table_attributes {
+sub _primary_key {
 	my $self = shift;
 	my $a = undef;
+	my @cols;
+
 	## Handles linking and composite key for Filer
-	if (
-		$self->col_by_name('filerTypeCd')
-		and $self->col_by_name('filerIdent')
-	) {
-		if ( $self->name eq 'FilerData' ) {
-			$a = "\tPRIMARY KEY (filerIdent, filerTypeCd)"
-		}
-		else {
-			$self->push_post_load( sprintf(
-				"\nALTER TABLE %s\n\tADD FOREIGN KEY %s\n\tREFERENCES %s\n\tNOT VALID", # THANKS TEC
-				sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, $self->name),
-				"(filerIdent, filerTypeCd)",
-				sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, "FilerData" )
-			) );
-		}
+	if ( $self->name eq 'FilerData' ) {
+		## $self->col_by_name('filerTypeCd') and $self->col_by_name('filerIdent')
+		$a = "\tPRIMARY KEY (filerIdent, filerTypeCd)";
 	}
-	$a;
+
+	elsif ( $self->name eq 'ExpendCategory') {
+		$a = "\tPRIMARY KEY (expendCategoryCodeValue)";
+	}
+
+	elsif ( $self->name eq 'CandidateData' ) {
+		$a = "\tPRIMARY KEY (expendPersentId)";
+	}
+
+	## Also has lobbyActivityId
+	elsif( $self->name eq 'TransportationData' ) {
+		$a = "\tPRIMARY KEY (lobactivityTravelId)";
+	}
+
+	## 'IndividualReportingData'
+	elsif ( @cols = grep $_->name =~ /lobby.*Id/, @{$self->columns} ) {
+		$a = "\tPRIMARY KEY (" . $cols[0]->name . ")";
+	}
+
+	# $self->name eq 'CoverSheet2Data' or $self->name eq 'CoverSheet3Data'
+	elsif ( @cols = grep $_->name =~ /committee.*Id/, @{$self->columns} ) {
+		$a = "\tPRIMARY KEY (" . $cols[0]->name . ")";
+	}
+	
+	elsif (
+		## We made this more liberal for CoverSheet2Data
+		## $self->columns->[9]->name =~ /(.*)InfoId$/
+		## && $self->name eq (ucfirst($1)."Data")
+		$self->columns->[9]
+		and $self->columns->[9]->name =~ /Id$/
+	) {
+		$a = "\tPRIMARY KEY ( " . $self->columns->[9]->name . " )";
+	}
+
+	elsif ( $self->col_by_name('reportInfoIdent') ) {
+		$a = "\tPRIMARY KEY (reportInfoIdent)";
+	}
+
+	return $a;
 }
 
 sub fully_qualified_identifier {

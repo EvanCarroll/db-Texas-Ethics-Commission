@@ -50,7 +50,8 @@ CREATE TABLE tec.eventdata (
 	beneficiaryNameSuffixCd                 text,
 	beneficiaryNameFirst                    text,
 	beneficiaryNamePrefixCd                 text,
-	beneficiaryNameShort                    text
+	beneficiaryNameShort                    text,
+	PRIMARY KEY (lobbyActivityId)
 );
 
 COMMENT ON TABLE tec.eventdata IS $$Form LA Schedule G - Pol. Fundraisers and Charity Events. File: LaEvnt.csv$$;
@@ -86,8 +87,9 @@ COMMENT ON COLUMN tec.eventdata.beneficiarynamesuffixcd IS $$For INDIVIDUAL, the
 COMMENT ON COLUMN tec.eventdata.beneficiarynamefirst IS $$For INDIVIDUAL, the beneficiary first name$$;
 COMMENT ON COLUMN tec.eventdata.beneficiarynameprefixcd IS $$For INDIVIDUAL, the beneficiary name prefix (e.g. MR, MRS, MS)$$;
 COMMENT ON COLUMN tec.eventdata.beneficiarynameshort IS $$For INDIVIDUAL, the beneficiary short name (nickname)$$;
-\COPY tec.eventdata FROM 'data/TEC_LA_CSV/LaEvnt.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.eventdata FROM 'data/TEC_LA_CSV/LaEvnt.csv' WITH ( FORMAT CSV , HEADER true );
+
 ALTER TABLE tec.EventData
 	ADD FOREIGN KEY (filerIdent, filerTypeCd)
 	REFERENCES tec.FilerData
-	NOT VALID
+	NOT VALID;

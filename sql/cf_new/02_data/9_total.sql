@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS tec.codes_total;
+
 CREATE TABLE tec.codes_total (
 	total_id           text PRIMARY KEY,
 	total_description  text

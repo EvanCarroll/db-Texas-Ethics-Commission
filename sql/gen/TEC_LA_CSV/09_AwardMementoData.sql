@@ -46,7 +46,8 @@ CREATE TABLE tec.awardmementodata (
 	recipientNameSuffixCd                   text,
 	recipientNameFirst                      text,
 	recipientNamePrefixCd                   text,
-	recipientNameShort                      text
+	recipientNameShort                      text,
+	PRIMARY KEY (lobbyActivityId)
 );
 
 COMMENT ON TABLE tec.awardmementodata IS $$Form LA Schedule F - Awards / Mementos. File: LaAwrd.csv$$;
@@ -78,8 +79,9 @@ COMMENT ON COLUMN tec.awardmementodata.recipientnamesuffixcd IS $$For INDIVIDUAL
 COMMENT ON COLUMN tec.awardmementodata.recipientnamefirst IS $$For INDIVIDUAL, the recipient first name$$;
 COMMENT ON COLUMN tec.awardmementodata.recipientnameprefixcd IS $$For INDIVIDUAL, the recipient name prefix (e.g. MR, MRS, MS)$$;
 COMMENT ON COLUMN tec.awardmementodata.recipientnameshort IS $$For INDIVIDUAL, the recipient short name (nickname)$$;
-\COPY tec.awardmementodata FROM 'data/TEC_LA_CSV/LaAwrd.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.awardmementodata FROM 'data/TEC_LA_CSV/LaAwrd.csv' WITH ( FORMAT CSV , HEADER true );
+
 ALTER TABLE tec.AwardMementoData
 	ADD FOREIGN KEY (filerIdent, filerTypeCd)
 	REFERENCES tec.FilerData
-	NOT VALID
+	NOT VALID;

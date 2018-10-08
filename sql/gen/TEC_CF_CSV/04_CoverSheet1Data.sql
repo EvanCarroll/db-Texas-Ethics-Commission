@@ -146,7 +146,8 @@ CREATE TABLE tec.coversheet1data (
 	chairMailingRegion                      text,
 	chairPrimaryUsaPhoneFlag                bool,
 	chairPrimaryPhoneNumber                 text,
-	chairPrimaryPhoneExt                    text
+	chairPrimaryPhoneExt                    text,
+	PRIMARY KEY (reportInfoIdent)
 );
 
 COMMENT ON TABLE tec.coversheet1data IS $$Cover Sheet 1 - Cover sheet information and totals. cover_ss and cover_t contain cover sheet information for special session reports and special pre-election (formerly Telegram) Reports. Cover sheets for these reports do not contain totals. Files: cover.csv, cover_ss.csv, cover_t.csv$$;
@@ -278,12 +279,26 @@ COMMENT ON COLUMN tec.coversheet1data.chairmailingregion IS $$Chair mailing addr
 COMMENT ON COLUMN tec.coversheet1data.chairprimaryusaphoneflag IS $$Chair primary phone number - Y if number is a USA phone, N       otherwise$$;
 COMMENT ON COLUMN tec.coversheet1data.chairprimaryphonenumber IS $$Chair primary phone number$$;
 COMMENT ON COLUMN tec.coversheet1data.chairprimaryphoneext IS $$Chair primary phone extension$$;
-\COPY tec.coversheet1data FROM 'data/TEC_CF_CSV/cover.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.coversheet1data FROM 'data/TEC_CF_CSV/cover.csv' WITH ( FORMAT CSV , HEADER true );
 
-\COPY tec.coversheet1data FROM 'data/TEC_CF_CSV/cover_ss.csv' WITH ( FORMAT CSV , HEADER true )
 
-\COPY tec.coversheet1data FROM 'data/TEC_CF_CSV/cover_t.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.coversheet1data FROM 'data/TEC_CF_CSV/cover_ss.csv' WITH ( FORMAT CSV , HEADER true );
+
+
+\COPY tec.coversheet1data FROM 'data/TEC_CF_CSV/cover_t.csv' WITH ( FORMAT CSV , HEADER true );
+
 ALTER TABLE tec.CoverSheet1Data
 	ADD FOREIGN KEY (filerIdent, filerTypeCd)
 	REFERENCES tec.FilerData
-	NOT VALID
+	NOT VALID;
+ALTER TABLE tec.coversheet1data
+	ADD FOREIGN KEY (politicalPartyCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (filerStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (filerHoldOfficeCd) REFERENCES tec.codes_office NOT VALID,
+	ADD FOREIGN KEY (filerHoldOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (filerSeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
+	ADD FOREIGN KEY (filerSeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (treasStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (treasMailingCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (chairStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (chairMailingCountyCd) REFERENCES tec.codes_counties NOT VALID;

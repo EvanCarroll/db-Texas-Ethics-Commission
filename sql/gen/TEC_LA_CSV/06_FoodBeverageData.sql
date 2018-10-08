@@ -51,7 +51,8 @@ CREATE TABLE tec.foodbeveragedata (
 	restaurantStreetStateCd                 text,
 	restaurantStreetCountryCd               text,
 	restaurantStreetPostalCode              text,
-	restaurantStreetRegion                  text
+	restaurantStreetRegion                  text,
+	PRIMARY KEY (lobbyActivityId)
 );
 
 COMMENT ON TABLE tec.foodbeveragedata IS $$Form LA Schedule C - Food and Beverages. File: LaFood.csv$$;
@@ -88,8 +89,9 @@ COMMENT ON COLUMN tec.foodbeveragedata.restaurantstreetstatecd IS $$Restaurant s
 COMMENT ON COLUMN tec.foodbeveragedata.restaurantstreetcountrycd IS $$Restaurant street address - country (e.g. USA, UMI, MEX, CAN)$$;
 COMMENT ON COLUMN tec.foodbeveragedata.restaurantstreetpostalcode IS $$Restaurant street address - postal code - for USA addresses only$$;
 COMMENT ON COLUMN tec.foodbeveragedata.restaurantstreetregion IS $$Restaurant street address - region for country other than USA$$;
-\COPY tec.foodbeveragedata FROM 'data/TEC_LA_CSV/LaFood.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.foodbeveragedata FROM 'data/TEC_LA_CSV/LaFood.csv' WITH ( FORMAT CSV , HEADER true );
+
 ALTER TABLE tec.FoodBeverageData
 	ADD FOREIGN KEY (filerIdent, filerTypeCd)
 	REFERENCES tec.FilerData
-	NOT VALID
+	NOT VALID;

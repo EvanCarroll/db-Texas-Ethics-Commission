@@ -94,4 +94,12 @@ COMMENT ON COLUMN tec.spacdata.ctaseekofficecountydescr IS $$CTA office sought c
 COMMENT ON COLUMN tec.spacdata.candtreasfilerpersstatuscd IS $$Candidate treasurer status (CURRENT, etc)$$;
 COMMENT ON COLUMN tec.spacdata.candtreaseffstartdt IS $$Candidate treasurer start date$$;
 COMMENT ON COLUMN tec.spacdata.candtreaseffstopdt IS $$Candidate treasurer end date$$;
-\COPY tec.spacdata FROM 'data/TEC_CF_CSV/spacs.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.spacdata FROM 'data/TEC_CF_CSV/spacs.csv' WITH ( FORMAT CSV , HEADER true );
+
+ALTER TABLE tec.spacdata
+	ADD FOREIGN KEY (candidateHoldOfficeCd) REFERENCES tec.codes_office NOT VALID,
+	ADD FOREIGN KEY (candidateHoldOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (candidateSeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
+	ADD FOREIGN KEY (candidateSeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (ctaSeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
+	ADD FOREIGN KEY (ctaSeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID;

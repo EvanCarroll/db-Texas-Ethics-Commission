@@ -34,10 +34,9 @@ has 'order'  => ( isa => 'Int', is => 'ro' );
 sub pg_ddl {
 	my $self = shift;
 	sprintf(
-		"\t%-40s%-20s%-30s",
+		"\t%-40s%-20s",
 		$self->name,
 		$self->pg_type,
-		$self->_column_attributes
 	);
 }
 
@@ -92,10 +91,9 @@ sub fully_qualified_identifier {
 	lc($fqn);
 }
 
-sub _column_attributes {
+sub fkey_constraint {
 	my $self  = shift;
-	my $table = $self->table->name;
-	my $a = '';
+	my $fmt = sprintf( 'ADD FOREIGN KEY (%s) REFERENCES %%s NOT VALID', $self->name );
 
 	## Turns out these are all unique and the tables are partitions on recordType
 	## ## Handle ReportInfo PRIMARY/FOREIGN KEY
@@ -110,18 +108,17 @@ sub _column_attributes {
 	## 		$a = 'PRIMARY KEY'
 	## 	}
 	## }
-	if (
-		$self->name =~ /(.*)InfoId$/                  && $table eq (ucfirst($1)."Data")
-		## XXX has ','
-		or $self->name eq 'expendCategoryCodeValue'   && $table eq 'ExpendCategory'
-	) {
-		$a = 'PRIMARY KEY';
+	if ( $self->name =~ /CountyCd/ ) {
+		return sprintf( $fmt, 'tec.codes_counties' );
+	}
+	elsif ( $self->name =~ /OfficeCd/ ) {
+		return sprintf( $fmt, 'tec.codes_office' );
 	}
 	elsif ( $self->name eq 'expendCatCd' ) {
 		## XXX  Can't use this because some expenses have `UNKNOWN`
 		## $a = 'REFERENCES tecnew.ExpendCategory';
 	}
-	$a;
-};
+	return undef;
+}
 
-1;
+1

@@ -44,7 +44,8 @@ CREATE TABLE tec.coversheet3data (
 	activitySeekOfficePlace                 text,
 	activitySeekOfficeDescr                 text,
 	activitySeekOfficeCountyCd              text,
-	activitySeekOfficeCountyDescr           text
+	activitySeekOfficeCountyDescr           text,
+	PRIMARY KEY (committeeActivityId)
 );
 
 COMMENT ON TABLE tec.coversheet3data IS $$Cover Sheet 3 - Committee purpose. The committee purpose is reported at the top of Cover Sheet Page 2 FORMNAME = CEC, GPAC, JSPAC, MCEC, MPAC, SCSPAC, SPAC, SPACSS. File: purpose.csv$$;
@@ -74,8 +75,14 @@ COMMENT ON COLUMN tec.coversheet3data.activityseekofficeplace IS $$Activity offi
 COMMENT ON COLUMN tec.coversheet3data.activityseekofficedescr IS $$Activity office sought description$$;
 COMMENT ON COLUMN tec.coversheet3data.activityseekofficecountycd IS $$Activity office sought county code$$;
 COMMENT ON COLUMN tec.coversheet3data.activityseekofficecountydescr IS $$Activity office sought county description$$;
-\COPY tec.coversheet3data FROM 'data/TEC_CF_CSV/purpose.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.coversheet3data FROM 'data/TEC_CF_CSV/purpose.csv' WITH ( FORMAT CSV , HEADER true );
+
 ALTER TABLE tec.CoverSheet3Data
 	ADD FOREIGN KEY (filerIdent, filerTypeCd)
 	REFERENCES tec.FilerData
-	NOT VALID
+	NOT VALID;
+ALTER TABLE tec.coversheet3data
+	ADD FOREIGN KEY (activityHoldOfficeCd) REFERENCES tec.codes_office NOT VALID,
+	ADD FOREIGN KEY (activityHoldOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (activitySeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
+	ADD FOREIGN KEY (activitySeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID;

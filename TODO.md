@@ -65,6 +65,20 @@ WHERE convalidated IS FALSE
   AND nsp.nspname = 'tec';
 ```
 
+SELECT FORMAT(
+	$$UPDATE %I.%I.%I SET %I = NULL WHERE %I IN ( 'OTHER', 'UNKNOWN', '' );$$,
+	table_catalog,
+	table_schema,
+	table_name,
+	column_name,
+	column_name
+)
+FROM information_schema.columns
+WHERE table_schema = 'tec'
+	AND column_name LIKE '%countycd'
+ORDER BY table_catalog, table_schema, table_name;
+
+
 Not everyting will validate, much will fail. Things that fail should be
 examined thorughly and communicated with TEC. Things that pass should be
 examined to make the indexes as `VALID` on table creation.

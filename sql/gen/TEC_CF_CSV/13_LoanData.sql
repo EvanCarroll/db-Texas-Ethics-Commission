@@ -28,7 +28,7 @@ CREATE TABLE tec.loandata (
 	filerIdent                              int,
 	filerTypeCd                             text,
 	filerName                               text,
-	loanInfoId                              bigint              PRIMARY KEY,
+	loanInfoId                              bigint,
 	loanDt                                  date,
 	loanAmount                              numeric(10,2),
 	loanDescr                               text,
@@ -158,7 +158,8 @@ CREATE TABLE tec.loandata (
 	guarantorJobTitle5                      text,
 	guarantorSpouseLawFirmName5             text,
 	guarantorParent1LawFirmName5            text,
-	guarantorParent2LawFirmName5            text
+	guarantorParent2LawFirmName5            text,
+	PRIMARY KEY ( loanInfoId )
 );
 
 COMMENT ON TABLE tec.loandata IS $$Loans - Schedule E. File: loans.csv$$;
@@ -302,8 +303,16 @@ COMMENT ON COLUMN tec.loandata.guarantorjobtitle5 IS $$5: Guarantor job title$$;
 COMMENT ON COLUMN tec.loandata.guarantorspouselawfirmname5 IS $$5: Guarantor spouse law firm name$$;
 COMMENT ON COLUMN tec.loandata.guarantorparent1lawfirmname5 IS $$5: Guarantor parent #1 law firm name$$;
 COMMENT ON COLUMN tec.loandata.guarantorparent2lawfirmname5 IS $$5: Guarantor parent #2 law firm name$$;
-\COPY tec.loandata FROM 'data/TEC_CF_CSV/loans.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.loandata FROM 'data/TEC_CF_CSV/loans.csv' WITH ( FORMAT CSV , HEADER true );
+
 ALTER TABLE tec.LoanData
 	ADD FOREIGN KEY (filerIdent, filerTypeCd)
 	REFERENCES tec.FilerData
-	NOT VALID
+	NOT VALID;
+ALTER TABLE tec.loandata
+	ADD FOREIGN KEY (lenderStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (guarantorStreetCountyCd1) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (guarantorStreetCountyCd2) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (guarantorStreetCountyCd3) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (guarantorStreetCountyCd4) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (guarantorStreetCountyCd5) REFERENCES tec.codes_counties NOT VALID;

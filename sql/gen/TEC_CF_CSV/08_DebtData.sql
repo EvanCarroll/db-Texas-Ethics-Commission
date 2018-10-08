@@ -107,7 +107,8 @@ CREATE TABLE tec.debtdata (
 	guarantorStreetCountyCd5                text,
 	guarantorStreetCountryCd5               text,
 	guarantorStreetPostalCode5              text,
-	guarantorStreetRegion5                  text
+	guarantorStreetRegion5                  text,
+	PRIMARY KEY ( loanInfoId )
 );
 
 COMMENT ON TABLE tec.debtdata IS $$Debts - Schedule L - Outstanding judicial loans. File: debts.csv$$;
@@ -200,8 +201,16 @@ COMMENT ON COLUMN tec.debtdata.guarantorstreetcountycd5 IS $$5: Guarantor street
 COMMENT ON COLUMN tec.debtdata.guarantorstreetcountrycd5 IS $$5: Guarantor street address - country (e.g. USA, UMI, MEX, CAN)$$;
 COMMENT ON COLUMN tec.debtdata.guarantorstreetpostalcode5 IS $$5: Guarantor street address - postal code - for USA addresses only$$;
 COMMENT ON COLUMN tec.debtdata.guarantorstreetregion5 IS $$5: Guarantor street address - region for country other than USA$$;
-\COPY tec.debtdata FROM 'data/TEC_CF_CSV/debts.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.debtdata FROM 'data/TEC_CF_CSV/debts.csv' WITH ( FORMAT CSV , HEADER true );
+
 ALTER TABLE tec.DebtData
 	ADD FOREIGN KEY (filerIdent, filerTypeCd)
 	REFERENCES tec.FilerData
-	NOT VALID
+	NOT VALID;
+ALTER TABLE tec.debtdata
+	ADD FOREIGN KEY (lenderStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (guarantorStreetCountyCd1) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (guarantorStreetCountyCd2) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (guarantorStreetCountyCd3) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (guarantorStreetCountyCd4) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (guarantorStreetCountyCd5) REFERENCES tec.codes_counties NOT VALID;

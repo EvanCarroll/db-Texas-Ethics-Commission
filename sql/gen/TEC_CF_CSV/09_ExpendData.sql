@@ -28,7 +28,7 @@ CREATE TABLE tec.expenddata (
 	filerIdent                              int,
 	filerTypeCd                             text,
 	filerName                               text,
-	expendInfoId                            bigint              PRIMARY KEY,
+	expendInfoId                            bigint,
 	expendDt                                date,
 	expendAmount                            numeric(10,2),
 	expendDescr                             text,
@@ -54,7 +54,8 @@ CREATE TABLE tec.expenddata (
 	payeeStreetCountyCd                     text,
 	payeeStreetCountryCd                    text,
 	payeeStreetPostalCode                   text,
-	payeeStreetRegion                       text
+	payeeStreetRegion                       text,
+	PRIMARY KEY ( expendInfoId )
 );
 
 COMMENT ON TABLE tec.expenddata IS $$Expenditures - Schedules F/G/H/I - Expenditures from special pre-election (formerly Telegram) reports are stored in the file expn_t. They are kept separate from the expends file to avoid creating duplicates, because they are supposed to be re-reported on the next regular campaign finance report. Files: expend_##.csv, expn_t.csv$$;
@@ -94,22 +95,35 @@ COMMENT ON COLUMN tec.expenddata.payeestreetcountycd IS $$Payee street address -
 COMMENT ON COLUMN tec.expenddata.payeestreetcountrycd IS $$Payee street address - country (e.g. USA, UMI, MEX, CAN)$$;
 COMMENT ON COLUMN tec.expenddata.payeestreetpostalcode IS $$Payee street address - postal code - for USA addresses only$$;
 COMMENT ON COLUMN tec.expenddata.payeestreetregion IS $$Payee street address - region for country other than USA$$;
-\COPY tec.expenddata FROM 'data/TEC_CF_CSV/expend_01.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.expenddata FROM 'data/TEC_CF_CSV/expend_01.csv' WITH ( FORMAT CSV , HEADER true );
 
-\COPY tec.expenddata FROM 'data/TEC_CF_CSV/expend_02.csv' WITH ( FORMAT CSV , HEADER true )
 
-\COPY tec.expenddata FROM 'data/TEC_CF_CSV/expend_03.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.expenddata FROM 'data/TEC_CF_CSV/expend_02.csv' WITH ( FORMAT CSV , HEADER true );
 
-\COPY tec.expenddata FROM 'data/TEC_CF_CSV/expend_04.csv' WITH ( FORMAT CSV , HEADER true )
 
-\COPY tec.expenddata FROM 'data/TEC_CF_CSV/expend_05.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.expenddata FROM 'data/TEC_CF_CSV/expend_03.csv' WITH ( FORMAT CSV , HEADER true );
 
-\COPY tec.expenddata FROM 'data/TEC_CF_CSV/expend_06.csv' WITH ( FORMAT CSV , HEADER true )
 
-\COPY tec.expenddata FROM 'data/TEC_CF_CSV/expend_07.csv' WITH ( FORMAT CSV , HEADER true )
+\COPY tec.expenddata FROM 'data/TEC_CF_CSV/expend_04.csv' WITH ( FORMAT CSV , HEADER true );
 
-\COPY tec.expenddata FROM 'data/TEC_CF_CSV/expn_t.csv' WITH ( FORMAT CSV , HEADER true )
+
+\COPY tec.expenddata FROM 'data/TEC_CF_CSV/expend_05.csv' WITH ( FORMAT CSV , HEADER true );
+
+
+\COPY tec.expenddata FROM 'data/TEC_CF_CSV/expend_06.csv' WITH ( FORMAT CSV , HEADER true );
+
+
+\COPY tec.expenddata FROM 'data/TEC_CF_CSV/expend_07.csv' WITH ( FORMAT CSV , HEADER true );
+
+
+\COPY tec.expenddata FROM 'data/TEC_CF_CSV/expend_08.csv' WITH ( FORMAT CSV , HEADER true );
+
+
+\COPY tec.expenddata FROM 'data/TEC_CF_CSV/expn_t.csv' WITH ( FORMAT CSV , HEADER true );
+
 ALTER TABLE tec.ExpendData
 	ADD FOREIGN KEY (filerIdent, filerTypeCd)
 	REFERENCES tec.FilerData
-	NOT VALID
+	NOT VALID;
+ALTER TABLE tec.expenddata
+	ADD FOREIGN KEY (payeeStreetCountyCd) REFERENCES tec.codes_counties NOT VALID;
