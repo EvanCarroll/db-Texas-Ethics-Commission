@@ -95,30 +95,23 @@ sub fkey_constraint {
 	my $self  = shift;
 	my $fmt = sprintf( 'ADD FOREIGN KEY (%s) REFERENCES %%s NOT VALID', $self->name );
 
-	## Turns out these are all unique and the tables are partitions on recordType
-	## ## Handle ReportInfo PRIMARY/FOREIGN KEY
-	## if ( $c->{'Field Name'} eq 'reportInfoIdent' ) {
-	## 	if ( $t->{'recname'} ne 'FinalData' ) {
-	## 		$a = sprintf(
-	## 			'REFERENCES %s',
-	## 			fully_qualified_identifier(undef, undef, 'FinalData')
-	## 		);
-	## 	}
-	## 	else {
-	## 		$a = 'PRIMARY KEY'
-	## 	}
-	## }
-	if ( $self->name =~ /CountyCd/ ) {
+	if ( $self->name =~ /expendCatCd/ ) {
+		return sprintf( $fmt, 'tec.expendcategory' );
+	}
+	
+	elsif ( $self->name =~ /CountyCd/ ) {
 		return sprintf( $fmt, 'tec.codes_counties' );
+	}
+	elsif ( $self->name =~ /reportTypeCd/ ) {
+		return sprintf( $fmt, 'tec.codes_reports' );
+	}
+	elsif ( $self->name =~ /totalTypeCd/ ) {
+		return sprintf( $fmt, 'tec.codes_total' );
 	}
 	elsif ( $self->name =~ /OfficeCd/ ) {
 		return sprintf( $fmt, 'tec.codes_office' );
 	}
-	elsif ( $self->name eq 'expendCatCd' ) {
-		## XXX  Can't use this because some expenses have `UNKNOWN`
-		## $a = 'REFERENCES tecnew.ExpendCategory';
-	}
 	return undef;
 }
 
-1
+1;

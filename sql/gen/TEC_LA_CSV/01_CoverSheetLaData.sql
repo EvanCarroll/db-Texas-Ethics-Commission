@@ -121,3 +121,5 @@ ALTER TABLE tec.CoverSheetLaData
 	ADD FOREIGN KEY (filerIdent, filerTypeCd)
 	REFERENCES tec.FilerData
 	NOT VALID;
+ALTER TABLE tec.coversheetladata
+	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID;

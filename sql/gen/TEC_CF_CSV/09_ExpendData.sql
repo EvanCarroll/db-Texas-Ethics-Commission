@@ -126,4 +126,5 @@ ALTER TABLE tec.ExpendData
 	REFERENCES tec.FilerData
 	NOT VALID;
 ALTER TABLE tec.expenddata
+	ADD FOREIGN KEY (expendCatCd) REFERENCES tec.expendcategory NOT VALID,
 	ADD FOREIGN KEY (payeeStreetCountyCd) REFERENCES tec.codes_counties NOT VALID;

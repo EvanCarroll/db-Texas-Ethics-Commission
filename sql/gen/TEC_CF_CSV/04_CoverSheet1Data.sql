@@ -292,6 +292,16 @@ ALTER TABLE tec.CoverSheet1Data
 	REFERENCES tec.FilerData
 	NOT VALID;
 ALTER TABLE tec.coversheet1data
+	ADD FOREIGN KEY (reportTypeCd1) REFERENCES tec.codes_reports NOT VALID,
+	ADD FOREIGN KEY (reportTypeCd2) REFERENCES tec.codes_reports NOT VALID,
+	ADD FOREIGN KEY (reportTypeCd3) REFERENCES tec.codes_reports NOT VALID,
+	ADD FOREIGN KEY (reportTypeCd4) REFERENCES tec.codes_reports NOT VALID,
+	ADD FOREIGN KEY (reportTypeCd5) REFERENCES tec.codes_reports NOT VALID,
+	ADD FOREIGN KEY (reportTypeCd6) REFERENCES tec.codes_reports NOT VALID,
+	ADD FOREIGN KEY (reportTypeCd7) REFERENCES tec.codes_reports NOT VALID,
+	ADD FOREIGN KEY (reportTypeCd8) REFERENCES tec.codes_reports NOT VALID,
+	ADD FOREIGN KEY (reportTypeCd9) REFERENCES tec.codes_reports NOT VALID,
+	ADD FOREIGN KEY (reportTypeCd10) REFERENCES tec.codes_reports NOT VALID,
 	ADD FOREIGN KEY (politicalPartyCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (filerStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (filerHoldOfficeCd) REFERENCES tec.codes_office NOT VALID,

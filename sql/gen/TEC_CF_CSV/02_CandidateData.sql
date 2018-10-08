@@ -110,6 +110,7 @@ ALTER TABLE tec.CandidateData
 	REFERENCES tec.FilerData
 	NOT VALID;
 ALTER TABLE tec.candidatedata
+	ADD FOREIGN KEY (expendCatCd) REFERENCES tec.expendcategory NOT VALID,
 	ADD FOREIGN KEY (candidateHoldOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (candidateHoldOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (candidateSeekOfficeCd) REFERENCES tec.codes_office NOT VALID,

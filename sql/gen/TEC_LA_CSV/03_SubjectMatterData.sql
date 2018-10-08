@@ -65,3 +65,5 @@ ALTER TABLE tec.SubjectMatterData
 	ADD FOREIGN KEY (filerIdent, filerTypeCd)
 	REFERENCES tec.FilerData
 	NOT VALID;
+ALTER TABLE tec.subjectmatterdata
+	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID;

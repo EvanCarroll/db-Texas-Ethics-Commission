@@ -60,8 +60,9 @@ COMMENT ON SCHEMA tec IS $$Texas Ethics Comission dataset$$;
 \i sql/gen/TEC_LA_CSV/09_AwardMementoData.sql
 \i sql/gen/TEC_LA_CSV/10_EventData.sql
 
+-- Needs both SJC and SCJ
 INSERT INTO tec.codes_office (office_id)
-VALUES ('DISTATTY_HR'), ('JUSTICEAPP'), ('SJC'), ('JUDGECRIM'), ('DISTATTY_MULTI_KL_KN'), ('COMPTROLLR'), ('CRIMAL_DISTATTY');
+VALUES ('DISTATTY_HR'), ('JUSTICEAPP'), ('SJC'), ('SCJ'), ('JUDGECRIM'), ('DISTATTY_MULTI_KL_KN'), ('COMPTROLLR'), ('CRIMAL_DISTATTY');
 
 BEGIN;
 	-- SELECT FORMAT(
@@ -113,19 +114,17 @@ BEGIN;
 	UPDATE test.tec.spacdata SET candidateholdofficecountycd = NULL WHERE candidateholdofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
 END;
 
-BEGIN;
-	UPDATE tec.candidatedata
-	SET candidateholdofficecd = NULL
-	WHERE candidateholdofficecd = 'T';
+UPDATE tec.candidatedata
+SET candidateholdofficecd = NULL
+WHERE candidateholdofficecd = 'T';
 
-	UPDATE tec.CandidateData
-	SET expendCatCd = NULL
-	WHERE expendCatCd IN ('', 'UNKNOWN');
+UPDATE tec.candidatedata
+SET expendCatCd = NULL
+WHERE expendCatCd IN ('', 'UNKNOWN');
 
-	ALTER TABLE tec.CandidateData
-		ADD FOREIGN KEY ( expendCatCd )
-		REFERENCES tec.ExpendCategory;
-COMMIT;
+UPDATE tec.expenddata
+SET expendCatCd = NULL
+WHERE expendCatCd IN ('', 'UNKNOWN');
 
 -- The CSV schema dumps as seperate columns
 -- But the readme shows it as an array
@@ -133,11 +132,13 @@ COMMIT;
 BEGIN;
 	ALTER TABLE tec.coversheet1data
 		ADD COLUMN reporttype text[];
+
 	UPDATE tec.coversheet1data
-		SET reporttype = array_remove(ARRAY[
-			reportTypeCd1,reportTypeCd2,reportTypeCd3,reportTypeCd4,reportTypeCd5,
-			reportTypeCd6,reportTypeCd7,reportTypeCd8,reportTypeCd9,reportTypeCd10
+	SET reporttype = array_remove(ARRAY[
+		reportTypeCd1,reportTypeCd2,reportTypeCd3,reportTypeCd4,reportTypeCd5,
+		reportTypeCd6,reportTypeCd7,reportTypeCd8,reportTypeCd9,reportTypeCd10
 	],null);
+
 	ALTER TABLE tec.coversheet1data
 		DROP COLUMN reportTypeCd1, DROP COLUMN reportTypeCd2, DROP COLUMN reportTypeCd3, DROP COLUMN reportTypeCd4, DROP COLUMN reportTypeCd5,
 		DROP COLUMN reportTypeCd6, DROP COLUMN reportTypeCd7, DROP COLUMN reportTypeCd8, DROP COLUMN reportTypeCd9, DROP COLUMN reportTypeCd10;

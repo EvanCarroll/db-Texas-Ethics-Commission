@@ -82,4 +82,5 @@ ALTER TABLE tec.IndividualReportingData
 	REFERENCES tec.FilerData
 	NOT VALID;
 ALTER TABLE tec.individualreportingdata
+	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
 	ADD FOREIGN KEY (onbehalfMailingCountyCd) REFERENCES tec.codes_counties NOT VALID;
