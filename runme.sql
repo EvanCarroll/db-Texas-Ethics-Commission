@@ -60,21 +60,67 @@ COMMENT ON SCHEMA tec IS $$Texas Ethics Comission dataset$$;
 \i sql/gen/TEC_LA_CSV/09_AwardMementoData.sql
 \i sql/gen/TEC_LA_CSV/10_EventData.sql
 
-BEGIN;
-	INSERT INTO tec.codes_office (office_id)
-	VALUES ('DISTATTY_HR'), ('JUSTICEAPP'), ('SCJ'), ('JUDGECRIM'), ('DISTATTY_MULTI_KL_KN'), ('COMPTROLLR'), ('CRIMAL_DISTATTY');
+INSERT INTO tec.codes_office (office_id)
+VALUES ('DISTATTY_HR'), ('JUSTICEAPP'), ('SJC'), ('JUDGECRIM'), ('DISTATTY_MULTI_KL_KN'), ('COMPTROLLR'), ('CRIMAL_DISTATTY');
 
+BEGIN;
+	-- SELECT FORMAT(
+	-- 	$$UPDATE %I.%I.%I SET %I = NULL WHERE %I IN ( 'OTHER', 'UNKNOWN', '' );$$,
+	-- 	table_catalog,
+	-- 	table_schema,
+	-- 	table_name,
+	-- 	column_name,
+	-- 	column_name
+	-- )
+	-- FROM information_schema.columns
+	-- WHERE table_schema = 'tec'
+	-- 	AND column_name LIKE '%countycd'
+	-- ORDER BY table_catalog, table_schema, table_name;
+
+	UPDATE test.tec.candidatedata SET candidateholdofficecountycd = NULL WHERE candidateholdofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.candidatedata SET candidateseekofficecountycd = NULL WHERE candidateseekofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.contributiondata SET contributorstreetcountycd = NULL WHERE contributorstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.coversheet1data SET treasmailingcountycd = NULL WHERE treasmailingcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.coversheet1data SET treasstreetcountycd = NULL WHERE treasstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.coversheet1data SET politicalpartycountycd = NULL WHERE politicalpartycountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.coversheet1data SET filerstreetcountycd = NULL WHERE filerstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.coversheet1data SET filerseekofficecountycd = NULL WHERE filerseekofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.coversheet1data SET filerholdofficecountycd = NULL WHERE filerholdofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.coversheet1data SET chairmailingcountycd = NULL WHERE chairmailingcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.coversheet1data SET chairstreetcountycd = NULL WHERE chairstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.coversheet2data SET treasstreetcountycd = NULL WHERE treasstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.coversheet2data SET notifierstreetcountycd = NULL WHERE notifierstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.coversheet3data SET activityholdofficecountycd = NULL WHERE activityholdofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.coversheet3data SET activityseekofficecountycd = NULL WHERE activityseekofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.creditdata SET payorstreetcountycd = NULL WHERE payorstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.debtdata SET lenderstreetcountycd = NULL WHERE lenderstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.expenddata SET payeestreetcountycd = NULL WHERE payeestreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.filerdata SET chairmailingcountycd = NULL WHERE chairmailingcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.filerdata SET filerholdofficecountycd = NULL WHERE filerholdofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.filerdata SET contestseekofficecountycd = NULL WHERE contestseekofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.filerdata SET treasstreetcountycd = NULL WHERE treasstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.filerdata SET treasmailingcountycd = NULL WHERE treasmailingcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.filerdata SET assttreasstreetcountycd = NULL WHERE assttreasstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.filerdata SET chairstreetcountycd = NULL WHERE chairstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.filerdata SET ctaseekofficecountycd = NULL WHERE ctaseekofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.filerdata SET filerstreetcountycd = NULL WHERE filerstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.filerdata SET filermailingcountycd = NULL WHERE filermailingcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.individualreportingdata SET onbehalfmailingcountycd = NULL WHERE onbehalfmailingcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.loandata SET lenderstreetcountycd = NULL WHERE lenderstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.pledgedata SET pledgerstreetcountycd = NULL WHERE pledgerstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.spacdata SET ctaseekofficecountycd = NULL WHERE ctaseekofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.spacdata SET candidateseekofficecountycd = NULL WHERE candidateseekofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
+	UPDATE test.tec.spacdata SET candidateholdofficecountycd = NULL WHERE candidateholdofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
+END;
+
+BEGIN;
 	UPDATE tec.candidatedata
 	SET candidateholdofficecd = NULL
 	WHERE candidateholdofficecd = 'T';
 
-	UPDATE tec.coversheet1data
-	SET filerholdofficecd = NULL
-	WHERE filerholdofficecd = 'T';
-
 	UPDATE tec.CandidateData
-		SET expendCatCd = NULL
-		WHERE expendCatCd IN ('', 'UNKNOWN');
+	SET expendCatCd = NULL
+	WHERE expendCatCd IN ('', 'UNKNOWN');
 
 	ALTER TABLE tec.CandidateData
 		ADD FOREIGN KEY ( expendCatCd )
@@ -95,4 +141,9 @@ BEGIN;
 	ALTER TABLE tec.coversheet1data
 		DROP COLUMN reportTypeCd1, DROP COLUMN reportTypeCd2, DROP COLUMN reportTypeCd3, DROP COLUMN reportTypeCd4, DROP COLUMN reportTypeCd5,
 		DROP COLUMN reportTypeCd6, DROP COLUMN reportTypeCd7, DROP COLUMN reportTypeCd8, DROP COLUMN reportTypeCd9, DROP COLUMN reportTypeCd10;
+
+	UPDATE tec.coversheet1data
+	SET filerholdofficecd = NULL
+	WHERE filerholdofficecd = 'T';
 COMMIT;
+	
