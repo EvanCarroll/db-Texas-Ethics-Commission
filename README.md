@@ -40,9 +40,23 @@ Coverage
 
 This module loads has full coverage of the meta-data, and data of the TEC.
 
-* Lobby Reports
-* Campaign Finance Reports
+* Lobby Reports (tables `l_*`)
+* Campaign Finance Reports (tables `c_*`)
 * 1295 Certs
+
+```
+tec.c_assetdata                tec.c_finaldata                tec.form1295_interested_party
+tec.c_candidatedata            tec.c_loandata                 tec.l_awardmementodata
+tec.c_contributiondata         tec.codes_counties             tec.l_coversheetladata
+tec.c_coversheet1data          tec.codes_forms                tec.l_docketdata
+tec.c_coversheet2data          tec.codes_office               tec.l_entertainmentdata
+tec.c_coversheet3data          tec.codes_reports              tec.l_eventdata
+tec.c_creditdata               tec.codes_total                tec.l_foodbeveragedata
+tec.c_debtdata                 tec.c_pledgedata               tec.l_giftdata
+tec.c_expendcategory           tec.c_spacdata                 tec.l_individualreportingdata
+tec.c_expenddata               tec.c_traveldata               tec.l_subjectmatterdata
+tec.c_filerdata                tec.form1295_box123            tec.l_transportationdata
+```
 
 Links
 ====
