@@ -42,10 +42,11 @@ WHERE NOT EXISTS (
 This is our list to work towards for completion.
 
 
-### Works towards validation of `NOT VALID` keys
+### Validation of `NOT VALID` keys
 
-
-We can use [this query here to validate our indexes](https://dba.stackexchange.com/a/209682/2639).
+We can use [this query here to validate our
+indexes](https://dba.stackexchange.com/a/209682/2639). This should be moved
+into `runme.sql`
 
 ```
 SELECT FORMAT(
@@ -64,10 +65,6 @@ WHERE convalidated IS FALSE
   -- or delete it for all constraints in all schemas
   AND nsp.nspname = 'tec';
 ```
-
-Not everyting will validate, much will fail. Things that fail should be
-examined thorughly and communicated with TEC. Things that pass should be
-examined to make the indexes as `VALID` on table creation.
 
 ## Social TODO
 

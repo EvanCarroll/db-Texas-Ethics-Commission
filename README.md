@@ -25,7 +25,7 @@ Column lines are either
 
 All data is loaded up into PostgreSQL, including the Descriptions which we pull
 down as
-[`COMMENTS`](https://www.postgresql.org/docs/current/static/sql-syntax.html).
+[`COMMENTS`](https://www.postgresql.org/docs/current/static/sql-comment.html).
 
 You can find the readmes from the Texas Ethics Commission added in this project here:
 
@@ -34,6 +34,15 @@ You can find the readmes from the Texas Ethics Commission added in this project 
 * [Form 1295](./data/tec_docs/1295CertificatesCSVFormat.pdf)
 * [Texas PDSERF/Plus
 Electronic Reporting Format](./data/tec_docs/TX_ERF13_7.pdf)
+
+Coverage
+====
+
+This module loads has full coverage of the meta-data, and data of the TEC.
+
+* Lobby Reports
+* Campaign Finance Reports
+* 1295 Certs
 
 Links
 ====
