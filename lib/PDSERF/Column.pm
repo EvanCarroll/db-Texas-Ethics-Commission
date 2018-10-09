@@ -95,23 +95,27 @@ sub fkey_constraint {
 	my $self  = shift;
 	my $fmt = sprintf( 'ADD FOREIGN KEY (%s) REFERENCES %%s NOT VALID', $self->name );
 
-	if ( $self->name =~ /expendCatCd/ ) {
+	if ( $self->name =~ /expendCatCd$/ ) {
 		return sprintf( $fmt, 'tec.c_expendcategory' );
 	}
-	elsif ( $self->table->name =~ /^l_/ and $self->name =~ /reportInfoIdent/ ) {
+	elsif ( $self->table->name =~ /^l_/ and $self->name =~ /reportInfoIdent$/ ) {
 		return sprintf( $fmt, 'tec.l_coversheetladata' );
 	}
 	
-	elsif ( $self->name =~ /CountyCd/ ) {
+	elsif ( $self->name =~ /CountyCd\d*$/ ) {
 		return sprintf( $fmt, 'tec.codes_counties' );
 	}
-	elsif ( $self->name =~ /reportTypeCd/ ) {
+	elsif ( $self->name =~ /reportTypeCd\d*$/ ) {
 		return sprintf( $fmt, 'tec.codes_reports' );
 	}
-	elsif ( $self->name =~ /totalTypeCd/ ) {
+	## Compare `SELECT distinct formtypecd FROM tec.c_coversheet1data;` to tbl
+	## elsif ( $self->name =~ /formTypeCd$/ ) {
+	## 	return sprintf( $fmt, 'tec.codes_forms' );
+	## }
+	elsif ( $self->name =~ /totalTypeCd$/ ) {
 		return sprintf( $fmt, 'tec.codes_total' );
 	}
-	elsif ( $self->name =~ /OfficeCd/ ) {
+	elsif ( $self->name =~ /OfficeCd$/ ) {
 		return sprintf( $fmt, 'tec.codes_office' );
 	}
 	return undef;
