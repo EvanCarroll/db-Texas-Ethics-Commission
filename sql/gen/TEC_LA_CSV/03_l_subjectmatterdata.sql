@@ -14,7 +14,7 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING l_SubjectMatterData
+\echo LOADING l_subjectmatterdata
 
 
 CREATE TABLE tec.l_subjectmatterdata (
@@ -65,5 +65,5 @@ ALTER TABLE tec.l_subjectmatterdata
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
 
-CREATE INDEX ON tec.l_subjectmatterdata (reportInfoIdent);
+CREATE INDEX ON tec.l_subjectmatterdata (reportinfoident);
 

@@ -14,7 +14,7 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_CandidateData
+\echo LOADING c_candidatedata
 
 
 CREATE TABLE tec.c_candidatedata (
@@ -107,12 +107,13 @@ COMMENT ON COLUMN tec.c_candidatedata.candidateseekofficecountydescr IS $$Candid
 CREATE INDEX ON tec.c_candidatedata (filerIdent, filerTypeCd);
 
 ALTER TABLE tec.c_candidatedata
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_coversheet1data NOT VALID,
 	ADD FOREIGN KEY (expendCatCd) REFERENCES tec.c_expendcategory NOT VALID,
 	ADD FOREIGN KEY (candidateHoldOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (candidateHoldOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (candidateSeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (candidateSeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
 
-CREATE INDEX ON tec.c_candidatedata (reportInfoIdent);
+CREATE INDEX ON tec.c_candidatedata (reportinfoident);
 

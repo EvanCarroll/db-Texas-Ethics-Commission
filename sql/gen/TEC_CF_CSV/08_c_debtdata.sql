@@ -14,7 +14,7 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_DebtData
+\echo LOADING c_debtdata
 
 
 CREATE TABLE tec.c_debtdata (
@@ -205,13 +205,14 @@ COMMENT ON COLUMN tec.c_debtdata.guarantorstreetregion5 IS $$5: Guarantor street
 CREATE INDEX ON tec.c_debtdata (filerIdent, filerTypeCd);
 
 ALTER TABLE tec.c_debtdata
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_coversheet1data NOT VALID,
 	ADD FOREIGN KEY (lenderStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd1) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd2) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd3) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd4) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd5) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
 
-CREATE INDEX ON tec.c_debtdata (reportInfoIdent);
+CREATE INDEX ON tec.c_debtdata (reportinfoident);
 

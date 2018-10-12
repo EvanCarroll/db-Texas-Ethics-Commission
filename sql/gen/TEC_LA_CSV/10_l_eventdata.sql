@@ -14,7 +14,7 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING l_EventData
+\echo LOADING l_eventdata
 
 
 CREATE TABLE tec.l_eventdata (
@@ -93,5 +93,5 @@ ALTER TABLE tec.l_eventdata
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
 
-CREATE INDEX ON tec.l_eventdata (reportInfoIdent);
+CREATE INDEX ON tec.l_eventdata (reportinfoident);
 

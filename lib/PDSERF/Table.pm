@@ -64,11 +64,11 @@ has 'post_statements' => (
 
 			if ( $self->col_by_name('filerTypeCd') ) {
 
-				if ( $self->name =~ /^c_/ && $self->name ne 'c_FilerData') {
+				if ( $self->name =~ /^c_/ && $self->name ne 'c_filerdata') {
 					push @fkey_constraints, sprintf(
 						'ADD FOREIGN KEY (%s) REFERENCES %s NOT VALID',
 						"filerIdent, filerTypeCd",
-						sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, "c_FilerData" )
+						sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, "c_filerdata" )
 					);
 					push @post, sprintf(
 						"CREATE INDEX ON %s (filerIdent, filerTypeCd);",
@@ -101,7 +101,7 @@ has 'post_statements' => (
 
 		if ( $self->col_by_name('reportInfoIdent') ) {
 			push @post, sprintf(
-				"CREATE INDEX ON %s (reportInfoIdent);",
+				"CREATE INDEX ON %s (reportinfoident);",
 				$self->fully_qualified_identifier
 			)
 		}
@@ -115,7 +115,9 @@ has 'post_statements' => (
 	lazy => 1
 );
 
-has [qw/description name/] => ( isa => 'Str', is => 'ro', required => 1 );
+has 'description' => ( isa => 'Str', is => 'ro', required => 1 );
+sub name { return lc ($_[0]->_name) }
+has '_name' => ( isa => 'Str', is => 'ro', required => 1, init_arg => 'name' );
 has order => ( isa => 'Int', is => 'ro', required => 1 );
 
 sub pg_ddl {
@@ -145,31 +147,31 @@ sub _primary_key {
 	my @cols;
 
 	## Handles linking and composite key for Filer
-	if ( $self->name =~ /FilerData$/ ) {
+	if ( $self->name =~ /filerdata$/ ) {
 		## $self->col_by_name('filerTypeCd') and $self->col_by_name('filerIdent')
 		$a = "\tPRIMARY KEY (filerIdent, filerTypeCd)";
 	}
 
-	elsif ( $self->name =~ /ExpendCategory$/ ) {
+	elsif ( $self->name =~ /expendcategory$/ ) {
 		$a = "\tPRIMARY KEY (expendCategoryCodeValue)";
 	}
 
-	elsif ( $self->name =~ /CandidateData$/ ) {
+	elsif ( $self->name =~ /candidatedata$/ ) {
 		$a = "\tPRIMARY KEY (expendPersentId)";
 	}
 
 	## Also has lobbyActivityId
-	elsif( $self->name =~ /TransportationData$/ ) {
+	elsif( $self->name =~ /transportationdata$/ ) {
 		$a = "\tPRIMARY KEY (lobactivityTravelId)";
 	}
 
 	## 'IndividualReportingData'
-	elsif ( @cols = grep $_->name =~ /lobby.*Id/, @{$self->columns} ) {
+	elsif ( @cols = grep $_->name =~ /lobby.*id/i, @{$self->columns} ) {
 		$a = "\tPRIMARY KEY (" . $cols[0]->name . ")";
 	}
 
 	# $self->name eq 'CoverSheet2Data' or $self->name eq 'CoverSheet3Data'
-	elsif ( @cols = grep $_->name =~ /committee.*Id/, @{$self->columns} ) {
+	elsif ( @cols = grep $_->name =~ /committee.*id/i, @{$self->columns} ) {
 		$a = "\tPRIMARY KEY (" . $cols[0]->name . ")";
 	}
 	
@@ -183,7 +185,10 @@ sub _primary_key {
 		$a = "\tPRIMARY KEY ( " . $self->columns->[9]->name . " )";
 	}
 
-	elsif ( $self->col_by_name('reportInfoIdent') ) {
+	elsif (
+		$self->col_by_name('reportInfoIdent')
+		and ( $self->name =~ /l_/ || $self->name eq 'c_coversheet1data' )
+	) {
 		$a = "\tPRIMARY KEY (reportInfoIdent)";
 	}
 

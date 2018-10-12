@@ -121,8 +121,8 @@ WHERE filer.filernamelast = 'Bush'
 -- 	USING (filerident, filertypecd)
 -- JOIN tec.c_assetdata AS ad
 -- 	USING (reportinfoident)
--- WHERE filer.filernamelast = 'McClure'
--- 	AND filer.filernamefirst = 'Jesse F.';
+-- WHERE filer.filernamelast = 'Bush'
+-- 	AND filer.filernamefirst = 'George P.';
 
 -- There is also a specific purpose committee table but it's mostly empty
--- SELECT * FROM tec.c_spacdata WHERE candidatefilername like '%McClure%'
+-- SELECT * FROM tec.c_spacdata WHERE candidatefilername like '%Bush%'

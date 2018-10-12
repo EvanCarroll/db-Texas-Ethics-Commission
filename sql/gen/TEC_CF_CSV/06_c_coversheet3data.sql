@@ -14,7 +14,7 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_CoverSheet3Data
+\echo LOADING c_coversheet3data
 
 
 CREATE TABLE tec.c_coversheet3data (
@@ -79,11 +79,12 @@ COMMENT ON COLUMN tec.c_coversheet3data.activityseekofficecountydescr IS $$Activ
 CREATE INDEX ON tec.c_coversheet3data (filerIdent, filerTypeCd);
 
 ALTER TABLE tec.c_coversheet3data
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_coversheet1data NOT VALID,
 	ADD FOREIGN KEY (activityHoldOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (activityHoldOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (activitySeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (activitySeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
 
-CREATE INDEX ON tec.c_coversheet3data (reportInfoIdent);
+CREATE INDEX ON tec.c_coversheet3data (reportinfoident);
 

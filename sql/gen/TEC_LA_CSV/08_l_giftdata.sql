@@ -14,7 +14,7 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING l_GiftData
+\echo LOADING l_giftdata
 
 
 CREATE TABLE tec.l_giftdata (
@@ -85,5 +85,5 @@ ALTER TABLE tec.l_giftdata
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
 
-CREATE INDEX ON tec.l_giftdata (reportInfoIdent);
+CREATE INDEX ON tec.l_giftdata (reportinfoident);
 

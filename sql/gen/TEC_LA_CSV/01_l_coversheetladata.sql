@@ -14,7 +14,7 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING l_CoverSheetLaData
+\echo LOADING l_coversheetladata
 
 
 CREATE TABLE tec.l_coversheetladata (
@@ -118,8 +118,7 @@ COMMENT ON COLUMN tec.l_coversheetladata.docketsmemo IS $$Dockets memo$$;
 
 ALTER TABLE tec.l_coversheetladata
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
-	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
 
-CREATE INDEX ON tec.l_coversheetladata (reportInfoIdent);
+CREATE INDEX ON tec.l_coversheetladata (reportinfoident);
 

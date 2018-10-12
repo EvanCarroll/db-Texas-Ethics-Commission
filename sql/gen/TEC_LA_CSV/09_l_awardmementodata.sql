@@ -14,7 +14,7 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING l_AwardMementoData
+\echo LOADING l_awardmementodata
 
 
 CREATE TABLE tec.l_awardmementodata (
@@ -85,5 +85,5 @@ ALTER TABLE tec.l_awardmementodata
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
 
-CREATE INDEX ON tec.l_awardmementodata (reportInfoIdent);
+CREATE INDEX ON tec.l_awardmementodata (reportinfoident);
 

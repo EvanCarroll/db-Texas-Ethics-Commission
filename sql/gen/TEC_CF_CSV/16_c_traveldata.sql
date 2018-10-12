@@ -14,7 +14,7 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_TravelData
+\echo LOADING c_traveldata
 
 
 CREATE TABLE tec.c_traveldata (
@@ -85,7 +85,8 @@ COMMENT ON COLUMN tec.c_traveldata.travellernameshort IS $$For INDIVIDUAL, the t
 CREATE INDEX ON tec.c_traveldata (filerIdent, filerTypeCd);
 
 ALTER TABLE tec.c_traveldata
-	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_coversheet1data NOT VALID,
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
 
-CREATE INDEX ON tec.c_traveldata (reportInfoIdent);
+CREATE INDEX ON tec.c_traveldata (reportinfoident);
 

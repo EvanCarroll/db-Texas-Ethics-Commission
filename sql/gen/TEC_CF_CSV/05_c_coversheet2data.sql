@@ -14,7 +14,7 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_CoverSheet2Data
+\echo LOADING c_coversheet2data
 
 
 CREATE TABLE tec.c_coversheet2data (
@@ -107,9 +107,10 @@ COMMENT ON COLUMN tec.c_coversheet2data.treasstreetregion IS $$Treasurer street 
 CREATE INDEX ON tec.c_coversheet2data (filerIdent, filerTypeCd);
 
 ALTER TABLE tec.c_coversheet2data
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_coversheet1data NOT VALID,
 	ADD FOREIGN KEY (notifierStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (treasStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
 
-CREATE INDEX ON tec.c_coversheet2data (reportInfoIdent);
+CREATE INDEX ON tec.c_coversheet2data (reportinfoident);
 

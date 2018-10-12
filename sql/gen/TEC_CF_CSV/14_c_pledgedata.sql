@@ -14,7 +14,7 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_PledgeData
+\echo LOADING c_pledgedata
 
 
 CREATE TABLE tec.c_pledgedata (
@@ -103,8 +103,9 @@ COMMENT ON COLUMN tec.c_pledgedata.pledgerparent2lawfirmname IS $$Pledger parent
 CREATE INDEX ON tec.c_pledgedata (filerIdent, filerTypeCd);
 
 ALTER TABLE tec.c_pledgedata
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_coversheet1data NOT VALID,
 	ADD FOREIGN KEY (pledgerStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
 
-CREATE INDEX ON tec.c_pledgedata (reportInfoIdent);
+CREATE INDEX ON tec.c_pledgedata (reportinfoident);
 

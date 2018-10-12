@@ -14,7 +14,7 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING l_IndividualReportingData
+\echo LOADING l_individualreportingdata
 
 
 CREATE TABLE tec.l_individualreportingdata (
@@ -82,5 +82,5 @@ ALTER TABLE tec.l_individualreportingdata
 	ADD FOREIGN KEY (onbehalfMailingCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
 
-CREATE INDEX ON tec.l_individualreportingdata (reportInfoIdent);
+CREATE INDEX ON tec.l_individualreportingdata (reportinfoident);
 

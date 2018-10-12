@@ -14,7 +14,7 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_ContributionData
+\echo LOADING c_contributiondata
 
 
 CREATE TABLE tec.c_contributiondata (
@@ -173,8 +173,9 @@ COMMENT ON COLUMN tec.c_contributiondata.contributorparent2lawfirmname IS $$Cont
 CREATE INDEX ON tec.c_contributiondata (filerIdent, filerTypeCd);
 
 ALTER TABLE tec.c_contributiondata
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_coversheet1data NOT VALID,
 	ADD FOREIGN KEY (contributorStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
 
-CREATE INDEX ON tec.c_contributiondata (reportInfoIdent);
+CREATE INDEX ON tec.c_contributiondata (reportinfoident);
 

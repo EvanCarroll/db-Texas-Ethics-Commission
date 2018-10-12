@@ -102,8 +102,14 @@ sub fkey_constraint {
 	if ( $self->name =~ /expendCatCd$/ ) {
 		return sprintf( $fmt, 'c_expendcategory' );
 	}
-	elsif ( $self->table->name =~ /^l_/ and $self->name =~ /reportInfoIdent$/ ) {
-		return sprintf( $fmt, 'l_coversheetladata' );
+	elsif ( $self->name =~ /reportInfoIdent$/ ) {
+		if ( $self->table->name =~ /^l_/ and $self->table->name ne 'l_coversheetladata' ) {
+			return sprintf( $fmt, 'l_coversheetladata' );
+		}
+		elsif ( $self->table->name =~ /^c_/ and $self->table->name ne 'c_coversheet1data' ) {
+			return sprintf( $fmt, 'c_coversheet1data' );
+		}
+
 	}
 	
 	elsif ( $self->name =~ /CountyCd\d*$/ ) {

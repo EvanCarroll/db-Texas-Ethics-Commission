@@ -14,7 +14,7 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_FilerData
+\echo LOADING c_filerdata
 
 
 CREATE TABLE tec.c_filerdata (

@@ -33,34 +33,34 @@ COMMENT ON SCHEMA tec IS $$Texas Ethics Comission dataset$$;
 \i sql/form1295.sql
 
 \echo LOADING CAMPAIGN FINANCE REPORTS [TEC_CF_CSV.zip]
-\i sql/gen/TEC_CF_CSV/10_c_ExpendCategory.sql
-\i sql/gen/TEC_CF_CSV/11_c_FilerData.sql
-\i sql/gen/TEC_CF_CSV/12_c_FinalData.sql
-\i sql/gen/TEC_CF_CSV/13_c_LoanData.sql
-\i sql/gen/TEC_CF_CSV/14_c_PledgeData.sql
-\i sql/gen/TEC_CF_CSV/15_c_SpacData.sql
-\i sql/gen/TEC_CF_CSV/16_c_TravelData.sql
-\i sql/gen/TEC_CF_CSV/01_c_AssetData.sql
-\i sql/gen/TEC_CF_CSV/02_c_CandidateData.sql
-\i sql/gen/TEC_CF_CSV/03_c_ContributionData.sql
-\i sql/gen/TEC_CF_CSV/04_c_CoverSheet1Data.sql
-\i sql/gen/TEC_CF_CSV/05_c_CoverSheet2Data.sql
-\i sql/gen/TEC_CF_CSV/06_c_CoverSheet3Data.sql
-\i sql/gen/TEC_CF_CSV/07_c_CreditData.sql
-\i sql/gen/TEC_CF_CSV/08_c_DebtData.sql
-\i sql/gen/TEC_CF_CSV/09_c_ExpendData.sql
+\i sql/gen/TEC_CF_CSV/11_c_filerdata.sql
+\i sql/gen/TEC_CF_CSV/04_c_coversheet1data.sql
+\i sql/gen/TEC_CF_CSV/10_c_expendcategory.sql
+\i sql/gen/TEC_CF_CSV/12_c_finaldata.sql
+\i sql/gen/TEC_CF_CSV/13_c_loandata.sql
+\i sql/gen/TEC_CF_CSV/14_c_pledgedata.sql
+\i sql/gen/TEC_CF_CSV/15_c_spacdata.sql
+\i sql/gen/TEC_CF_CSV/16_c_traveldata.sql
+\i sql/gen/TEC_CF_CSV/01_c_assetdata.sql
+\i sql/gen/TEC_CF_CSV/02_c_candidatedata.sql
+\i sql/gen/TEC_CF_CSV/03_c_contributiondata.sql
+\i sql/gen/TEC_CF_CSV/05_c_coversheet2data.sql
+\i sql/gen/TEC_CF_CSV/06_c_coversheet3data.sql
+\i sql/gen/TEC_CF_CSV/07_c_creditdata.sql
+\i sql/gen/TEC_CF_CSV/08_c_debtdata.sql
+\i sql/gen/TEC_CF_CSV/09_c_expenddata.sql
 
 \echo LOADING LOBY REPORTS [TEC_LA_CSV.zip]
-\i sql/gen/TEC_LA_CSV/01_l_CoverSheetLaData.sql
-\i sql/gen/TEC_LA_CSV/02_l_IndividualReportingData.sql
-\i sql/gen/TEC_LA_CSV/03_l_SubjectMatterData.sql
-\i sql/gen/TEC_LA_CSV/04_l_DocketData.sql
-\i sql/gen/TEC_LA_CSV/05_l_TransportationData.sql
-\i sql/gen/TEC_LA_CSV/06_l_FoodBeverageData.sql
-\i sql/gen/TEC_LA_CSV/07_l_EntertainmentData.sql
-\i sql/gen/TEC_LA_CSV/08_l_GiftData.sql
-\i sql/gen/TEC_LA_CSV/09_l_AwardMementoData.sql
-\i sql/gen/TEC_LA_CSV/10_l_EventData.sql
+\i sql/gen/TEC_LA_CSV/01_l_coversheetladata.sql
+\i sql/gen/TEC_LA_CSV/02_l_individualreportingdata.sql
+\i sql/gen/TEC_LA_CSV/03_l_subjectmatterdata.sql
+\i sql/gen/TEC_LA_CSV/04_l_docketdata.sql
+\i sql/gen/TEC_LA_CSV/05_l_transportationdata.sql
+\i sql/gen/TEC_LA_CSV/06_l_foodbeveragedata.sql
+\i sql/gen/TEC_LA_CSV/07_l_entertainmentdata.sql
+\i sql/gen/TEC_LA_CSV/08_l_giftdata.sql
+\i sql/gen/TEC_LA_CSV/09_l_awardmementodata.sql
+\i sql/gen/TEC_LA_CSV/10_l_eventdata.sql
 
 -- Needs both SJC and SCJ
 INSERT INTO tec.codes_office (office_id)

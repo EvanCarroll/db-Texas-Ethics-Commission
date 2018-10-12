@@ -14,7 +14,7 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_AssetData
+\echo LOADING c_assetdata
 
 
 CREATE TABLE tec.c_assetdata (
@@ -49,7 +49,8 @@ COMMENT ON COLUMN tec.c_assetdata.assetdescr IS $$Description of asset$$;
 CREATE INDEX ON tec.c_assetdata (filerIdent, filerTypeCd);
 
 ALTER TABLE tec.c_assetdata
-	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_coversheet1data NOT VALID,
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
 
-CREATE INDEX ON tec.c_assetdata (reportInfoIdent);
+CREATE INDEX ON tec.c_assetdata (reportinfoident);
 

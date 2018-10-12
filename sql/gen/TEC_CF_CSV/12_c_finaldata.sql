@@ -14,7 +14,7 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_FinalData
+\echo LOADING c_finaldata
 
 
 CREATE TABLE tec.c_finaldata (
@@ -28,8 +28,7 @@ CREATE TABLE tec.c_finaldata (
 	filerName                               text,
 	finalUnexpendContribFlag                bool,
 	finalRetainedAssetsFlag                 bool,
-	finalOfficeholderAckFlag                bool,
-	PRIMARY KEY (reportInfoIdent)
+	finalOfficeholderAckFlag                bool
 );
 COMMENT ON TABLE tec.c_finaldata IS $$Final reports. File: final.csv$$;
 COMMENT ON COLUMN tec.c_finaldata.recordtype IS $$Record type code - always FINL$$;
@@ -49,7 +48,8 @@ COMMENT ON COLUMN tec.c_finaldata.finalofficeholderackflag IS $$Office holder ac
 CREATE INDEX ON tec.c_finaldata (filerIdent, filerTypeCd);
 
 ALTER TABLE tec.c_finaldata
-	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_coversheet1data NOT VALID,
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
 
-CREATE INDEX ON tec.c_finaldata (reportInfoIdent);
+CREATE INDEX ON tec.c_finaldata (reportinfoident);
 
