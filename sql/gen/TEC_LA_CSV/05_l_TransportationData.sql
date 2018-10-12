@@ -17,7 +17,6 @@
 \echo LOADING l_TransportationData
 
 
-
 CREATE TABLE tec.l_transportationdata (
 	recordType                              text,
 	formTypeCd                              text,
@@ -62,7 +61,6 @@ CREATE TABLE tec.l_transportationdata (
 	travelPurpose                           text,
 	PRIMARY KEY (lobactivityTravelId)
 );
-
 COMMENT ON TABLE tec.l_transportationdata IS $$Form LA Schedule B - Transportation and Lodging. File: LaTran.csv$$;
 COMMENT ON COLUMN tec.l_transportationdata.recordtype IS $$Record type code - always TRAN$$;
 COMMENT ON COLUMN tec.l_transportationdata.formtypecd IS $$TEC form used$$;
@@ -107,7 +105,11 @@ COMMENT ON COLUMN tec.l_transportationdata.arrivaldt IS $$Arrival date$$;
 COMMENT ON COLUMN tec.l_transportationdata.travelpurpose IS $$Purpose of travel$$;
 \COPY tec.l_transportationdata FROM 'data/TEC_LA_CSV/LaTran.csv' WITH ( FORMAT CSV , HEADER true );
 
+
 ALTER TABLE tec.l_transportationdata
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
+
+CREATE INDEX ON tec.l_transportationdata (reportInfoIdent);
+

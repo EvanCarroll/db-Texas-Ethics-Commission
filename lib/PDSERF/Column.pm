@@ -74,7 +74,7 @@ sub pg_type {
 sub pg_comment {
 	my $self = shift;
 	sprintf(
-		"\nCOMMENT ON COLUMN %s IS \$\$%s\$\$;",
+		"COMMENT ON COLUMN %s IS \$\$%s\$\$;\n",
 		$self->fully_qualified_identifier,
 		$self->description
 	);

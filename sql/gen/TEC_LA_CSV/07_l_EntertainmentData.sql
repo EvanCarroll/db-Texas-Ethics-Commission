@@ -17,7 +17,6 @@
 \echo LOADING l_EntertainmentData
 
 
-
 CREATE TABLE tec.l_entertainmentdata (
 	recordType                              text,
 	formTypeCd                              text,
@@ -56,7 +55,6 @@ CREATE TABLE tec.l_entertainmentdata (
 	entertainmentStreetRegion               text,
 	PRIMARY KEY (lobbyActivityId)
 );
-
 COMMENT ON TABLE tec.l_entertainmentdata IS $$Form LA Schedule D - Entertainment. File: LaEnt.csv$$;
 COMMENT ON COLUMN tec.l_entertainmentdata.recordtype IS $$Record type code - always ENT$$;
 COMMENT ON COLUMN tec.l_entertainmentdata.formtypecd IS $$TEC form used$$;
@@ -95,7 +93,11 @@ COMMENT ON COLUMN tec.l_entertainmentdata.entertainmentstreetpostalcode IS $$Ent
 COMMENT ON COLUMN tec.l_entertainmentdata.entertainmentstreetregion IS $$Entertainment street address - region for country other than USA$$;
 \COPY tec.l_entertainmentdata FROM 'data/TEC_LA_CSV/LaEnt.csv' WITH ( FORMAT CSV , HEADER true );
 
+
 ALTER TABLE tec.l_entertainmentdata
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
+
+CREATE INDEX ON tec.l_entertainmentdata (reportInfoIdent);
+

@@ -17,7 +17,6 @@
 \echo LOADING l_IndividualReportingData
 
 
-
 CREATE TABLE tec.l_individualreportingdata (
 	recordType                              text,
 	formTypeCd                              text,
@@ -47,7 +46,6 @@ CREATE TABLE tec.l_individualreportingdata (
 	onbehalfPrimaryPhoneExt                 text,
 	PRIMARY KEY (lobbyExpendOnbehalfId)
 );
-
 COMMENT ON TABLE tec.l_individualreportingdata IS $$Form LA Cover Sheet Box 9 - Indivduals Reporting For Entity. NOTE: Form LA Instructions for this box state Check 'YES' if you are reporting expenditures at the request of an entity that has chosen not to register pursuant to Ethics Commission rule 34.45. If you check 'YES' provide the name, address and phone number of the entity. Checking  'YES' indicates that you are reporting not only expenditures attributable to you but also expenditures attributable to the entity listed. File: LaI4E.csv$$;
 COMMENT ON COLUMN tec.l_individualreportingdata.recordtype IS $$Record type code - always I4E$$;
 COMMENT ON COLUMN tec.l_individualreportingdata.formtypecd IS $$TEC form used$$;
@@ -77,8 +75,12 @@ COMMENT ON COLUMN tec.l_individualreportingdata.onbehalfprimaryphonenumber IS $$
 COMMENT ON COLUMN tec.l_individualreportingdata.onbehalfprimaryphoneext IS $$On-behalf of primary phone extension$$;
 \COPY tec.l_individualreportingdata FROM 'data/TEC_LA_CSV/LaI4E.csv' WITH ( FORMAT CSV , HEADER true );
 
+
 ALTER TABLE tec.l_individualreportingdata
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
 	ADD FOREIGN KEY (onbehalfMailingCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
+
+CREATE INDEX ON tec.l_individualreportingdata (reportInfoIdent);
+

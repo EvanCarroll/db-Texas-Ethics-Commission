@@ -26,7 +26,7 @@ use PDSERF::Client ();
 use Moose;
 use Moose::Util::TypeConstraints;
 
-use constant PSQL_COPY_LOAD_FORMAT => "\n\\COPY %s FROM '%s' WITH ( FORMAT CSV , HEADER true );\n";
+use constant PSQL_COPY_LOAD_FORMAT => "\\COPY %s FROM '%s' WITH ( FORMAT CSV , HEADER true );\n";
 
 subtype 'ArrayOfColumns', as 'ArrayRef[PDSERF::Column]';
 
@@ -58,39 +58,54 @@ has 'post_statements' => (
 		
 		my @fkey_constraints = grep defined
 			, (map $_->fkey_constraint , @{$self->columns});
+		my @post;
 	
-		if ( $self->col_by_name('filerTypeCd') ) {
+		if ( $self->col_by_name('filerIdent') ) {
 
-			if (
-				$self->col_by_name('filerIdent')
-				&& $self->name =~ /^c_/
-				&& $self->name ne 'c_FilerData'
-			) {
-				push @fkey_constraints, sprintf(
-					'ADD FOREIGN KEY (%s) REFERENCES %s NOT VALID',
-					"filerIdent, filerTypeCd",
-					sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, "c_FilerData" )
-				);
+			if ( $self->col_by_name('filerTypeCd') ) {
+
+				if ( $self->name =~ /^c_/ && $self->name ne 'c_FilerData') {
+					push @fkey_constraints, sprintf(
+						'ADD FOREIGN KEY (%s) REFERENCES %s NOT VALID',
+						"filerIdent, filerTypeCd",
+						sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, "c_FilerData" )
+					);
+					push @post, sprintf(
+						"CREATE INDEX ON %s (filerIdent, filerTypeCd);",
+						$self->fully_qualified_identifier
+					)
+				}
+				else {
+					push @fkey_constraints, sprintf(
+						'ADD FOREIGN KEY (%s) REFERENCES %s NOT VALID',
+						"filerTypeCd",
+						sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, "codes_filertype" )
+					);
+				}
+		
+
 			}
 			else {
-				warn $self->name;
-				push @fkey_constraints, sprintf(
-					'ADD FOREIGN KEY (%s) REFERENCES %s NOT VALID',
-					"filerTypeCd",
-					sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, "codes_filertype" )
-				);
+				die "We should never have a filerident, without a typecd\n"
 			}
 
 		}
 
-		my @post;
 		if ( @fkey_constraints ) {
 			push @post, sprintf(
-				"\nALTER TABLE %s\n\t%s;",
+				"ALTER TABLE %s\n\t%s;",
 				$self->fully_qualified_identifier,
 				join ",\n\t", @fkey_constraints
 			);
 		}
+
+		if ( $self->col_by_name('reportInfoIdent') ) {
+			push @post, sprintf(
+				"CREATE INDEX ON %s (reportInfoIdent);",
+				$self->fully_qualified_identifier
+			)
+		}
+
 		return \@post;
 
 	},
@@ -113,7 +128,7 @@ sub pg_ddl {
 	s/\s+$// for @body;
 	
 	my $ddl = sprintf (
-		"\n\n\nCREATE TABLE %s (\n%s\n);\n",
+		"\n\nCREATE TABLE %s (\n%s\n);\n",
 		$self->fully_qualified_identifier,
 		join(",\n", @body)
 	);
@@ -183,7 +198,7 @@ sub fully_qualified_identifier {
 sub pg_comment {
 	my $self = shift;
 	sprintf(
-		"\nCOMMENT ON TABLE %s IS \$\$%s\$\$;",
+		"COMMENT ON TABLE %s IS \$\$%s\$\$;\n",
 		$self->fully_qualified_identifier,
 		$self->description
 	);

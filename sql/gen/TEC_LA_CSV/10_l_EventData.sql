@@ -17,7 +17,6 @@
 \echo LOADING l_EventData
 
 
-
 CREATE TABLE tec.l_eventdata (
 	recordType                              text,
 	formTypeCd                              text,
@@ -53,7 +52,6 @@ CREATE TABLE tec.l_eventdata (
 	beneficiaryNameShort                    text,
 	PRIMARY KEY (lobbyActivityId)
 );
-
 COMMENT ON TABLE tec.l_eventdata IS $$Form LA Schedule G - Pol. Fundraisers and Charity Events. File: LaEvnt.csv$$;
 COMMENT ON COLUMN tec.l_eventdata.recordtype IS $$Record type code - always EVNT$$;
 COMMENT ON COLUMN tec.l_eventdata.formtypecd IS $$TEC form used$$;
@@ -89,7 +87,11 @@ COMMENT ON COLUMN tec.l_eventdata.beneficiarynameprefixcd IS $$For INDIVIDUAL, t
 COMMENT ON COLUMN tec.l_eventdata.beneficiarynameshort IS $$For INDIVIDUAL, the beneficiary short name (nickname)$$;
 \COPY tec.l_eventdata FROM 'data/TEC_LA_CSV/LaEvnt.csv' WITH ( FORMAT CSV , HEADER true );
 
+
 ALTER TABLE tec.l_eventdata
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
+
+CREATE INDEX ON tec.l_eventdata (reportInfoIdent);
+

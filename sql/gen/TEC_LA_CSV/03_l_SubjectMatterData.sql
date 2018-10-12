@@ -17,7 +17,6 @@
 \echo LOADING l_SubjectMatterData
 
 
-
 CREATE TABLE tec.l_subjectmatterdata (
 	recordType                              text,
 	formTypeCd                              text,
@@ -39,7 +38,6 @@ CREATE TABLE tec.l_subjectmatterdata (
 	subjectMatterDescr                      text,
 	PRIMARY KEY (lobbySubjectmatterId)
 );
-
 COMMENT ON TABLE tec.l_subjectmatterdata IS $$Form LA Schedule A - Subject Matter Categories. NOTE: Form LA Schedule A Box 4 states If your lobby communications pertained to subject matters not marked on your original lobby registration or on a previous amendment, check the appropriate boxes. Unlike other tables in this document, subject matter is based on the Year Applicable rather than due date. This information was not entered from paper reports prior to the year 2000. File: LaSub.csv$$;
 COMMENT ON COLUMN tec.l_subjectmatterdata.recordtype IS $$Record type code - always SUB$$;
 COMMENT ON COLUMN tec.l_subjectmatterdata.formtypecd IS $$TEC form used$$;
@@ -61,7 +59,11 @@ COMMENT ON COLUMN tec.l_subjectmatterdata.subjectmattercodevalue IS $$Code table
 COMMENT ON COLUMN tec.l_subjectmatterdata.subjectmatterdescr IS $$Description of other subject matter$$;
 \COPY tec.l_subjectmatterdata FROM 'data/TEC_LA_CSV/LaSub.csv' WITH ( FORMAT CSV , HEADER true );
 
+
 ALTER TABLE tec.l_subjectmatterdata
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
+
+CREATE INDEX ON tec.l_subjectmatterdata (reportInfoIdent);
+

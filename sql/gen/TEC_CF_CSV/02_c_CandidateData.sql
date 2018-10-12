@@ -17,7 +17,6 @@
 \echo LOADING c_CandidateData
 
 
-
 CREATE TABLE tec.c_candidatedata (
 	recordType                              text,
 	formTypeCd                              text,
@@ -61,7 +60,6 @@ CREATE TABLE tec.c_candidatedata (
 	candidateSeekOfficeCountyDescr          text,
 	PRIMARY KEY (expendPersentId)
 );
-
 COMMENT ON TABLE tec.c_candidatedata IS $$Candidate benefiting from a direct campaign expenditure. A direct campaign expenditure to benefit a candidate is not a political contribution to that candidate. Instead, a direct campaign expenditure is a campaign expenditure made on someone else's behalf and without the prior consent or approval of that person. A given EXPN record can have zero or more related CAND records. Any CAND records are written to the file immediately after their related EXPN record. File: cand.csv$$;
 COMMENT ON COLUMN tec.c_candidatedata.recordtype IS $$Record type code - always CAND$$;
 COMMENT ON COLUMN tec.c_candidatedata.formtypecd IS $$TEC form used$$;
@@ -105,6 +103,9 @@ COMMENT ON COLUMN tec.c_candidatedata.candidateseekofficecountycd IS $$Candidate
 COMMENT ON COLUMN tec.c_candidatedata.candidateseekofficecountydescr IS $$Candidate office sought county description$$;
 \COPY tec.c_candidatedata FROM 'data/TEC_CF_CSV/cand.csv' WITH ( FORMAT CSV , HEADER true );
 
+
+CREATE INDEX ON tec.c_candidatedata (filerIdent, filerTypeCd);
+
 ALTER TABLE tec.c_candidatedata
 	ADD FOREIGN KEY (expendCatCd) REFERENCES tec.c_expendcategory NOT VALID,
 	ADD FOREIGN KEY (candidateHoldOfficeCd) REFERENCES tec.codes_office NOT VALID,
@@ -112,3 +113,6 @@ ALTER TABLE tec.c_candidatedata
 	ADD FOREIGN KEY (candidateSeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (candidateSeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
+
+CREATE INDEX ON tec.c_candidatedata (reportInfoIdent);
+

@@ -17,7 +17,6 @@
 \echo LOADING c_CreditData
 
 
-
 CREATE TABLE tec.c_creditdata (
 	recordType                              text,
 	formTypeCd                              text,
@@ -49,7 +48,6 @@ CREATE TABLE tec.c_creditdata (
 	payorStreetRegion                       text,
 	PRIMARY KEY ( creditInfoId )
 );
-
 COMMENT ON TABLE tec.c_creditdata IS $$Credits - Schedule K - Interest, credits, gains, refunds, and contributions returned to filer. File: credits.csv$$;
 COMMENT ON COLUMN tec.c_creditdata.recordtype IS $$Record type code - always CRED$$;
 COMMENT ON COLUMN tec.c_creditdata.formtypecd IS $$TEC form used$$;
@@ -81,6 +79,12 @@ COMMENT ON COLUMN tec.c_creditdata.payorstreetpostalcode IS $$Payor street addre
 COMMENT ON COLUMN tec.c_creditdata.payorstreetregion IS $$Payor street address - region for country other than USA$$;
 \COPY tec.c_creditdata FROM 'data/TEC_CF_CSV/credits.csv' WITH ( FORMAT CSV , HEADER true );
 
+
+CREATE INDEX ON tec.c_creditdata (filerIdent, filerTypeCd);
+
 ALTER TABLE tec.c_creditdata
 	ADD FOREIGN KEY (payorStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
+
+CREATE INDEX ON tec.c_creditdata (reportInfoIdent);
+

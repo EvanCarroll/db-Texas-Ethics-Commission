@@ -17,7 +17,6 @@
 \echo LOADING c_CoverSheet3Data
 
 
-
 CREATE TABLE tec.c_coversheet3data (
 	recordType                              text,
 	formTypeCd                              text,
@@ -47,7 +46,6 @@ CREATE TABLE tec.c_coversheet3data (
 	activitySeekOfficeCountyDescr           text,
 	PRIMARY KEY (committeeActivityId)
 );
-
 COMMENT ON TABLE tec.c_coversheet3data IS $$Cover Sheet 3 - Committee purpose. The committee purpose is reported at the top of Cover Sheet Page 2 FORMNAME = CEC, GPAC, JSPAC, MCEC, MPAC, SCSPAC, SPAC, SPACSS. File: purpose.csv$$;
 COMMENT ON COLUMN tec.c_coversheet3data.recordtype IS $$Record type code - always CVR3$$;
 COMMENT ON COLUMN tec.c_coversheet3data.formtypecd IS $$TEC form used$$;
@@ -77,9 +75,15 @@ COMMENT ON COLUMN tec.c_coversheet3data.activityseekofficecountycd IS $$Activity
 COMMENT ON COLUMN tec.c_coversheet3data.activityseekofficecountydescr IS $$Activity office sought county description$$;
 \COPY tec.c_coversheet3data FROM 'data/TEC_CF_CSV/purpose.csv' WITH ( FORMAT CSV , HEADER true );
 
+
+CREATE INDEX ON tec.c_coversheet3data (filerIdent, filerTypeCd);
+
 ALTER TABLE tec.c_coversheet3data
 	ADD FOREIGN KEY (activityHoldOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (activityHoldOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (activitySeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (activitySeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
+
+CREATE INDEX ON tec.c_coversheet3data (reportInfoIdent);
+

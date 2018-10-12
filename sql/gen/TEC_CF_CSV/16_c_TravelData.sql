@@ -17,7 +17,6 @@
 \echo LOADING c_TravelData
 
 
-
 CREATE TABLE tec.c_traveldata (
 	recordType                              text,
 	formTypeCd                              text,
@@ -50,7 +49,6 @@ CREATE TABLE tec.c_traveldata (
 	travellerNameShort                      text,
 	PRIMARY KEY ( travelInfoId )
 );
-
 COMMENT ON TABLE tec.c_traveldata IS $$Travel outside the State of Texas - Schedule T - Travel records are linked to records in contribs, pledges and expenditure files through the fields parentType and parentId. They store information about in-kind contributions accepted for travel outside the State of Texas and for expenditures made for travel outside the State of Texas. File: travel.csv$$;
 COMMENT ON COLUMN tec.c_traveldata.recordtype IS $$Record type code - always TRVL$$;
 COMMENT ON COLUMN tec.c_traveldata.formtypecd IS $$TEC form used$$;
@@ -83,5 +81,11 @@ COMMENT ON COLUMN tec.c_traveldata.travellernameprefixcd IS $$For INDIVIDUAL, th
 COMMENT ON COLUMN tec.c_traveldata.travellernameshort IS $$For INDIVIDUAL, the traveller short name (nickname)$$;
 \COPY tec.c_traveldata FROM 'data/TEC_CF_CSV/travel.csv' WITH ( FORMAT CSV , HEADER true );
 
+
+CREATE INDEX ON tec.c_traveldata (filerIdent, filerTypeCd);
+
 ALTER TABLE tec.c_traveldata
 	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
+
+CREATE INDEX ON tec.c_traveldata (reportInfoIdent);
+

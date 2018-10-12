@@ -17,7 +17,6 @@
 \echo LOADING c_FilerData
 
 
-
 CREATE TABLE tec.c_filerdata (
 	recordType                              text,
 	filerIdent                              int,
@@ -153,7 +152,6 @@ CREATE TABLE tec.c_filerdata (
 	chairPrimaryPhoneExt                    text,
 	PRIMARY KEY (filerIdent, filerTypeCd)
 );
-
 COMMENT ON TABLE tec.c_filerdata IS $$Filer index. The names, addresses and offices in this file are entered by TEC staff from various sources; e.g., amended campaign treasurer appointments, change-of-address notices, and ballot information from the Texas Secretary of State. File: filers.csv$$;
 COMMENT ON COLUMN tec.c_filerdata.recordtype IS $$Record type code - always FILER$$;
 COMMENT ON COLUMN tec.c_filerdata.filerident IS $$Filer account #$$;
@@ -289,6 +287,7 @@ COMMENT ON COLUMN tec.c_filerdata.chairprimaryphonenumber IS $$Chair primary pho
 COMMENT ON COLUMN tec.c_filerdata.chairprimaryphoneext IS $$Chair primary phone extension$$;
 \COPY tec.c_filerdata FROM 'data/TEC_CF_CSV/filers.csv' WITH ( FORMAT CSV , HEADER true );
 
+
 ALTER TABLE tec.c_filerdata
 	ADD FOREIGN KEY (ctaSeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (ctaSeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
@@ -304,3 +303,4 @@ ALTER TABLE tec.c_filerdata
 	ADD FOREIGN KEY (chairStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (chairMailingCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
+

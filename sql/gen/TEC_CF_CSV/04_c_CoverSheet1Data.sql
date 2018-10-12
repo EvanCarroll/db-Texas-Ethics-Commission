@@ -17,7 +17,6 @@
 \echo LOADING c_CoverSheet1Data
 
 
-
 CREATE TABLE tec.c_coversheet1data (
 	recordType                              text,
 	formTypeCd                              text,
@@ -149,7 +148,6 @@ CREATE TABLE tec.c_coversheet1data (
 	chairPrimaryPhoneExt                    text,
 	PRIMARY KEY (reportInfoIdent)
 );
-
 COMMENT ON TABLE tec.c_coversheet1data IS $$Cover Sheet 1 - Cover sheet information and totals. cover_ss and cover_t contain cover sheet information for special session reports and special pre-election (formerly Telegram) Reports. Cover sheets for these reports do not contain totals. Files: cover.csv, cover_ss.csv, cover_t.csv$$;
 COMMENT ON COLUMN tec.c_coversheet1data.recordtype IS $$Record type code - always CVR1$$;
 COMMENT ON COLUMN tec.c_coversheet1data.formtypecd IS $$TEC form used$$;
@@ -281,11 +279,12 @@ COMMENT ON COLUMN tec.c_coversheet1data.chairprimaryphonenumber IS $$Chair prima
 COMMENT ON COLUMN tec.c_coversheet1data.chairprimaryphoneext IS $$Chair primary phone extension$$;
 \COPY tec.c_coversheet1data FROM 'data/TEC_CF_CSV/cover.csv' WITH ( FORMAT CSV , HEADER true );
 
-
 \COPY tec.c_coversheet1data FROM 'data/TEC_CF_CSV/cover_ss.csv' WITH ( FORMAT CSV , HEADER true );
 
-
 \COPY tec.c_coversheet1data FROM 'data/TEC_CF_CSV/cover_t.csv' WITH ( FORMAT CSV , HEADER true );
+
+
+CREATE INDEX ON tec.c_coversheet1data (filerIdent, filerTypeCd);
 
 ALTER TABLE tec.c_coversheet1data
 	ADD FOREIGN KEY (reportTypeCd1) REFERENCES tec.codes_reports NOT VALID,
@@ -309,3 +308,6 @@ ALTER TABLE tec.c_coversheet1data
 	ADD FOREIGN KEY (chairStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (chairMailingCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
+
+CREATE INDEX ON tec.c_coversheet1data (reportInfoIdent);
+

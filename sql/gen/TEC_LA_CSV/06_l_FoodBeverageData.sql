@@ -17,7 +17,6 @@
 \echo LOADING l_FoodBeverageData
 
 
-
 CREATE TABLE tec.l_foodbeveragedata (
 	recordType                              text,
 	formTypeCd                              text,
@@ -54,7 +53,6 @@ CREATE TABLE tec.l_foodbeveragedata (
 	restaurantStreetRegion                  text,
 	PRIMARY KEY (lobbyActivityId)
 );
-
 COMMENT ON TABLE tec.l_foodbeveragedata IS $$Form LA Schedule C - Food and Beverages. File: LaFood.csv$$;
 COMMENT ON COLUMN tec.l_foodbeveragedata.recordtype IS $$Record type code - always FOOD$$;
 COMMENT ON COLUMN tec.l_foodbeveragedata.formtypecd IS $$TEC form used$$;
@@ -91,7 +89,11 @@ COMMENT ON COLUMN tec.l_foodbeveragedata.restaurantstreetpostalcode IS $$Restaur
 COMMENT ON COLUMN tec.l_foodbeveragedata.restaurantstreetregion IS $$Restaurant street address - region for country other than USA$$;
 \COPY tec.l_foodbeveragedata FROM 'data/TEC_LA_CSV/LaFood.csv' WITH ( FORMAT CSV , HEADER true );
 
+
 ALTER TABLE tec.l_foodbeveragedata
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
+
+CREATE INDEX ON tec.l_foodbeveragedata (reportInfoIdent);
+

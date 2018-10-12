@@ -17,7 +17,6 @@
 \echo LOADING l_DocketData
 
 
-
 CREATE TABLE tec.l_docketdata (
 	recordType                              text,
 	formTypeCd                              text,
@@ -38,7 +37,6 @@ CREATE TABLE tec.l_docketdata (
 	agencyName                              text,
 	PRIMARY KEY (lobbyDocketdesigId)
 );
-
 COMMENT ON TABLE tec.l_docketdata IS $$Form LA Schedule A - Docket Nos or Other Designation. NOTE: Form LA Instructions for this box state List the docket number and the name of the state agency at which any administrative matter is pending about which you, anyone you retain or employ to appear on your behalf, or anyone who appears on your behalf communicated with an officer of the executive or legislative branch of state government during the reporting period. File: LaDock.csv$$;
 COMMENT ON COLUMN tec.l_docketdata.recordtype IS $$Record type code - always DOCK$$;
 COMMENT ON COLUMN tec.l_docketdata.formtypecd IS $$TEC form used$$;
@@ -59,7 +57,11 @@ COMMENT ON COLUMN tec.l_docketdata.designationtext IS $$Docket designation text$
 COMMENT ON COLUMN tec.l_docketdata.agencyname IS $$Agency name$$;
 \COPY tec.l_docketdata FROM 'data/TEC_LA_CSV/LaDock.csv' WITH ( FORMAT CSV , HEADER true );
 
+
 ALTER TABLE tec.l_docketdata
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
+
+CREATE INDEX ON tec.l_docketdata (reportInfoIdent);
+

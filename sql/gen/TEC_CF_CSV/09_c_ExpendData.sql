@@ -17,7 +17,6 @@
 \echo LOADING c_ExpendData
 
 
-
 CREATE TABLE tec.c_expenddata (
 	recordType                              text,
 	formTypeCd                              text,
@@ -57,7 +56,6 @@ CREATE TABLE tec.c_expenddata (
 	payeeStreetRegion                       text,
 	PRIMARY KEY ( expendInfoId )
 );
-
 COMMENT ON TABLE tec.c_expenddata IS $$Expenditures - Schedules F/G/H/I - Expenditures from special pre-election (formerly Telegram) reports are stored in the file expn_t. They are kept separate from the expends file to avoid creating duplicates, because they are supposed to be re-reported on the next regular campaign finance report. Files: expend_##.csv, expn_t.csv$$;
 COMMENT ON COLUMN tec.c_expenddata.recordtype IS $$Record type code - always EXPN$$;
 COMMENT ON COLUMN tec.c_expenddata.formtypecd IS $$TEC form used$$;
@@ -97,31 +95,29 @@ COMMENT ON COLUMN tec.c_expenddata.payeestreetpostalcode IS $$Payee street addre
 COMMENT ON COLUMN tec.c_expenddata.payeestreetregion IS $$Payee street address - region for country other than USA$$;
 \COPY tec.c_expenddata FROM 'data/TEC_CF_CSV/expend_01.csv' WITH ( FORMAT CSV , HEADER true );
 
-
 \COPY tec.c_expenddata FROM 'data/TEC_CF_CSV/expend_02.csv' WITH ( FORMAT CSV , HEADER true );
-
 
 \COPY tec.c_expenddata FROM 'data/TEC_CF_CSV/expend_03.csv' WITH ( FORMAT CSV , HEADER true );
 
-
 \COPY tec.c_expenddata FROM 'data/TEC_CF_CSV/expend_04.csv' WITH ( FORMAT CSV , HEADER true );
-
 
 \COPY tec.c_expenddata FROM 'data/TEC_CF_CSV/expend_05.csv' WITH ( FORMAT CSV , HEADER true );
 
-
 \COPY tec.c_expenddata FROM 'data/TEC_CF_CSV/expend_06.csv' WITH ( FORMAT CSV , HEADER true );
-
 
 \COPY tec.c_expenddata FROM 'data/TEC_CF_CSV/expend_07.csv' WITH ( FORMAT CSV , HEADER true );
 
-
 \COPY tec.c_expenddata FROM 'data/TEC_CF_CSV/expend_08.csv' WITH ( FORMAT CSV , HEADER true );
 
-
 \COPY tec.c_expenddata FROM 'data/TEC_CF_CSV/expn_t.csv' WITH ( FORMAT CSV , HEADER true );
+
+
+CREATE INDEX ON tec.c_expenddata (filerIdent, filerTypeCd);
 
 ALTER TABLE tec.c_expenddata
 	ADD FOREIGN KEY (expendCatCd) REFERENCES tec.c_expendcategory NOT VALID,
 	ADD FOREIGN KEY (payeeStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
+
+CREATE INDEX ON tec.c_expenddata (reportInfoIdent);
+

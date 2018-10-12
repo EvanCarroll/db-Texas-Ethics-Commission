@@ -17,7 +17,6 @@
 \echo LOADING c_FinalData
 
 
-
 CREATE TABLE tec.c_finaldata (
 	recordType                              text,
 	formTypeCd                              text,
@@ -32,7 +31,6 @@ CREATE TABLE tec.c_finaldata (
 	finalOfficeholderAckFlag                bool,
 	PRIMARY KEY (reportInfoIdent)
 );
-
 COMMENT ON TABLE tec.c_finaldata IS $$Final reports. File: final.csv$$;
 COMMENT ON COLUMN tec.c_finaldata.recordtype IS $$Record type code - always FINL$$;
 COMMENT ON COLUMN tec.c_finaldata.formtypecd IS $$TEC form used$$;
@@ -47,5 +45,11 @@ COMMENT ON COLUMN tec.c_finaldata.finalretainedassetsflag IS $$Retained assets i
 COMMENT ON COLUMN tec.c_finaldata.finalofficeholderackflag IS $$Office holder ack indicator$$;
 \COPY tec.c_finaldata FROM 'data/TEC_CF_CSV/finals.csv' WITH ( FORMAT CSV , HEADER true );
 
+
+CREATE INDEX ON tec.c_finaldata (filerIdent, filerTypeCd);
+
 ALTER TABLE tec.c_finaldata
 	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
+
+CREATE INDEX ON tec.c_finaldata (reportInfoIdent);
+

@@ -17,7 +17,6 @@
 \echo LOADING c_PledgeData
 
 
-
 CREATE TABLE tec.c_pledgedata (
 	recordType                              text,
 	formTypeCd                              text,
@@ -57,7 +56,6 @@ CREATE TABLE tec.c_pledgedata (
 	pledgerParent2LawFirmName               text,
 	PRIMARY KEY ( pledgeInfoId )
 );
-
 COMMENT ON TABLE tec.c_pledgedata IS $$Pledges - Schedule B - Pledges from special session and special pre-election (formerly Telegram) reports are stored in the file pldg_ss and pldg_t. These records are kept separate from the pledges files to avoid creating duplicates, because they are supposed to be re-reported on the next regular campaign finance report. Files: pledges.csv, pldg_ss.csv, pldg_t.csv$$;
 COMMENT ON COLUMN tec.c_pledgedata.recordtype IS $$Record type code - always PLDG$$;
 COMMENT ON COLUMN tec.c_pledgedata.formtypecd IS $$TEC form used$$;
@@ -97,12 +95,16 @@ COMMENT ON COLUMN tec.c_pledgedata.pledgerparent1lawfirmname IS $$Pledger parent
 COMMENT ON COLUMN tec.c_pledgedata.pledgerparent2lawfirmname IS $$Pledger parent #2 law firm name$$;
 \COPY tec.c_pledgedata FROM 'data/TEC_CF_CSV/pledges.csv' WITH ( FORMAT CSV , HEADER true );
 
-
 \COPY tec.c_pledgedata FROM 'data/TEC_CF_CSV/pldg_ss.csv' WITH ( FORMAT CSV , HEADER true );
 
-
 \COPY tec.c_pledgedata FROM 'data/TEC_CF_CSV/pldg_t.csv' WITH ( FORMAT CSV , HEADER true );
+
+
+CREATE INDEX ON tec.c_pledgedata (filerIdent, filerTypeCd);
 
 ALTER TABLE tec.c_pledgedata
 	ADD FOREIGN KEY (pledgerStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
+
+CREATE INDEX ON tec.c_pledgedata (reportInfoIdent);
+

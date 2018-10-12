@@ -17,7 +17,6 @@
 \echo LOADING c_AssetData
 
 
-
 CREATE TABLE tec.c_assetdata (
 	recordType                              text,
 	formTypeCd                              text,
@@ -32,7 +31,6 @@ CREATE TABLE tec.c_assetdata (
 	assetDescr                              text,
 	PRIMARY KEY ( assetInfoId )
 );
-
 COMMENT ON TABLE tec.c_assetdata IS $$Assets - Schedule M - Assets valued at $500 or more for judicial filers only. File: assets.csv$$;
 COMMENT ON COLUMN tec.c_assetdata.recordtype IS $$Record type code - always ASSET$$;
 COMMENT ON COLUMN tec.c_assetdata.formtypecd IS $$TEC form used$$;
@@ -47,5 +45,11 @@ COMMENT ON COLUMN tec.c_assetdata.assetinfoid IS $$Asset unique identifier$$;
 COMMENT ON COLUMN tec.c_assetdata.assetdescr IS $$Description of asset$$;
 \COPY tec.c_assetdata FROM 'data/TEC_CF_CSV/assets.csv' WITH ( FORMAT CSV , HEADER true );
 
+
+CREATE INDEX ON tec.c_assetdata (filerIdent, filerTypeCd);
+
 ALTER TABLE tec.c_assetdata
 	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
+
+CREATE INDEX ON tec.c_assetdata (reportInfoIdent);
+

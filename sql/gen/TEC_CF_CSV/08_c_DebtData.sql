@@ -17,7 +17,6 @@
 \echo LOADING c_DebtData
 
 
-
 CREATE TABLE tec.c_debtdata (
 	recordType                              text,
 	formTypeCd                              text,
@@ -110,7 +109,6 @@ CREATE TABLE tec.c_debtdata (
 	guarantorStreetRegion5                  text,
 	PRIMARY KEY ( loanInfoId )
 );
-
 COMMENT ON TABLE tec.c_debtdata IS $$Debts - Schedule L - Outstanding judicial loans. File: debts.csv$$;
 COMMENT ON COLUMN tec.c_debtdata.recordtype IS $$Record type code - always DEBT$$;
 COMMENT ON COLUMN tec.c_debtdata.formtypecd IS $$TEC form used$$;
@@ -203,6 +201,9 @@ COMMENT ON COLUMN tec.c_debtdata.guarantorstreetpostalcode5 IS $$5: Guarantor st
 COMMENT ON COLUMN tec.c_debtdata.guarantorstreetregion5 IS $$5: Guarantor street address - region for country other than USA$$;
 \COPY tec.c_debtdata FROM 'data/TEC_CF_CSV/debts.csv' WITH ( FORMAT CSV , HEADER true );
 
+
+CREATE INDEX ON tec.c_debtdata (filerIdent, filerTypeCd);
+
 ALTER TABLE tec.c_debtdata
 	ADD FOREIGN KEY (lenderStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd1) REFERENCES tec.codes_counties NOT VALID,
@@ -211,3 +212,6 @@ ALTER TABLE tec.c_debtdata
 	ADD FOREIGN KEY (guarantorStreetCountyCd4) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd5) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
+
+CREATE INDEX ON tec.c_debtdata (reportInfoIdent);
+

@@ -17,7 +17,6 @@
 \echo LOADING l_CoverSheetLaData
 
 
-
 CREATE TABLE tec.l_coversheetladata (
 	recordType                              text,
 	formTypeCd                              text,
@@ -67,7 +66,6 @@ CREATE TABLE tec.l_coversheetladata (
 	docketsMemo                             text,
 	PRIMARY KEY (reportInfoIdent)
 );
-
 COMMENT ON TABLE tec.l_coversheetladata IS $$Form LA Cover Sheet information. NOTE: Records are included only if the due date assigned by TEC staff is after January 10, 2005. Most Lobby Activities reports due 01/10/2005 were filed on paper;  most reports due afterwards were filed electronically. TEC staff enters totals from the cover page of paper reports, but does not enter any information from the schedules. File: LaCvr.csv$$;
 COMMENT ON COLUMN tec.l_coversheetladata.recordtype IS $$Record type code - always CVLA$$;
 COMMENT ON COLUMN tec.l_coversheetladata.formtypecd IS $$TEC form used$$;
@@ -117,7 +115,11 @@ COMMENT ON COLUMN tec.l_coversheetladata.subjectmattermemo IS $$Subject matter m
 COMMENT ON COLUMN tec.l_coversheetladata.docketsmemo IS $$Dockets memo$$;
 \COPY tec.l_coversheetladata FROM 'data/TEC_LA_CSV/LaCvr.csv' WITH ( FORMAT CSV , HEADER true );
 
+
 ALTER TABLE tec.l_coversheetladata
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
+
+CREATE INDEX ON tec.l_coversheetladata (reportInfoIdent);
+
