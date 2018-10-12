@@ -99,7 +99,11 @@ has 'post_statements' => (
 			);
 		}
 
-		if ( $self->col_by_name('reportInfoIdent') ) {
+		if (
+			$self->col_by_name('reportInfoIdent')
+			## don't need an idx on pkey
+			and $self->name ne 'c_coversheet1data'
+		) {
 			push @post, sprintf(
 				"CREATE INDEX ON %s (reportinfoident);",
 				$self->fully_qualified_identifier

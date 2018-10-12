@@ -309,5 +309,3 @@ ALTER TABLE tec.c_coversheet1data
 	ADD FOREIGN KEY (chairMailingCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
 
-CREATE INDEX ON tec.c_coversheet1data (reportinfoident);
-
