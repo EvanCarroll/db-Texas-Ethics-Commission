@@ -203,14 +203,11 @@ COMMENT ON COLUMN tec.c_debtdata.guarantorstreetpostalcode5 IS $$5: Guarantor st
 COMMENT ON COLUMN tec.c_debtdata.guarantorstreetregion5 IS $$5: Guarantor street address - region for country other than USA$$;
 \COPY tec.c_debtdata FROM 'data/TEC_CF_CSV/debts.csv' WITH ( FORMAT CSV , HEADER true );
 
-ALTER TABLE tec.c_DebtData
-	ADD FOREIGN KEY (filerIdent, filerTypeCd)
-	REFERENCES tec.c_FilerData
-	NOT VALID;
 ALTER TABLE tec.c_debtdata
 	ADD FOREIGN KEY (lenderStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd1) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd2) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd3) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd4) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (guarantorStreetCountyCd5) REFERENCES tec.codes_counties NOT VALID;
+	ADD FOREIGN KEY (guarantorStreetCountyCd5) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;

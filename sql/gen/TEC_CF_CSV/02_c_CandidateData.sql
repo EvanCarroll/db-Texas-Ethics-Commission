@@ -105,13 +105,10 @@ COMMENT ON COLUMN tec.c_candidatedata.candidateseekofficecountycd IS $$Candidate
 COMMENT ON COLUMN tec.c_candidatedata.candidateseekofficecountydescr IS $$Candidate office sought county description$$;
 \COPY tec.c_candidatedata FROM 'data/TEC_CF_CSV/cand.csv' WITH ( FORMAT CSV , HEADER true );
 
-ALTER TABLE tec.c_CandidateData
-	ADD FOREIGN KEY (filerIdent, filerTypeCd)
-	REFERENCES tec.c_FilerData
-	NOT VALID;
 ALTER TABLE tec.c_candidatedata
 	ADD FOREIGN KEY (expendCatCd) REFERENCES tec.c_expendcategory NOT VALID,
 	ADD FOREIGN KEY (candidateHoldOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (candidateHoldOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (candidateSeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
-	ADD FOREIGN KEY (candidateSeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID;
+	ADD FOREIGN KEY (candidateSeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;

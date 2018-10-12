@@ -287,10 +287,6 @@ COMMENT ON COLUMN tec.c_coversheet1data.chairprimaryphoneext IS $$Chair primary 
 
 \COPY tec.c_coversheet1data FROM 'data/TEC_CF_CSV/cover_t.csv' WITH ( FORMAT CSV , HEADER true );
 
-ALTER TABLE tec.c_CoverSheet1Data
-	ADD FOREIGN KEY (filerIdent, filerTypeCd)
-	REFERENCES tec.c_FilerData
-	NOT VALID;
 ALTER TABLE tec.c_coversheet1data
 	ADD FOREIGN KEY (reportTypeCd1) REFERENCES tec.codes_reports NOT VALID,
 	ADD FOREIGN KEY (reportTypeCd2) REFERENCES tec.codes_reports NOT VALID,
@@ -311,4 +307,5 @@ ALTER TABLE tec.c_coversheet1data
 	ADD FOREIGN KEY (treasStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (treasMailingCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (chairStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (chairMailingCountyCd) REFERENCES tec.codes_counties NOT VALID;
+	ADD FOREIGN KEY (chairMailingCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;

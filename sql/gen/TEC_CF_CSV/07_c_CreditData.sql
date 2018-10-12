@@ -81,9 +81,6 @@ COMMENT ON COLUMN tec.c_creditdata.payorstreetpostalcode IS $$Payor street addre
 COMMENT ON COLUMN tec.c_creditdata.payorstreetregion IS $$Payor street address - region for country other than USA$$;
 \COPY tec.c_creditdata FROM 'data/TEC_CF_CSV/credits.csv' WITH ( FORMAT CSV , HEADER true );
 
-ALTER TABLE tec.c_CreditData
-	ADD FOREIGN KEY (filerIdent, filerTypeCd)
-	REFERENCES tec.c_FilerData
-	NOT VALID;
 ALTER TABLE tec.c_creditdata
-	ADD FOREIGN KEY (payorStreetCountyCd) REFERENCES tec.codes_counties NOT VALID;
+	ADD FOREIGN KEY (payorStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;

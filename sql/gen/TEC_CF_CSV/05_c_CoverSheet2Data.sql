@@ -105,10 +105,7 @@ COMMENT ON COLUMN tec.c_coversheet2data.treasstreetpostalcode IS $$Treasurer str
 COMMENT ON COLUMN tec.c_coversheet2data.treasstreetregion IS $$Treasurer street address - region for country other than USA$$;
 \COPY tec.c_coversheet2data FROM 'data/TEC_CF_CSV/notices.csv' WITH ( FORMAT CSV , HEADER true );
 
-ALTER TABLE tec.c_CoverSheet2Data
-	ADD FOREIGN KEY (filerIdent, filerTypeCd)
-	REFERENCES tec.c_FilerData
-	NOT VALID;
 ALTER TABLE tec.c_coversheet2data
 	ADD FOREIGN KEY (notifierStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (treasStreetCountyCd) REFERENCES tec.codes_counties NOT VALID;
+	ADD FOREIGN KEY (treasStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;

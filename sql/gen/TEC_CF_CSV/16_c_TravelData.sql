@@ -83,7 +83,5 @@ COMMENT ON COLUMN tec.c_traveldata.travellernameprefixcd IS $$For INDIVIDUAL, th
 COMMENT ON COLUMN tec.c_traveldata.travellernameshort IS $$For INDIVIDUAL, the traveller short name (nickname)$$;
 \COPY tec.c_traveldata FROM 'data/TEC_CF_CSV/travel.csv' WITH ( FORMAT CSV , HEADER true );
 
-ALTER TABLE tec.c_TravelData
-	ADD FOREIGN KEY (filerIdent, filerTypeCd)
-	REFERENCES tec.c_FilerData
-	NOT VALID;
+ALTER TABLE tec.c_traveldata
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;

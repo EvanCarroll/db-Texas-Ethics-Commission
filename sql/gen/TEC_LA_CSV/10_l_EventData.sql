@@ -91,4 +91,5 @@ COMMENT ON COLUMN tec.l_eventdata.beneficiarynameshort IS $$For INDIVIDUAL, the 
 
 ALTER TABLE tec.l_eventdata
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
-	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID;
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
+	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;

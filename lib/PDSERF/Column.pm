@@ -93,30 +93,34 @@ sub fully_qualified_identifier {
 
 sub fkey_constraint {
 	my $self  = shift;
-	my $fmt = sprintf( 'ADD FOREIGN KEY (%s) REFERENCES %%s NOT VALID', $self->name );
+	my $fmt = sprintf(
+		'ADD FOREIGN KEY (%s) REFERENCES %s.%%s NOT VALID',
+		$self->name,
+		PDSERF::Client::INSTALL_SCHEMA
+	);
 
 	if ( $self->name =~ /expendCatCd$/ ) {
-		return sprintf( $fmt, 'tec.c_expendcategory' );
+		return sprintf( $fmt, 'c_expendcategory' );
 	}
 	elsif ( $self->table->name =~ /^l_/ and $self->name =~ /reportInfoIdent$/ ) {
-		return sprintf( $fmt, 'tec.l_coversheetladata' );
+		return sprintf( $fmt, 'l_coversheetladata' );
 	}
 	
 	elsif ( $self->name =~ /CountyCd\d*$/ ) {
-		return sprintf( $fmt, 'tec.codes_counties' );
+		return sprintf( $fmt, 'codes_counties' );
 	}
 	elsif ( $self->name =~ /reportTypeCd\d*$/ ) {
-		return sprintf( $fmt, 'tec.codes_reports' );
+		return sprintf( $fmt, 'codes_reports' );
 	}
 	## Compare `SELECT distinct formtypecd FROM tec.c_coversheet1data;` to tbl
 	## elsif ( $self->name =~ /formTypeCd$/ ) {
-	## 	return sprintf( $fmt, 'tec.codes_forms' );
+	## 	return sprintf( $fmt, 'codes_forms' );
 	## }
 	elsif ( $self->name =~ /totalTypeCd$/ ) {
-		return sprintf( $fmt, 'tec.codes_total' );
+		return sprintf( $fmt, 'codes_total' );
 	}
 	elsif ( $self->name =~ /OfficeCd$/ ) {
-		return sprintf( $fmt, 'tec.codes_office' );
+		return sprintf( $fmt, 'codes_office' );
 	}
 	return undef;
 }

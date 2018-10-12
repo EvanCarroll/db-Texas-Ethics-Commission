@@ -77,12 +77,9 @@ COMMENT ON COLUMN tec.c_coversheet3data.activityseekofficecountycd IS $$Activity
 COMMENT ON COLUMN tec.c_coversheet3data.activityseekofficecountydescr IS $$Activity office sought county description$$;
 \COPY tec.c_coversheet3data FROM 'data/TEC_CF_CSV/purpose.csv' WITH ( FORMAT CSV , HEADER true );
 
-ALTER TABLE tec.c_CoverSheet3Data
-	ADD FOREIGN KEY (filerIdent, filerTypeCd)
-	REFERENCES tec.c_FilerData
-	NOT VALID;
 ALTER TABLE tec.c_coversheet3data
 	ADD FOREIGN KEY (activityHoldOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (activityHoldOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (activitySeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
-	ADD FOREIGN KEY (activitySeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID;
+	ADD FOREIGN KEY (activitySeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;

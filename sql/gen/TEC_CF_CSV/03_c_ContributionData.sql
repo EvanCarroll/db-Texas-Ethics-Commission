@@ -208,9 +208,6 @@ COMMENT ON COLUMN tec.c_contributiondata.contributorparent2lawfirmname IS $$Cont
 
 \COPY tec.c_contributiondata FROM 'data/TEC_CF_CSV/cont_t.csv' WITH ( FORMAT CSV , HEADER true );
 
-ALTER TABLE tec.c_ContributionData
-	ADD FOREIGN KEY (filerIdent, filerTypeCd)
-	REFERENCES tec.c_FilerData
-	NOT VALID;
 ALTER TABLE tec.c_contributiondata
-	ADD FOREIGN KEY (contributorStreetCountyCd) REFERENCES tec.codes_counties NOT VALID;
+	ADD FOREIGN KEY (contributorStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;

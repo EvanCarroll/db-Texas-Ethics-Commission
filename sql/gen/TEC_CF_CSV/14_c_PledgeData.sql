@@ -103,9 +103,6 @@ COMMENT ON COLUMN tec.c_pledgedata.pledgerparent2lawfirmname IS $$Pledger parent
 
 \COPY tec.c_pledgedata FROM 'data/TEC_CF_CSV/pldg_t.csv' WITH ( FORMAT CSV , HEADER true );
 
-ALTER TABLE tec.c_PledgeData
-	ADD FOREIGN KEY (filerIdent, filerTypeCd)
-	REFERENCES tec.c_FilerData
-	NOT VALID;
 ALTER TABLE tec.c_pledgedata
-	ADD FOREIGN KEY (pledgerStreetCountyCd) REFERENCES tec.codes_counties NOT VALID;
+	ADD FOREIGN KEY (pledgerStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;

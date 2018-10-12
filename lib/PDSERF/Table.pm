@@ -55,29 +55,40 @@ has 'post_statements' => (
 	is      => 'ro',
 	default => sub {
 		my $self = shift;
+		
+		my @fkey_constraints = grep defined
+			, (map $_->fkey_constraint , @{$self->columns});
 	
-		my @post;
-		if (
-			$self->col_by_name('filerTypeCd')
-			and $self->col_by_name('filerIdent')
-			and $self->name =~ /^c_/
-			and $self->name ne 'c_FilerData'
-		) {
-			push @post, sprintf(
-				"\nALTER TABLE %s\n\tADD FOREIGN KEY %s\n\tREFERENCES %s\n\tNOT VALID;", # THANKS TEC
-				sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, $self->name),
-				"(filerIdent, filerTypeCd)",
-				sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, "c_FilerData" )
-			);
+		if ( $self->col_by_name('filerTypeCd') ) {
+
+			if (
+				$self->col_by_name('filerIdent')
+				&& $self->name =~ /^c_/
+				&& $self->name ne 'c_FilerData'
+			) {
+				push @fkey_constraints, sprintf(
+					'ADD FOREIGN KEY (%s) REFERENCES %s NOT VALID',
+					"filerIdent, filerTypeCd",
+					sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, "c_FilerData" )
+				);
+			}
+			else {
+				warn $self->name;
+				push @fkey_constraints, sprintf(
+					'ADD FOREIGN KEY (%s) REFERENCES %s NOT VALID',
+					"filerTypeCd",
+					sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, "codes_filertype" )
+				);
+			}
 
 		}
 
-		my $fkey_constraints = [grep defined, map $_->fkey_constraint, @{$self->columns}];
-		if ( @$fkey_constraints ) {
+		my @post;
+		if ( @fkey_constraints ) {
 			push @post, sprintf(
 				"\nALTER TABLE %s\n\t%s;",
 				$self->fully_qualified_identifier,
-				join ",\n\t", @$fkey_constraints
+				join ",\n\t", @fkey_constraints
 			);
 		}
 		return \@post;

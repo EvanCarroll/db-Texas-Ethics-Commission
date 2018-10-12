@@ -22,6 +22,7 @@ COMMENT ON SCHEMA tec IS $$Texas Ethics Comission dataset$$;
 
 
 \echo LOADING CODES GENERATED FROM PDF
+\i sql/cf_new/1_filertype.sql
 \i sql/cf_new/02_data/5_office.sql
 \i sql/cf_new/02_data/6_reports.sql
 \i sql/cf_new/02_data/7_forms.sql

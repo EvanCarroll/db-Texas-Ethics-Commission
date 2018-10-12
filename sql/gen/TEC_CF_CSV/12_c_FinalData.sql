@@ -47,7 +47,5 @@ COMMENT ON COLUMN tec.c_finaldata.finalretainedassetsflag IS $$Retained assets i
 COMMENT ON COLUMN tec.c_finaldata.finalofficeholderackflag IS $$Office holder ack indicator$$;
 \COPY tec.c_finaldata FROM 'data/TEC_CF_CSV/finals.csv' WITH ( FORMAT CSV , HEADER true );
 
-ALTER TABLE tec.c_FinalData
-	ADD FOREIGN KEY (filerIdent, filerTypeCd)
-	REFERENCES tec.c_FilerData
-	NOT VALID;
+ALTER TABLE tec.c_finaldata
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;

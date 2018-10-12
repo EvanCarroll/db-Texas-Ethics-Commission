@@ -47,7 +47,5 @@ COMMENT ON COLUMN tec.c_assetdata.assetinfoid IS $$Asset unique identifier$$;
 COMMENT ON COLUMN tec.c_assetdata.assetdescr IS $$Description of asset$$;
 \COPY tec.c_assetdata FROM 'data/TEC_CF_CSV/assets.csv' WITH ( FORMAT CSV , HEADER true );
 
-ALTER TABLE tec.c_AssetData
-	ADD FOREIGN KEY (filerIdent, filerTypeCd)
-	REFERENCES tec.c_FilerData
-	NOT VALID;
+ALTER TABLE tec.c_assetdata
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
