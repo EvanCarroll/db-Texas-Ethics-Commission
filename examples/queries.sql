@@ -84,7 +84,14 @@ ORDER BY ed.expenddt;
 	
 \echo External entities that spend money on the candidate
 -- filerident is not for the candidate, filed by third parties
-SELECT receiveddt, expenddt, expendamount, filername, expendcategorycodelabel, expenddescr
+SELECT candidatenamelast
+	, candidatenamefirst
+	, expenddt
+	, filername
+	, expendamount
+	, expendcategorycodelabel
+	, expenddescr
+	, receiveddt
 FROM tec.c_candidatedata AS cd
 JOIN tec.c_expendcategory AS cat
 	ON (cat.expendcategorycodevalue = cd.expendcatcd)
