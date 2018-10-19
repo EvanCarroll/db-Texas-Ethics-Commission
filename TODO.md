@@ -41,31 +41,6 @@ WHERE NOT EXISTS (
 
 This is our list to work towards for completion.
 
-
-### Validation of `NOT VALID` keys
-
-We can use [this query here to validate our
-indexes](https://dba.stackexchange.com/a/209682/2639). This should be moved
-into `runme.sql`
-
-```
-SELECT FORMAT(
-  'ALTER TABLE %I.%I.%I VALIDATE CONSTRAINT %I;',
-  current_database(),
-  nsp.nspname,
-  cls.relname,
-  con.conname
-)
-FROM pg_constraint AS con
-JOIN pg_class AS cls
-  ON con.conrelid = cls.oid
-JOIN pg_namespace AS nsp
-  ON cls.relnamespace = nsp.oid
-WHERE convalidated IS FALSE
-  -- or delete it for all constraints in all schemas
-  AND nsp.nspname = 'tec';
-```
-
 ## Social TODO
 
 It would be great if someone could make contact with Jessie Haug. I have not
