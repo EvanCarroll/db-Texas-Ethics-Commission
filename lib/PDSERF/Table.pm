@@ -102,7 +102,7 @@ has 'post_statements' => (
 		if (
 			$self->col_by_name('reportInfoIdent')
 			## don't need an idx on pkey
-			and $self->name ne 'c_coversheet1data'
+			and ($self->_primary_key//'') !~ /reportInfoIdent/i
 		) {
 			push @post, sprintf(
 				"CREATE INDEX ON %s (reportinfoident);",

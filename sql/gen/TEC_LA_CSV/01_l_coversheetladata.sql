@@ -120,5 +120,3 @@ ALTER TABLE tec.l_coversheetladata
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
 
-CREATE INDEX ON tec.l_coversheetladata (reportinfoident);
-
