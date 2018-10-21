@@ -25,7 +25,6 @@ devgen: download unzip textify gen_schema.pl
 	perl "scripts/$@"
 
 textify: $(DIR_TEC_DOCS)/cf_new.txt $(DIR_TEC_DOCS)/cf_old.txt
-unzip:   $(DIR_DATA)/TEC_CF_CSV     $(DIR_DATA)/TEC_LA_CSV
 
 download:
 	curl --progress-bar \
@@ -35,11 +34,9 @@ download:
 		-o "$(DIR_DATA)/TEC_LA_CSV.zip"                       "https://www.ethics.state.tx.us/tedd/TEC_LA_CSV.zip"                       \
 		-o "$(DIR_DATA)/TEC_CF_CSV.zip"                       "https://www.ethics.state.tx.us/tedd/TEC_CF_CSV.zip";
 
-%TEC_LA_CSV:
-	unzip -o -d "$@" "$@.zip"
-
-%TEC_CF_CSV:
-	unzip -o -d "$@" "$@.zip"
+unzip:
+	unzip -o -d "${DIR_DATA}/TEC_LA_CSV" "${DIR_DATA}/TEC_LA_CSV.zip"
+	unzip -o -d "${DIR_DATA}/TEC_CF_CSV" "${DIR_DATA}/TEC_CF_CSV.zip"
 
 %cf_old.txt:
 	ps2txt "$(DIR_TEC_DOCS)/TX_ERF13_7.pdf" > "$@"
