@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_loandata
+\echo LOADING c_LoanData
 
 
-CREATE TABLE tec.c_loandata (
+CREATE TABLE tec.c_LoanData (
 	recordType                              text,
 	formTypeCd                              text,
 	schedFormTypeCd                         text,
@@ -160,7 +160,7 @@ CREATE TABLE tec.c_loandata (
 	guarantorParent2LawFirmName5            text,
 	PRIMARY KEY ( loanInfoId )
 );
-COMMENT ON TABLE tec.c_loandata IS $$Loans - Schedule E. File: loans.csv$$;
+COMMENT ON TABLE tec.c_LoanData IS $$Loans - Schedule E. File: loans.csv$$;
 COMMENT ON COLUMN tec.c_loandata.recordtype IS $$Record type code - always LOAN$$;
 COMMENT ON COLUMN tec.c_loandata.formtypecd IS $$TEC form used$$;
 COMMENT ON COLUMN tec.c_loandata.schedformtypecd IS $$TEC Schedule Used$$;
@@ -301,20 +301,20 @@ COMMENT ON COLUMN tec.c_loandata.guarantorjobtitle5 IS $$5: Guarantor job title$
 COMMENT ON COLUMN tec.c_loandata.guarantorspouselawfirmname5 IS $$5: Guarantor spouse law firm name$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorparent1lawfirmname5 IS $$5: Guarantor parent #1 law firm name$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorparent2lawfirmname5 IS $$5: Guarantor parent #2 law firm name$$;
-\COPY tec.c_loandata FROM 'data/TEC_CF_CSV/loans.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.c_LoanData FROM 'data/TEC_CF_CSV/loans.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-CREATE INDEX ON tec.c_loandata (filerIdent, filerTypeCd);
+CREATE INDEX ON tec.c_LoanData (filerIdent, filerTypeCd);
 
-ALTER TABLE tec.c_loandata
-	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_coversheet1data NOT VALID,
+ALTER TABLE tec.c_LoanData
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
 	ADD FOREIGN KEY (lenderStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd1) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd2) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd3) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd4) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd5) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
 
-CREATE INDEX ON tec.c_loandata (reportinfoident);
+CREATE INDEX ON tec.c_LoanData (reportinfoident);
 

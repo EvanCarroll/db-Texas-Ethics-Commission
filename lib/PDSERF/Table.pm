@@ -61,8 +61,8 @@ has 'post_statements' => (
 		my @post;
 	
 		if (
-			$self->name ne 'c_filerdata'
-			and $self->name =~ /^c/
+			$self->name ne 'c_FilerData'
+			and $self->name =~ /^c_/
 			and $self->col_by_pattern(qr/[fF]ilerTypeCd$/)
 		) {
 			
@@ -77,7 +77,7 @@ has 'post_statements' => (
 					push @fkey_constraints, sprintf(
 						'ADD FOREIGN KEY (%s) REFERENCES %s NOT VALID',
 						sprintf( '%s, %s', $identname, $typecd ),
-						sprintf('%s.%s', PDSERF::Client::INSTALL_SCHEMA, 'c_filerdata' )
+						sprintf('%s.%s', PDSERF::Client::INSTALL_SCHEMA, 'c_FilerData' )
 					);
 					push @post, sprintf(
 						"CREATE INDEX ON %s (%s, %s);",
@@ -125,9 +125,7 @@ has 'post_statements' => (
 	lazy => 1
 );
 
-has 'description' => ( isa => 'Str', is => 'ro', required => 1 );
-sub name { return lc ($_[0]->_name) }
-has '_name' => ( isa => 'Str', is => 'ro', required => 1, init_arg => 'name' );
+has [qw/description name/] => ( isa => 'Str', is => 'ro', required => 1 );
 has order => ( isa => 'Int', is => 'ro', required => 1 );
 
 sub pg_ddl {
@@ -157,21 +155,21 @@ sub _primary_key {
 	my @cols;
 
 	## Handles linking and composite key for Filer
-	if ( $self->name =~ /filerdata$/ ) {
+	if ( $self->name =~ /FilerData$/ ) {
 		## $self->col_by_name('filerTypeCd') and $self->col_by_name('filerIdent')
 		$a = "\tPRIMARY KEY (filerIdent, filerTypeCd)";
 	}
 
-	elsif ( $self->name =~ /expendcategory$/ ) {
+	elsif ( $self->name =~ /ExpendCategory$/ ) {
 		$a = "\tPRIMARY KEY (expendCategoryCodeValue)";
 	}
 
-	elsif ( $self->name =~ /candidatedata$/ ) {
+	elsif ( $self->name =~ /CandidateData$/ ) {
 		$a = "\tPRIMARY KEY (expendPersentId)";
 	}
 
 	## Also has lobbyActivityId
-	elsif( $self->name =~ /transportationdata$/ ) {
+	elsif( $self->name =~ /TransportationData$/ ) {
 		$a = "\tPRIMARY KEY (lobactivityTravelId)";
 	}
 
@@ -197,7 +195,7 @@ sub _primary_key {
 
 	elsif (
 		$self->col_by_name('reportInfoIdent')
-		and ( $self->name =~ /l_/ || $self->name eq 'c_coversheet1data' )
+		and ( $self->name =~ /^l_/ || $self->name eq 'c_CoverSheet1Data' )
 	) {
 		$a = "\tPRIMARY KEY (reportInfoIdent)";
 	}
@@ -207,7 +205,7 @@ sub _primary_key {
 
 sub fully_qualified_identifier {
 	my $self = shift;
-	lc(sprintf( "%s.%s", PDSERF::Client::INSTALL_SCHEMA, $self->name));
+	sprintf( "%s.%s", PDSERF::Client::INSTALL_SCHEMA, $self->name);
 }
 
 sub pg_comment {

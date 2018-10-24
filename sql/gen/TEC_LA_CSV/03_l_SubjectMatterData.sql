@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING l_subjectmatterdata
+\echo LOADING l_SubjectMatterData
 
 
-CREATE TABLE tec.l_subjectmatterdata (
+CREATE TABLE tec.l_SubjectMatterData (
 	recordType                              text,
 	formTypeCd                              text,
 	reportTypeCd                            text,
@@ -38,7 +38,7 @@ CREATE TABLE tec.l_subjectmatterdata (
 	subjectMatterDescr                      text,
 	PRIMARY KEY (lobbySubjectmatterId)
 );
-COMMENT ON TABLE tec.l_subjectmatterdata IS $$Form LA Schedule A - Subject Matter Categories. NOTE: Form LA Schedule A Box 4 states If your lobby communications pertained to subject matters not marked on your original lobby registration or on a previous amendment, check the appropriate boxes. Unlike other tables in this document, subject matter is based on the Year Applicable rather than due date. This information was not entered from paper reports prior to the year 2000. File: LaSub.csv$$;
+COMMENT ON TABLE tec.l_SubjectMatterData IS $$Form LA Schedule A - Subject Matter Categories. NOTE: Form LA Schedule A Box 4 states If your lobby communications pertained to subject matters not marked on your original lobby registration or on a previous amendment, check the appropriate boxes. Unlike other tables in this document, subject matter is based on the Year Applicable rather than due date. This information was not entered from paper reports prior to the year 2000. File: LaSub.csv$$;
 COMMENT ON COLUMN tec.l_subjectmatterdata.recordtype IS $$Record type code - always SUB$$;
 COMMENT ON COLUMN tec.l_subjectmatterdata.formtypecd IS $$TEC form used$$;
 COMMENT ON COLUMN tec.l_subjectmatterdata.reporttypecd IS $$Report type$$;
@@ -57,13 +57,13 @@ COMMENT ON COLUMN tec.l_subjectmatterdata.lobbysubjectmatterid IS $$Lobby subjec
 COMMENT ON COLUMN tec.l_subjectmatterdata.subjectmattercd IS $$Subject matter code$$;
 COMMENT ON COLUMN tec.l_subjectmatterdata.subjectmattercodevalue IS $$Code table lookup of subject matter code$$;
 COMMENT ON COLUMN tec.l_subjectmatterdata.subjectmatterdescr IS $$Description of other subject matter$$;
-\COPY tec.l_subjectmatterdata FROM 'data/TEC_LA_CSV/LaSub.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.l_SubjectMatterData FROM 'data/TEC_LA_CSV/LaSub.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-ALTER TABLE tec.l_subjectmatterdata
+ALTER TABLE tec.l_SubjectMatterData
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
-	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_CoverSheetLaData NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
 
-CREATE INDEX ON tec.l_subjectmatterdata (reportinfoident);
+CREATE INDEX ON tec.l_SubjectMatterData (reportinfoident);
 

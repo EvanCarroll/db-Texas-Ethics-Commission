@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_spacdata
+\echo LOADING c_SpacData
 
 
-CREATE TABLE tec.c_spacdata (
+CREATE TABLE tec.c_SpacData (
 	recordType                              text,
 	spacFilerIdent                          int,
 	spacFilerTypeCd                         text,
@@ -55,7 +55,7 @@ CREATE TABLE tec.c_spacdata (
 	candtreasEffStartDt                     date,
 	candtreasEffStopDt                      date
 );
-COMMENT ON TABLE tec.c_spacdata IS $$Index of Specific-purpose committees. This file contains links between specific-purpose committees (FILER_TYPE = SPAC, JSPC and SCPC) and the candidates/office holders they support, oppose or assist. The information is entered by TEC staff from the paper Form STA (treasurer appointment for a speficic- purpose committee) and amendments thereto (Form ASTA). TEC staff does not enter links based on information from campaign finance reports. The links are not broken when the STA is terminated. File: spacs.csv$$;
+COMMENT ON TABLE tec.c_SpacData IS $$Index of Specific-purpose committees. This file contains links between specific-purpose committees (FILER_TYPE = SPAC, JSPC and SCPC) and the candidates/office holders they support, oppose or assist. The information is entered by TEC staff from the paper Form STA (treasurer appointment for a speficic- purpose committee) and amendments thereto (Form ASTA). TEC staff does not enter links based on information from campaign finance reports. The links are not broken when the STA is terminated. File: spacs.csv$$;
 COMMENT ON COLUMN tec.c_spacdata.recordtype IS $$Record type code - always SPAC$$;
 COMMENT ON COLUMN tec.c_spacdata.spacfilerident IS $$SPAC filer account #$$;
 COMMENT ON COLUMN tec.c_spacdata.spacfilertypecd IS $$SPAC type of filer$$;
@@ -92,20 +92,20 @@ COMMENT ON COLUMN tec.c_spacdata.ctaseekofficecountydescr IS $$CTA office sought
 COMMENT ON COLUMN tec.c_spacdata.candtreasfilerpersstatuscd IS $$Candidate treasurer status (CURRENT, etc)$$;
 COMMENT ON COLUMN tec.c_spacdata.candtreaseffstartdt IS $$Candidate treasurer start date$$;
 COMMENT ON COLUMN tec.c_spacdata.candtreaseffstopdt IS $$Candidate treasurer end date$$;
-\COPY tec.c_spacdata FROM 'data/TEC_CF_CSV/spacs.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.c_SpacData FROM 'data/TEC_CF_CSV/spacs.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-CREATE INDEX ON tec.c_spacdata (spacFilerIdent, spacFilerTypeCd);
+CREATE INDEX ON tec.c_SpacData (spacFilerIdent, spacFilerTypeCd);
 
-CREATE INDEX ON tec.c_spacdata (candidateFilerIdent, candidateFilerTypeCd);
+CREATE INDEX ON tec.c_SpacData (candidateFilerIdent, candidateFilerTypeCd);
 
-ALTER TABLE tec.c_spacdata
+ALTER TABLE tec.c_SpacData
 	ADD FOREIGN KEY (candidateHoldOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (candidateHoldOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (candidateSeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (candidateSeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (ctaSeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (ctaSeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (spacFilerIdent, spacFilerTypeCd) REFERENCES tec.c_filerdata NOT VALID,
-	ADD FOREIGN KEY (candidateFilerIdent, candidateFilerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
+	ADD FOREIGN KEY (spacFilerIdent, spacFilerTypeCd) REFERENCES tec.c_FilerData NOT VALID,
+	ADD FOREIGN KEY (candidateFilerIdent, candidateFilerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
 

@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING l_coversheetladata
+\echo LOADING l_CoverSheetLaData
 
 
-CREATE TABLE tec.l_coversheetladata (
+CREATE TABLE tec.l_CoverSheetLaData (
 	recordType                              text,
 	formTypeCd                              text,
 	reportTypeCd                            text,
@@ -66,7 +66,7 @@ CREATE TABLE tec.l_coversheetladata (
 	docketsMemo                             text,
 	PRIMARY KEY (reportInfoIdent)
 );
-COMMENT ON TABLE tec.l_coversheetladata IS $$Form LA Cover Sheet information. NOTE: Records are included only if the due date assigned by TEC staff is after January 10, 2005. Most Lobby Activities reports due 01/10/2005 were filed on paper;  most reports due afterwards were filed electronically. TEC staff enters totals from the cover page of paper reports, but does not enter any information from the schedules. File: LaCvr.csv$$;
+COMMENT ON TABLE tec.l_CoverSheetLaData IS $$Form LA Cover Sheet information. NOTE: Records are included only if the due date assigned by TEC staff is after January 10, 2005. Most Lobby Activities reports due 01/10/2005 were filed on paper;  most reports due afterwards were filed electronically. TEC staff enters totals from the cover page of paper reports, but does not enter any information from the schedules. File: LaCvr.csv$$;
 COMMENT ON COLUMN tec.l_coversheetladata.recordtype IS $$Record type code - always CVLA$$;
 COMMENT ON COLUMN tec.l_coversheetladata.formtypecd IS $$TEC form used$$;
 COMMENT ON COLUMN tec.l_coversheetladata.reporttypecd IS $$Report type$$;
@@ -113,10 +113,10 @@ COMMENT ON COLUMN tec.l_coversheetladata.correxplmemo IS $$Explanation of correc
 COMMENT ON COLUMN tec.l_coversheetladata.coversheetmemo IS $$Cover sheet memo$$;
 COMMENT ON COLUMN tec.l_coversheetladata.subjectmattermemo IS $$Subject matter memo$$;
 COMMENT ON COLUMN tec.l_coversheetladata.docketsmemo IS $$Dockets memo$$;
-\COPY tec.l_coversheetladata FROM 'data/TEC_LA_CSV/LaCvr.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.l_CoverSheetLaData FROM 'data/TEC_LA_CSV/LaCvr.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-ALTER TABLE tec.l_coversheetladata
+ALTER TABLE tec.l_CoverSheetLaData
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
 

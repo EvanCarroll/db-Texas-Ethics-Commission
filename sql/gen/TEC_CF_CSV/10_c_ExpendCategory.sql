@@ -14,19 +14,19 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_expendcategory
+\echo LOADING c_ExpendCategory
 
 
-CREATE TABLE tec.c_expendcategory (
+CREATE TABLE tec.c_ExpendCategory (
 	recordType                              text,
 	expendCategoryCodeValue                 text,
 	expendCategoryCodeLabel                 text,
 	PRIMARY KEY (expendCategoryCodeValue)
 );
-COMMENT ON TABLE tec.c_expendcategory IS $$Expenditure category codes. File: expn_catg.csv$$;
+COMMENT ON TABLE tec.c_ExpendCategory IS $$Expenditure category codes. File: expn_catg.csv$$;
 COMMENT ON COLUMN tec.c_expendcategory.recordtype IS $$Record type code - always EXCAT$$;
 COMMENT ON COLUMN tec.c_expendcategory.expendcategorycodevalue IS $$Expenditure category code$$;
 COMMENT ON COLUMN tec.c_expendcategory.expendcategorycodelabel IS $$Expenditure category description$$;
-\COPY tec.c_expendcategory FROM 'data/TEC_CF_CSV/expn_catg.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.c_ExpendCategory FROM 'data/TEC_CF_CSV/expn_catg.csv' WITH ( FORMAT CSV , HEADER true );
 
 

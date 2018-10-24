@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_coversheet1data
+\echo LOADING c_CoverSheet1Data
 
 
-CREATE TABLE tec.c_coversheet1data (
+CREATE TABLE tec.c_CoverSheet1Data (
 	recordType                              text,
 	formTypeCd                              text,
 	reportInfoIdent                         int,
@@ -148,7 +148,7 @@ CREATE TABLE tec.c_coversheet1data (
 	chairPrimaryPhoneExt                    text,
 	PRIMARY KEY (reportInfoIdent)
 );
-COMMENT ON TABLE tec.c_coversheet1data IS $$Cover Sheet 1 - Cover sheet information and totals. cover_ss and cover_t contain cover sheet information for special session reports and special pre-election (formerly Telegram) Reports. Cover sheets for these reports do not contain totals. Files: cover.csv, cover_ss.csv, cover_t.csv$$;
+COMMENT ON TABLE tec.c_CoverSheet1Data IS $$Cover Sheet 1 - Cover sheet information and totals. cover_ss and cover_t contain cover sheet information for special session reports and special pre-election (formerly Telegram) Reports. Cover sheets for these reports do not contain totals. Files: cover.csv, cover_ss.csv, cover_t.csv$$;
 COMMENT ON COLUMN tec.c_coversheet1data.recordtype IS $$Record type code - always CVR1$$;
 COMMENT ON COLUMN tec.c_coversheet1data.formtypecd IS $$TEC form used$$;
 COMMENT ON COLUMN tec.c_coversheet1data.reportinfoident IS $$Unique report #$$;
@@ -277,16 +277,16 @@ COMMENT ON COLUMN tec.c_coversheet1data.chairmailingregion IS $$Chair mailing ad
 COMMENT ON COLUMN tec.c_coversheet1data.chairprimaryusaphoneflag IS $$Chair primary phone number - Y if number is a USA phone, N       otherwise$$;
 COMMENT ON COLUMN tec.c_coversheet1data.chairprimaryphonenumber IS $$Chair primary phone number$$;
 COMMENT ON COLUMN tec.c_coversheet1data.chairprimaryphoneext IS $$Chair primary phone extension$$;
-\COPY tec.c_coversheet1data FROM 'data/TEC_CF_CSV/cover.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.c_CoverSheet1Data FROM 'data/TEC_CF_CSV/cover.csv' WITH ( FORMAT CSV , HEADER true );
 
-\COPY tec.c_coversheet1data FROM 'data/TEC_CF_CSV/cover_ss.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.c_CoverSheet1Data FROM 'data/TEC_CF_CSV/cover_ss.csv' WITH ( FORMAT CSV , HEADER true );
 
-\COPY tec.c_coversheet1data FROM 'data/TEC_CF_CSV/cover_t.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.c_CoverSheet1Data FROM 'data/TEC_CF_CSV/cover_t.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-CREATE INDEX ON tec.c_coversheet1data (filerIdent, filerTypeCd);
+CREATE INDEX ON tec.c_CoverSheet1Data (filerIdent, filerTypeCd);
 
-ALTER TABLE tec.c_coversheet1data
+ALTER TABLE tec.c_CoverSheet1Data
 	ADD FOREIGN KEY (reportTypeCd1) REFERENCES tec.codes_reports NOT VALID,
 	ADD FOREIGN KEY (reportTypeCd2) REFERENCES tec.codes_reports NOT VALID,
 	ADD FOREIGN KEY (reportTypeCd3) REFERENCES tec.codes_reports NOT VALID,
@@ -307,5 +307,5 @@ ALTER TABLE tec.c_coversheet1data
 	ADD FOREIGN KEY (treasMailingCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (chairStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (chairMailingCountyCd) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
 

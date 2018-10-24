@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_assetdata
+\echo LOADING c_AssetData
 
 
-CREATE TABLE tec.c_assetdata (
+CREATE TABLE tec.c_AssetData (
 	recordType                              text,
 	formTypeCd                              text,
 	schedFormTypeCd                         text,
@@ -31,7 +31,7 @@ CREATE TABLE tec.c_assetdata (
 	assetDescr                              text,
 	PRIMARY KEY ( assetInfoId )
 );
-COMMENT ON TABLE tec.c_assetdata IS $$Assets - Schedule M - Assets valued at $500 or more for judicial filers only. File: assets.csv$$;
+COMMENT ON TABLE tec.c_AssetData IS $$Assets - Schedule M - Assets valued at $500 or more for judicial filers only. File: assets.csv$$;
 COMMENT ON COLUMN tec.c_assetdata.recordtype IS $$Record type code - always ASSET$$;
 COMMENT ON COLUMN tec.c_assetdata.formtypecd IS $$TEC form used$$;
 COMMENT ON COLUMN tec.c_assetdata.schedformtypecd IS $$TEC Schedule Used$$;
@@ -43,14 +43,14 @@ COMMENT ON COLUMN tec.c_assetdata.filertypecd IS $$Type of filer$$;
 COMMENT ON COLUMN tec.c_assetdata.filername IS $$Filer name$$;
 COMMENT ON COLUMN tec.c_assetdata.assetinfoid IS $$Asset unique identifier$$;
 COMMENT ON COLUMN tec.c_assetdata.assetdescr IS $$Description of asset$$;
-\COPY tec.c_assetdata FROM 'data/TEC_CF_CSV/assets.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.c_AssetData FROM 'data/TEC_CF_CSV/assets.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-CREATE INDEX ON tec.c_assetdata (filerIdent, filerTypeCd);
+CREATE INDEX ON tec.c_AssetData (filerIdent, filerTypeCd);
 
-ALTER TABLE tec.c_assetdata
-	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_coversheet1data NOT VALID,
-	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
+ALTER TABLE tec.c_AssetData
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
 
-CREATE INDEX ON tec.c_assetdata (reportinfoident);
+CREATE INDEX ON tec.c_AssetData (reportinfoident);
 

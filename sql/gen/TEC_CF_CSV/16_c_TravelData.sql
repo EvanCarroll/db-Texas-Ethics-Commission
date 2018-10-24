@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_traveldata
+\echo LOADING c_TravelData
 
 
-CREATE TABLE tec.c_traveldata (
+CREATE TABLE tec.c_TravelData (
 	recordType                              text,
 	formTypeCd                              text,
 	schedFormTypeCd                         text,
@@ -49,7 +49,7 @@ CREATE TABLE tec.c_traveldata (
 	travellerNameShort                      text,
 	PRIMARY KEY ( travelInfoId )
 );
-COMMENT ON TABLE tec.c_traveldata IS $$Travel outside the State of Texas - Schedule T - Travel records are linked to records in contribs, pledges and expenditure files through the fields parentType and parentId. They store information about in-kind contributions accepted for travel outside the State of Texas and for expenditures made for travel outside the State of Texas. File: travel.csv$$;
+COMMENT ON TABLE tec.c_TravelData IS $$Travel outside the State of Texas - Schedule T - Travel records are linked to records in contribs, pledges and expenditure files through the fields parentType and parentId. They store information about in-kind contributions accepted for travel outside the State of Texas and for expenditures made for travel outside the State of Texas. File: travel.csv$$;
 COMMENT ON COLUMN tec.c_traveldata.recordtype IS $$Record type code - always TRVL$$;
 COMMENT ON COLUMN tec.c_traveldata.formtypecd IS $$TEC form used$$;
 COMMENT ON COLUMN tec.c_traveldata.schedformtypecd IS $$TEC Schedule Used$$;
@@ -79,14 +79,14 @@ COMMENT ON COLUMN tec.c_traveldata.travellernamesuffixcd IS $$For INDIVIDUAL, th
 COMMENT ON COLUMN tec.c_traveldata.travellernamefirst IS $$For INDIVIDUAL, the traveller first name$$;
 COMMENT ON COLUMN tec.c_traveldata.travellernameprefixcd IS $$For INDIVIDUAL, the traveller name prefix (e.g. MR, MRS, MS)$$;
 COMMENT ON COLUMN tec.c_traveldata.travellernameshort IS $$For INDIVIDUAL, the traveller short name (nickname)$$;
-\COPY tec.c_traveldata FROM 'data/TEC_CF_CSV/travel.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.c_TravelData FROM 'data/TEC_CF_CSV/travel.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-CREATE INDEX ON tec.c_traveldata (filerIdent, filerTypeCd);
+CREATE INDEX ON tec.c_TravelData (filerIdent, filerTypeCd);
 
-ALTER TABLE tec.c_traveldata
-	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_coversheet1data NOT VALID,
-	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
+ALTER TABLE tec.c_TravelData
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
 
-CREATE INDEX ON tec.c_traveldata (reportinfoident);
+CREATE INDEX ON tec.c_TravelData (reportinfoident);
 

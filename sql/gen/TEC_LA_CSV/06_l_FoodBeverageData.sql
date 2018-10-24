@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING l_foodbeveragedata
+\echo LOADING l_FoodBeverageData
 
 
-CREATE TABLE tec.l_foodbeveragedata (
+CREATE TABLE tec.l_FoodBeverageData (
 	recordType                              text,
 	formTypeCd                              text,
 	reportTypeCd                            text,
@@ -53,7 +53,7 @@ CREATE TABLE tec.l_foodbeveragedata (
 	restaurantStreetRegion                  text,
 	PRIMARY KEY (lobbyActivityId)
 );
-COMMENT ON TABLE tec.l_foodbeveragedata IS $$Form LA Schedule C - Food and Beverages. File: LaFood.csv$$;
+COMMENT ON TABLE tec.l_FoodBeverageData IS $$Form LA Schedule C - Food and Beverages. File: LaFood.csv$$;
 COMMENT ON COLUMN tec.l_foodbeveragedata.recordtype IS $$Record type code - always FOOD$$;
 COMMENT ON COLUMN tec.l_foodbeveragedata.formtypecd IS $$TEC form used$$;
 COMMENT ON COLUMN tec.l_foodbeveragedata.reporttypecd IS $$Report type$$;
@@ -87,13 +87,13 @@ COMMENT ON COLUMN tec.l_foodbeveragedata.restaurantstreetstatecd IS $$Restaurant
 COMMENT ON COLUMN tec.l_foodbeveragedata.restaurantstreetcountrycd IS $$Restaurant street address - country (e.g. USA, UMI, MEX, CAN)$$;
 COMMENT ON COLUMN tec.l_foodbeveragedata.restaurantstreetpostalcode IS $$Restaurant street address - postal code - for USA addresses only$$;
 COMMENT ON COLUMN tec.l_foodbeveragedata.restaurantstreetregion IS $$Restaurant street address - region for country other than USA$$;
-\COPY tec.l_foodbeveragedata FROM 'data/TEC_LA_CSV/LaFood.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.l_FoodBeverageData FROM 'data/TEC_LA_CSV/LaFood.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-ALTER TABLE tec.l_foodbeveragedata
+ALTER TABLE tec.l_FoodBeverageData
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
-	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_CoverSheetLaData NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
 
-CREATE INDEX ON tec.l_foodbeveragedata (reportinfoident);
+CREATE INDEX ON tec.l_FoodBeverageData (reportinfoident);
 

@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING l_docketdata
+\echo LOADING l_DocketData
 
 
-CREATE TABLE tec.l_docketdata (
+CREATE TABLE tec.l_DocketData (
 	recordType                              text,
 	formTypeCd                              text,
 	reportTypeCd                            text,
@@ -37,7 +37,7 @@ CREATE TABLE tec.l_docketdata (
 	agencyName                              text,
 	PRIMARY KEY (lobbyDocketdesigId)
 );
-COMMENT ON TABLE tec.l_docketdata IS $$Form LA Schedule A - Docket Nos or Other Designation. NOTE: Form LA Instructions for this box state List the docket number and the name of the state agency at which any administrative matter is pending about which you, anyone you retain or employ to appear on your behalf, or anyone who appears on your behalf communicated with an officer of the executive or legislative branch of state government during the reporting period. File: LaDock.csv$$;
+COMMENT ON TABLE tec.l_DocketData IS $$Form LA Schedule A - Docket Nos or Other Designation. NOTE: Form LA Instructions for this box state List the docket number and the name of the state agency at which any administrative matter is pending about which you, anyone you retain or employ to appear on your behalf, or anyone who appears on your behalf communicated with an officer of the executive or legislative branch of state government during the reporting period. File: LaDock.csv$$;
 COMMENT ON COLUMN tec.l_docketdata.recordtype IS $$Record type code - always DOCK$$;
 COMMENT ON COLUMN tec.l_docketdata.formtypecd IS $$TEC form used$$;
 COMMENT ON COLUMN tec.l_docketdata.reporttypecd IS $$Report type$$;
@@ -55,13 +55,13 @@ COMMENT ON COLUMN tec.l_docketdata.lobbyformtype IS $$TEC Lobby Form Used$$;
 COMMENT ON COLUMN tec.l_docketdata.lobbydocketdesigid IS $$Lobby docket designation unique identifier$$;
 COMMENT ON COLUMN tec.l_docketdata.designationtext IS $$Docket designation text$$;
 COMMENT ON COLUMN tec.l_docketdata.agencyname IS $$Agency name$$;
-\COPY tec.l_docketdata FROM 'data/TEC_LA_CSV/LaDock.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.l_DocketData FROM 'data/TEC_LA_CSV/LaDock.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-ALTER TABLE tec.l_docketdata
+ALTER TABLE tec.l_DocketData
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
-	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_CoverSheetLaData NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
 
-CREATE INDEX ON tec.l_docketdata (reportinfoident);
+CREATE INDEX ON tec.l_DocketData (reportinfoident);
 

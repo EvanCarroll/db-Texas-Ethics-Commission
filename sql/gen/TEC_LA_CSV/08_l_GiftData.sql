@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING l_giftdata
+\echo LOADING l_GiftData
 
 
-CREATE TABLE tec.l_giftdata (
+CREATE TABLE tec.l_GiftData (
 	recordType                              text,
 	formTypeCd                              text,
 	reportTypeCd                            text,
@@ -48,7 +48,7 @@ CREATE TABLE tec.l_giftdata (
 	recipientNameShort                      text,
 	PRIMARY KEY (lobbyActivityId)
 );
-COMMENT ON TABLE tec.l_giftdata IS $$Form LA Schedule E - Gifts. File: LaGift.csv$$;
+COMMENT ON TABLE tec.l_GiftData IS $$Form LA Schedule E - Gifts. File: LaGift.csv$$;
 COMMENT ON COLUMN tec.l_giftdata.recordtype IS $$Record type code - always GIFT$$;
 COMMENT ON COLUMN tec.l_giftdata.formtypecd IS $$TEC form used$$;
 COMMENT ON COLUMN tec.l_giftdata.reporttypecd IS $$Report type$$;
@@ -77,13 +77,13 @@ COMMENT ON COLUMN tec.l_giftdata.recipientnamesuffixcd IS $$For INDIVIDUAL, the 
 COMMENT ON COLUMN tec.l_giftdata.recipientnamefirst IS $$For INDIVIDUAL, the recipient first name$$;
 COMMENT ON COLUMN tec.l_giftdata.recipientnameprefixcd IS $$For INDIVIDUAL, the recipient name prefix (e.g. MR, MRS, MS)$$;
 COMMENT ON COLUMN tec.l_giftdata.recipientnameshort IS $$For INDIVIDUAL, the recipient short name (nickname)$$;
-\COPY tec.l_giftdata FROM 'data/TEC_LA_CSV/LaGift.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.l_GiftData FROM 'data/TEC_LA_CSV/LaGift.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-ALTER TABLE tec.l_giftdata
+ALTER TABLE tec.l_GiftData
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
-	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_CoverSheetLaData NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
 
-CREATE INDEX ON tec.l_giftdata (reportinfoident);
+CREATE INDEX ON tec.l_GiftData (reportinfoident);
 

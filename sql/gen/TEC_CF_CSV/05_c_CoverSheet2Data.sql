@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_coversheet2data
+\echo LOADING c_CoverSheet2Data
 
 
-CREATE TABLE tec.c_coversheet2data (
+CREATE TABLE tec.c_CoverSheet2Data (
 	recordType                              text,
 	formTypeCd                              text,
 	reportInfoIdent                         int,
@@ -60,7 +60,7 @@ CREATE TABLE tec.c_coversheet2data (
 	treasStreetRegion                       text,
 	PRIMARY KEY (committeeActivityId)
 );
-COMMENT ON TABLE tec.c_coversheet2data IS $$Cover Sheet 2 - Notices received by candidates/office holders. These notices are reported at the bottom of Cover Sheet Page 1 and the top of Cover Sheet Page 2 for FORMNAME = COH, COHFR, CORCOH, JCOH, SCCOH, SCSPAC. File: notices.csv$$;
+COMMENT ON TABLE tec.c_CoverSheet2Data IS $$Cover Sheet 2 - Notices received by candidates/office holders. These notices are reported at the bottom of Cover Sheet Page 1 and the top of Cover Sheet Page 2 for FORMNAME = COH, COHFR, CORCOH, JCOH, SCCOH, SCSPAC. File: notices.csv$$;
 COMMENT ON COLUMN tec.c_coversheet2data.recordtype IS $$Record type code - always CVR2$$;
 COMMENT ON COLUMN tec.c_coversheet2data.formtypecd IS $$TEC form used$$;
 COMMENT ON COLUMN tec.c_coversheet2data.reportinfoident IS $$Unique report #$$;
@@ -101,16 +101,16 @@ COMMENT ON COLUMN tec.c_coversheet2data.treasstreetcountycd IS $$Treasurer stree
 COMMENT ON COLUMN tec.c_coversheet2data.treasstreetcountrycd IS $$Treasurer street address - country (e.g. USA, UMI, MEX, CAN)$$;
 COMMENT ON COLUMN tec.c_coversheet2data.treasstreetpostalcode IS $$Treasurer street address - postal code - for USA addresses only$$;
 COMMENT ON COLUMN tec.c_coversheet2data.treasstreetregion IS $$Treasurer street address - region for country other than USA$$;
-\COPY tec.c_coversheet2data FROM 'data/TEC_CF_CSV/notices.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.c_CoverSheet2Data FROM 'data/TEC_CF_CSV/notices.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-CREATE INDEX ON tec.c_coversheet2data (filerIdent, filerTypeCd);
+CREATE INDEX ON tec.c_CoverSheet2Data (filerIdent, filerTypeCd);
 
-ALTER TABLE tec.c_coversheet2data
-	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_coversheet1data NOT VALID,
+ALTER TABLE tec.c_CoverSheet2Data
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
 	ADD FOREIGN KEY (notifierStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (treasStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
 
-CREATE INDEX ON tec.c_coversheet2data (reportinfoident);
+CREATE INDEX ON tec.c_CoverSheet2Data (reportinfoident);
 

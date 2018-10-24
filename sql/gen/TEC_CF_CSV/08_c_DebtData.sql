@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_debtdata
+\echo LOADING c_DebtData
 
 
-CREATE TABLE tec.c_debtdata (
+CREATE TABLE tec.c_DebtData (
 	recordType                              text,
 	formTypeCd                              text,
 	schedFormTypeCd                         text,
@@ -109,7 +109,7 @@ CREATE TABLE tec.c_debtdata (
 	guarantorStreetRegion5                  text,
 	PRIMARY KEY ( loanInfoId )
 );
-COMMENT ON TABLE tec.c_debtdata IS $$Debts - Schedule L - Outstanding judicial loans. File: debts.csv$$;
+COMMENT ON TABLE tec.c_DebtData IS $$Debts - Schedule L - Outstanding judicial loans. File: debts.csv$$;
 COMMENT ON COLUMN tec.c_debtdata.recordtype IS $$Record type code - always DEBT$$;
 COMMENT ON COLUMN tec.c_debtdata.formtypecd IS $$TEC form used$$;
 COMMENT ON COLUMN tec.c_debtdata.schedformtypecd IS $$TEC Schedule Used$$;
@@ -199,20 +199,20 @@ COMMENT ON COLUMN tec.c_debtdata.guarantorstreetcountycd5 IS $$5: Guarantor stre
 COMMENT ON COLUMN tec.c_debtdata.guarantorstreetcountrycd5 IS $$5: Guarantor street address - country (e.g. USA, UMI, MEX, CAN)$$;
 COMMENT ON COLUMN tec.c_debtdata.guarantorstreetpostalcode5 IS $$5: Guarantor street address - postal code - for USA addresses only$$;
 COMMENT ON COLUMN tec.c_debtdata.guarantorstreetregion5 IS $$5: Guarantor street address - region for country other than USA$$;
-\COPY tec.c_debtdata FROM 'data/TEC_CF_CSV/debts.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.c_DebtData FROM 'data/TEC_CF_CSV/debts.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-CREATE INDEX ON tec.c_debtdata (filerIdent, filerTypeCd);
+CREATE INDEX ON tec.c_DebtData (filerIdent, filerTypeCd);
 
-ALTER TABLE tec.c_debtdata
-	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_coversheet1data NOT VALID,
+ALTER TABLE tec.c_DebtData
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
 	ADD FOREIGN KEY (lenderStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd1) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd2) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd3) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd4) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd5) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
 
-CREATE INDEX ON tec.c_debtdata (reportinfoident);
+CREATE INDEX ON tec.c_DebtData (reportinfoident);
 

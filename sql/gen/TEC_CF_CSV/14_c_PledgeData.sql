@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_pledgedata
+\echo LOADING c_PledgeData
 
 
-CREATE TABLE tec.c_pledgedata (
+CREATE TABLE tec.c_PledgeData (
 	recordType                              text,
 	formTypeCd                              text,
 	schedFormTypeCd                         text,
@@ -56,7 +56,7 @@ CREATE TABLE tec.c_pledgedata (
 	pledgerParent2LawFirmName               text,
 	PRIMARY KEY ( pledgeInfoId )
 );
-COMMENT ON TABLE tec.c_pledgedata IS $$Pledges - Schedule B - Pledges from special session and special pre-election (formerly Telegram) reports are stored in the file pldg_ss and pldg_t. These records are kept separate from the pledges files to avoid creating duplicates, because they are supposed to be re-reported on the next regular campaign finance report. Files: pledges.csv, pldg_ss.csv, pldg_t.csv$$;
+COMMENT ON TABLE tec.c_PledgeData IS $$Pledges - Schedule B - Pledges from special session and special pre-election (formerly Telegram) reports are stored in the file pldg_ss and pldg_t. These records are kept separate from the pledges files to avoid creating duplicates, because they are supposed to be re-reported on the next regular campaign finance report. Files: pledges.csv, pldg_ss.csv, pldg_t.csv$$;
 COMMENT ON COLUMN tec.c_pledgedata.recordtype IS $$Record type code - always PLDG$$;
 COMMENT ON COLUMN tec.c_pledgedata.formtypecd IS $$TEC form used$$;
 COMMENT ON COLUMN tec.c_pledgedata.schedformtypecd IS $$TEC Schedule Used$$;
@@ -93,19 +93,19 @@ COMMENT ON COLUMN tec.c_pledgedata.pledgeroospacflag IS $$Indicates if pledger i
 COMMENT ON COLUMN tec.c_pledgedata.pledgerspouselawfirmname IS $$Pledger spouse law firm name$$;
 COMMENT ON COLUMN tec.c_pledgedata.pledgerparent1lawfirmname IS $$Pledger parent #1 law firm name$$;
 COMMENT ON COLUMN tec.c_pledgedata.pledgerparent2lawfirmname IS $$Pledger parent #2 law firm name$$;
-\COPY tec.c_pledgedata FROM 'data/TEC_CF_CSV/pledges.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.c_PledgeData FROM 'data/TEC_CF_CSV/pledges.csv' WITH ( FORMAT CSV , HEADER true );
 
-\COPY tec.c_pledgedata FROM 'data/TEC_CF_CSV/pldg_ss.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.c_PledgeData FROM 'data/TEC_CF_CSV/pldg_ss.csv' WITH ( FORMAT CSV , HEADER true );
 
-\COPY tec.c_pledgedata FROM 'data/TEC_CF_CSV/pldg_t.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.c_PledgeData FROM 'data/TEC_CF_CSV/pldg_t.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-CREATE INDEX ON tec.c_pledgedata (filerIdent, filerTypeCd);
+CREATE INDEX ON tec.c_PledgeData (filerIdent, filerTypeCd);
 
-ALTER TABLE tec.c_pledgedata
-	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_coversheet1data NOT VALID,
+ALTER TABLE tec.c_PledgeData
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
 	ADD FOREIGN KEY (pledgerStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
 
-CREATE INDEX ON tec.c_pledgedata (reportinfoident);
+CREATE INDEX ON tec.c_PledgeData (reportinfoident);
 

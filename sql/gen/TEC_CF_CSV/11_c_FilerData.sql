@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_filerdata
+\echo LOADING c_FilerData
 
 
-CREATE TABLE tec.c_filerdata (
+CREATE TABLE tec.c_FilerData (
 	recordType                              text,
 	filerIdent                              int,
 	filerTypeCd                             text,
@@ -152,7 +152,7 @@ CREATE TABLE tec.c_filerdata (
 	chairPrimaryPhoneExt                    text,
 	PRIMARY KEY (filerIdent, filerTypeCd)
 );
-COMMENT ON TABLE tec.c_filerdata IS $$Filer index. The names, addresses and offices in this file are entered by TEC staff from various sources; e.g., amended campaign treasurer appointments, change-of-address notices, and ballot information from the Texas Secretary of State. File: filers.csv$$;
+COMMENT ON TABLE tec.c_FilerData IS $$Filer index. The names, addresses and offices in this file are entered by TEC staff from various sources; e.g., amended campaign treasurer appointments, change-of-address notices, and ballot information from the Texas Secretary of State. File: filers.csv$$;
 COMMENT ON COLUMN tec.c_filerdata.recordtype IS $$Record type code - always FILER$$;
 COMMENT ON COLUMN tec.c_filerdata.filerident IS $$Filer account #$$;
 COMMENT ON COLUMN tec.c_filerdata.filertypecd IS $$Type of filer$$;
@@ -285,10 +285,10 @@ COMMENT ON COLUMN tec.c_filerdata.chairmailingregion IS $$Chair mailing address 
 COMMENT ON COLUMN tec.c_filerdata.chairprimaryusaphoneflag IS $$Chair primary phone number - Y if number is a USA phone, N       otherwise$$;
 COMMENT ON COLUMN tec.c_filerdata.chairprimaryphonenumber IS $$Chair primary phone number$$;
 COMMENT ON COLUMN tec.c_filerdata.chairprimaryphoneext IS $$Chair primary phone extension$$;
-\COPY tec.c_filerdata FROM 'data/TEC_CF_CSV/filers.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.c_FilerData FROM 'data/TEC_CF_CSV/filers.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-ALTER TABLE tec.c_filerdata
+ALTER TABLE tec.c_FilerData
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID,
 	ADD FOREIGN KEY (ctaSeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (ctaSeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,

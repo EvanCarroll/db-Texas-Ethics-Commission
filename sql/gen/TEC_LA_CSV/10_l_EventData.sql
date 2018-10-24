@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING l_eventdata
+\echo LOADING l_EventData
 
 
-CREATE TABLE tec.l_eventdata (
+CREATE TABLE tec.l_EventData (
 	recordType                              text,
 	formTypeCd                              text,
 	reportTypeCd                            text,
@@ -52,7 +52,7 @@ CREATE TABLE tec.l_eventdata (
 	beneficiaryNameShort                    text,
 	PRIMARY KEY (lobbyActivityId)
 );
-COMMENT ON TABLE tec.l_eventdata IS $$Form LA Schedule G - Pol. Fundraisers and Charity Events. File: LaEvnt.csv$$;
+COMMENT ON TABLE tec.l_EventData IS $$Form LA Schedule G - Pol. Fundraisers and Charity Events. File: LaEvnt.csv$$;
 COMMENT ON COLUMN tec.l_eventdata.recordtype IS $$Record type code - always EVNT$$;
 COMMENT ON COLUMN tec.l_eventdata.formtypecd IS $$TEC form used$$;
 COMMENT ON COLUMN tec.l_eventdata.reporttypecd IS $$Report type$$;
@@ -85,13 +85,13 @@ COMMENT ON COLUMN tec.l_eventdata.beneficiarynamesuffixcd IS $$For INDIVIDUAL, t
 COMMENT ON COLUMN tec.l_eventdata.beneficiarynamefirst IS $$For INDIVIDUAL, the beneficiary first name$$;
 COMMENT ON COLUMN tec.l_eventdata.beneficiarynameprefixcd IS $$For INDIVIDUAL, the beneficiary name prefix (e.g. MR, MRS, MS)$$;
 COMMENT ON COLUMN tec.l_eventdata.beneficiarynameshort IS $$For INDIVIDUAL, the beneficiary short name (nickname)$$;
-\COPY tec.l_eventdata FROM 'data/TEC_LA_CSV/LaEvnt.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.l_EventData FROM 'data/TEC_LA_CSV/LaEvnt.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-ALTER TABLE tec.l_eventdata
+ALTER TABLE tec.l_EventData
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
-	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_CoverSheetLaData NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
 
-CREATE INDEX ON tec.l_eventdata (reportinfoident);
+CREATE INDEX ON tec.l_EventData (reportinfoident);
 

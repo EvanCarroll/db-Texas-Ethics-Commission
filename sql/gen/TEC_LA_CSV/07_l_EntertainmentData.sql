@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING l_entertainmentdata
+\echo LOADING l_EntertainmentData
 
 
-CREATE TABLE tec.l_entertainmentdata (
+CREATE TABLE tec.l_EntertainmentData (
 	recordType                              text,
 	formTypeCd                              text,
 	reportTypeCd                            text,
@@ -55,7 +55,7 @@ CREATE TABLE tec.l_entertainmentdata (
 	entertainmentStreetRegion               text,
 	PRIMARY KEY (lobbyActivityId)
 );
-COMMENT ON TABLE tec.l_entertainmentdata IS $$Form LA Schedule D - Entertainment. File: LaEnt.csv$$;
+COMMENT ON TABLE tec.l_EntertainmentData IS $$Form LA Schedule D - Entertainment. File: LaEnt.csv$$;
 COMMENT ON COLUMN tec.l_entertainmentdata.recordtype IS $$Record type code - always ENT$$;
 COMMENT ON COLUMN tec.l_entertainmentdata.formtypecd IS $$TEC form used$$;
 COMMENT ON COLUMN tec.l_entertainmentdata.reporttypecd IS $$Report type$$;
@@ -91,13 +91,13 @@ COMMENT ON COLUMN tec.l_entertainmentdata.entertainmentstreetstatecd IS $$Entert
 COMMENT ON COLUMN tec.l_entertainmentdata.entertainmentstreetcountrycd IS $$Entertainment street address - country (e.g. USA, UMI, MEX, CAN)$$;
 COMMENT ON COLUMN tec.l_entertainmentdata.entertainmentstreetpostalcode IS $$Entertainment street address - postal code - for USA addresses   only$$;
 COMMENT ON COLUMN tec.l_entertainmentdata.entertainmentstreetregion IS $$Entertainment street address - region for country other than USA$$;
-\COPY tec.l_entertainmentdata FROM 'data/TEC_LA_CSV/LaEnt.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.l_EntertainmentData FROM 'data/TEC_LA_CSV/LaEnt.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-ALTER TABLE tec.l_entertainmentdata
+ALTER TABLE tec.l_EntertainmentData
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
-	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_CoverSheetLaData NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
 
-CREATE INDEX ON tec.l_entertainmentdata (reportinfoident);
+CREATE INDEX ON tec.l_EntertainmentData (reportinfoident);
 

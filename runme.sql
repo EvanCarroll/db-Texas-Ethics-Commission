@@ -33,122 +33,137 @@ COMMENT ON SCHEMA tec IS $$Texas Ethics Comission dataset$$;
 \i sql/form1295.sql
 
 \echo LOADING CAMPAIGN FINANCE REPORTS [TEC_CF_CSV.zip]
-\i sql/gen/TEC_CF_CSV/11_c_filerdata.sql
-\i sql/gen/TEC_CF_CSV/04_c_coversheet1data.sql
-\i sql/gen/TEC_CF_CSV/10_c_expendcategory.sql
-\i sql/gen/TEC_CF_CSV/12_c_finaldata.sql
-\i sql/gen/TEC_CF_CSV/13_c_loandata.sql
-\i sql/gen/TEC_CF_CSV/14_c_pledgedata.sql
-\i sql/gen/TEC_CF_CSV/15_c_spacdata.sql
-\i sql/gen/TEC_CF_CSV/16_c_traveldata.sql
-\i sql/gen/TEC_CF_CSV/01_c_assetdata.sql
-\i sql/gen/TEC_CF_CSV/02_c_candidatedata.sql
-\i sql/gen/TEC_CF_CSV/03_c_contributiondata.sql
-\i sql/gen/TEC_CF_CSV/05_c_coversheet2data.sql
-\i sql/gen/TEC_CF_CSV/06_c_coversheet3data.sql
-\i sql/gen/TEC_CF_CSV/07_c_creditdata.sql
-\i sql/gen/TEC_CF_CSV/08_c_debtdata.sql
-\i sql/gen/TEC_CF_CSV/09_c_expenddata.sql
+\i sql/gen/TEC_CF_CSV/11_c_FilerData.sql
+\i sql/gen/TEC_CF_CSV/04_c_CoverSheet1Data.sql
+\i sql/gen/TEC_CF_CSV/10_c_ExpendCategory.sql
+\i sql/gen/TEC_CF_CSV/12_c_FinalData.sql
+\i sql/gen/TEC_CF_CSV/13_c_LoanData.sql
+\i sql/gen/TEC_CF_CSV/14_c_PledgeData.sql
+\i sql/gen/TEC_CF_CSV/15_c_SpacData.sql
+\i sql/gen/TEC_CF_CSV/16_c_TravelData.sql
+\i sql/gen/TEC_CF_CSV/01_c_AssetData.sql
+\i sql/gen/TEC_CF_CSV/02_c_CandidateData.sql
+\i sql/gen/TEC_CF_CSV/03_c_ContributionData.sql
+\i sql/gen/TEC_CF_CSV/05_c_CoverSheet2Data.sql
+\i sql/gen/TEC_CF_CSV/06_c_CoverSheet3Data.sql
+\i sql/gen/TEC_CF_CSV/07_c_CreditData.sql
+\i sql/gen/TEC_CF_CSV/08_c_DebtData.sql
+\i sql/gen/TEC_CF_CSV/09_c_ExpendData.sql
 
 \echo LOADING LOBY REPORTS [TEC_LA_CSV.zip]
-\i sql/gen/TEC_LA_CSV/01_l_coversheetladata.sql
-\i sql/gen/TEC_LA_CSV/02_l_individualreportingdata.sql
-\i sql/gen/TEC_LA_CSV/03_l_subjectmatterdata.sql
-\i sql/gen/TEC_LA_CSV/04_l_docketdata.sql
-\i sql/gen/TEC_LA_CSV/05_l_transportationdata.sql
-\i sql/gen/TEC_LA_CSV/06_l_foodbeveragedata.sql
-\i sql/gen/TEC_LA_CSV/07_l_entertainmentdata.sql
-\i sql/gen/TEC_LA_CSV/08_l_giftdata.sql
-\i sql/gen/TEC_LA_CSV/09_l_awardmementodata.sql
-\i sql/gen/TEC_LA_CSV/10_l_eventdata.sql
+\i sql/gen/TEC_LA_CSV/01_l_CoverSheetLaData.sql
+\i sql/gen/TEC_LA_CSV/02_l_IndividualReportingData.sql
+\i sql/gen/TEC_LA_CSV/03_l_SubjectMatterData.sql
+\i sql/gen/TEC_LA_CSV/04_l_DocketData.sql
+\i sql/gen/TEC_LA_CSV/05_l_TransportationData.sql
+\i sql/gen/TEC_LA_CSV/06_l_FoodBeverageData.sql
+\i sql/gen/TEC_LA_CSV/07_l_EntertainmentData.sql
+\i sql/gen/TEC_LA_CSV/08_l_GiftData.sql
+\i sql/gen/TEC_LA_CSV/09_l_AwardMementoData.sql
+\i sql/gen/TEC_LA_CSV/10_l_EventData.sql
 
--- Needs both SJC and SCJ
-INSERT INTO tec.codes_office (office_id)
-VALUES ('DISTATTY_HR'), ('JUSTICEAPP'), ('SJC'), ('SCJ'), ('JUDGECRIM'), ('DISTATTY_MULTI_KL_KN'), ('COMPTROLLR'), ('CRIMAL_DISTATTY');
+SET SEARCH_PATH TO tec;
 
--- BEGIN;
--- 	-- SELECT FORMAT(
--- 	-- 	$$UPDATE %I.%I.%I SET %I = NULL WHERE %I IN ( 'OTHER', 'UNKNOWN', '' );$$,
--- 	-- 	table_catalog,
--- 	-- 	table_schema,
--- 	-- 	table_name,
--- 	-- 	column_name,
--- 	-- 	column_name
--- 	-- )
--- 	-- FROM information_schema.columns
--- 	-- WHERE table_schema = 'tec'
--- 	-- 	AND column_name LIKE '%countycd'
--- 	-- ORDER BY table_catalog, table_schema, table_name;
--- 
-UPDATE tec.c_candidatedata SET candidateholdofficecountycd = NULL WHERE candidateholdofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_candidatedata SET candidateseekofficecountycd = NULL WHERE candidateseekofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_contributiondata SET contributorstreetcountycd = NULL WHERE contributorstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_coversheet1data SET treasmailingcountycd = NULL WHERE treasmailingcountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_coversheet1data SET treasstreetcountycd = NULL WHERE treasstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_coversheet1data SET politicalpartycountycd = NULL WHERE politicalpartycountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_coversheet1data SET filerstreetcountycd = NULL WHERE filerstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_coversheet1data SET filerseekofficecountycd = NULL WHERE filerseekofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_coversheet1data SET filerholdofficecountycd = NULL WHERE filerholdofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_coversheet1data SET chairmailingcountycd = NULL WHERE chairmailingcountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_coversheet1data SET chairstreetcountycd = NULL WHERE chairstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_coversheet2data SET treasstreetcountycd = NULL WHERE treasstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_coversheet2data SET notifierstreetcountycd = NULL WHERE notifierstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_coversheet3data SET activityseekofficecountycd = NULL WHERE activityseekofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_coversheet3data SET activityholdofficecountycd = NULL WHERE activityholdofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_creditdata SET payorstreetcountycd = NULL WHERE payorstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_debtdata SET lenderstreetcountycd = NULL WHERE lenderstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_expenddata SET payeestreetcountycd = NULL WHERE payeestreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_filerdata SET chairmailingcountycd = NULL WHERE chairmailingcountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_filerdata SET filerholdofficecountycd = NULL WHERE filerholdofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_filerdata SET contestseekofficecountycd = NULL WHERE contestseekofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_filerdata SET treasstreetcountycd = NULL WHERE treasstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_filerdata SET treasmailingcountycd = NULL WHERE treasmailingcountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_filerdata SET assttreasstreetcountycd = NULL WHERE assttreasstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_filerdata SET chairstreetcountycd = NULL WHERE chairstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_filerdata SET ctaseekofficecountycd = NULL WHERE ctaseekofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_filerdata SET filerstreetcountycd = NULL WHERE filerstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_filerdata SET filermailingcountycd = NULL WHERE filermailingcountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_loandata SET lenderstreetcountycd = NULL WHERE lenderstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_pledgedata SET pledgerstreetcountycd = NULL WHERE pledgerstreetcountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_spacdata SET ctaseekofficecountycd = NULL WHERE ctaseekofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_spacdata SET candidateseekofficecountycd = NULL WHERE candidateseekofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.c_spacdata SET candidateholdofficecountycd = NULL WHERE candidateholdofficecountycd IN ( 'OTHER', 'UNKNOWN', '' );
-UPDATE tec.l_individualreportingdata SET onbehalfmailingcountycd = NULL WHERE onbehalfmailingcountycd IN ( 'OTHER', 'UNKNOWN', '' );
+DO $$
+DECLARE
+	_sql text;
+	rows_affected INT;
+BEGIN
+	FOR _sql IN SELECT FORMAT(
+			$sql$ UPDATE %I.%I.%I SET %I = NULL WHERE %I IN ( 'UNKNOWN', '' ); $sql$,
+			table_catalog,
+			table_schema,
+			table_name,
+			column_name,
+			column_name
+		)
+		FROM information_schema.columns
+		WHERE table_schema = 'tec'
+			AND column_name LIKE ANY(ARRAY['%countycd', '%officecd', '%expendcatcd'])
+		ORDER BY table_catalog, table_schema, table_name
+	LOOP
+		EXECUTE _sql;
+		GET DIAGNOSTICS rows_affected = ROW_COUNT;
+		RAISE NOTICE '[%] %', rows_affected, _sql;
+	END LOOP;
+	
+	FOR _sql IN SELECT FORMAT(
+			$sql$ UPDATE %I.%I.%I SET %I = NULL WHERE %I IN ( 'UNKNOWN', '', 'OTHER' ); $sql$,
+			table_catalog,
+			table_schema,
+			table_name,
+			column_name,
+			column_name
+		)
+		FROM information_schema.columns
+		WHERE table_schema = 'tec'
+			AND column_name LIKE '%countycd'
+		ORDER BY table_catalog, table_schema, table_name
+	LOOP
+		EXECUTE _sql;
+		GET DIAGNOSTICS rows_affected = ROW_COUNT;
+		RAISE NOTICE '[%] %', rows_affected, _sql;
+	END LOOP;
+END
+$$ LANGUAGE plpgsql;
 
--- END;
 
-UPDATE tec.c_candidatedata
-SET candidateholdofficecd = NULL
-WHERE candidateholdofficecd = 'T';
-
-UPDATE tec.c_candidatedata
-SET expendCatCd = NULL
-WHERE expendCatCd IN ('', 'UNKNOWN');
-
-UPDATE tec.c_expenddata
-SET expendCatCd = NULL
-WHERE expendCatCd IN ('', 'UNKNOWN');
+-- data integrity problems
+UPDATE c_CandidateData
+	SET CandidateHoldOfficeCd = NULL
+	WHERE CandidateHoldOfficeCd = 'T';
+UPDATE c_CandidateData
+	SET CandidateHoldOfficeCd = 'COMPTROLLER'
+	WHERE CandidateHoldOfficeCd = 'COMPTROLLR';
+UPDATE c_CandidateData
+	SET CandidateSeekOfficeCd = 'COMPTROLLER'
+	WHERE CandidateSeekOfficeCd = 'COMPTROLLR';
+	
+UPDATE c_CoverSheet1Data
+	SET filerholdofficecd = NULL
+	WHERE filerholdofficecd = 'T';
+UPDATE c_CoverSheet1Data
+	SET filerholdofficecd = 'COMPTROLLER'
+	WHERE filerholdofficecd = 'COMPTROLLR';
+UPDATE c_CoverSheet1Data
+	SET filerseekofficecd = 'COMPTROLLER'
+	WHERE filerseekofficecd = 'COMPTROLLR';
+UPDATE c_CoverSheet1Data
+	SET filerholdofficecd = 'CRIMINAL_DISTATTY'
+	WHERE filerholdofficecd = 'CRIMAL_DISTATTY';
+UPDATE c_CoverSheet1Data
+	SET filerseekofficecd = 'CRIMINAL_DISTATTY'
+	WHERE filerseekofficecd = 'CRIMAL_DISTATTY';
 
 -- The CSV schema dumps as seperate columns
 -- But the readme shows it as an array
 -- So we convert back to array
 BEGIN;
-	ALTER TABLE tec.c_coversheet1data
+	ALTER TABLE c_coversheet1data
 		ADD COLUMN reporttype text[];
 
-	UPDATE tec.c_coversheet1data
+	UPDATE c_coversheet1data
 	SET reporttype = array_remove(ARRAY[
 		reportTypeCd1,reportTypeCd2,reportTypeCd3,reportTypeCd4,reportTypeCd5,
 		reportTypeCd6,reportTypeCd7,reportTypeCd8,reportTypeCd9,reportTypeCd10
 	],null);
 
-	ALTER TABLE tec.c_coversheet1data
+	ALTER TABLE c_coversheet1data
 		DROP COLUMN reportTypeCd1, DROP COLUMN reportTypeCd2, DROP COLUMN reportTypeCd3, DROP COLUMN reportTypeCd4, DROP COLUMN reportTypeCd5,
 		DROP COLUMN reportTypeCd6, DROP COLUMN reportTypeCd7, DROP COLUMN reportTypeCd8, DROP COLUMN reportTypeCd9, DROP COLUMN reportTypeCd10;
 
-	UPDATE tec.c_coversheet1data
-	SET filerholdofficecd = NULL
-	WHERE filerholdofficecd = 'T';
+
+	--UPDATE c_CoverSheet1Data
+	--	SET filerholdofficecd = CASE WHEN filerholdofficecd = 'COMPTROLLR' THEN 'COMPTROLLER' ELSE filerholdofficecd END,
+	--		filerseekofficecd = CASE WHEN filerseekofficecd = 'COMPTROLLR' THEN 'COMPTROLLER' ELSE filerseekofficecd END
+	--	WHERE filerholdofficecd = 'COMPTROLLR'
+	--		OR filerseekofficecd = 'COMPTROLLR';
+	--UPDATE c_CoverSheet1Data
+	--	SET filerholdofficecd = CASE WHEN filerholdofficecd = 'CRIMAL_DISTATTY' THEN 'CRIMINAL_DISTATTY' ELSE filerholdofficecd END,
+	--		filerseekofficecd = CASE WHEN filerseekofficecd = 'CRIMAL_DISTATTY' THEN 'CRIMINAL_DISTATTY' ELSE filerseekofficecd END
+	--	WHERE filerholdofficecd = 'CRIMAL_DISTATTY'
+	--		OR filerseekofficecd = 'CRIMAL_DISTATTY';
+
 COMMIT;
 
 --
@@ -157,6 +172,7 @@ COMMIT;
 DO $$
 DECLARE
 	_sql text;
+	rows_affected INT;
 BEGIN
 	FOR _sql IN SELECT FORMAT(
 			'ALTER TABLE %I.%I.%I VALIDATE CONSTRAINT %I;',
@@ -172,9 +188,11 @@ BEGIN
 			ON cls.relnamespace = nsp.oid
 		WHERE convalidated IS FALSE
 	LOOP
-		RAISE NOTICE '%', _sql;
 		EXECUTE _sql;
+		GET DIAGNOSTICS rows_affected = ROW_COUNT;
+		RAISE NOTICE '[%] %', rows_affected, _sql;
 	END LOOP;
 END
 $$ LANGUAGE plpgsql;
 
+VACUUM FULL ANALYZE;

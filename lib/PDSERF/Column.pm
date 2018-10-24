@@ -103,11 +103,11 @@ sub fkey_constraint {
 		return sprintf( $fmt, 'c_expendcategory' );
 	}
 	elsif ( $self->name =~ /reportInfoIdent$/ ) {
-		if ( $self->table->name =~ /^l_/ and $self->table->name ne 'l_coversheetladata' ) {
-			return sprintf( $fmt, 'l_coversheetladata' );
+		if ( $self->table->name =~ /^l_/ and $self->table->name ne 'l_CoverSheetLaData' ) {
+			return sprintf( $fmt, 'l_CoverSheetLaData' );
 		}
-		elsif ( $self->table->name =~ /^c_/ and $self->table->name ne 'c_coversheet1data' ) {
-			return sprintf( $fmt, 'c_coversheet1data' );
+		elsif ( $self->table->name =~ /^c_/ and $self->table->name ne 'c_CoverSheet1Data' ) {
+			return sprintf( $fmt, 'c_CoverSheet1Data' );
 		}
 
 	}
@@ -121,7 +121,7 @@ sub fkey_constraint {
 
 	if (
 		$self->name =~ 'filerTypeCd' and
-		$self->table->name eq 'c_filerdata' || $self->table->name =~ /^l_/
+		$self->table->name eq 'c_FilerData' || $self->table->name =~ /^l_/
 	) {
 		return sprintf( $fmt, 'codes_filertype' );
 	}

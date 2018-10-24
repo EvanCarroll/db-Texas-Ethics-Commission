@@ -42,3 +42,8 @@ VALUES
 	( 'STATEREP'                 , 'State Representative' ),
 	( 'STATESEN'                 , 'State Senator' ),
 	( 'X'                        , 'Legacy Only' );
+
+-- Needs both SJC and SCJ, not found in original set
+INSERT INTO tec.codes_office (office_id)
+VALUES ('DISTATTY_HR'), ('JUSTICEAPP'), ('SJC'), ('SCJ'), ('JUDGECRIM'), ('DISTATTY_MULTI_KL_KN');
+

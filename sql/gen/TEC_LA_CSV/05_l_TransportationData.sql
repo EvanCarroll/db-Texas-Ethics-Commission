@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING l_transportationdata
+\echo LOADING l_TransportationData
 
 
-CREATE TABLE tec.l_transportationdata (
+CREATE TABLE tec.l_TransportationData (
 	recordType                              text,
 	formTypeCd                              text,
 	reportTypeCd                            text,
@@ -61,7 +61,7 @@ CREATE TABLE tec.l_transportationdata (
 	travelPurpose                           text,
 	PRIMARY KEY (lobactivityTravelId)
 );
-COMMENT ON TABLE tec.l_transportationdata IS $$Form LA Schedule B - Transportation and Lodging. File: LaTran.csv$$;
+COMMENT ON TABLE tec.l_TransportationData IS $$Form LA Schedule B - Transportation and Lodging. File: LaTran.csv$$;
 COMMENT ON COLUMN tec.l_transportationdata.recordtype IS $$Record type code - always TRAN$$;
 COMMENT ON COLUMN tec.l_transportationdata.formtypecd IS $$TEC form used$$;
 COMMENT ON COLUMN tec.l_transportationdata.reporttypecd IS $$Report type$$;
@@ -103,13 +103,13 @@ COMMENT ON COLUMN tec.l_transportationdata.departuredt IS $$Departure date$$;
 COMMENT ON COLUMN tec.l_transportationdata.arrivalcity IS $$Arrival city$$;
 COMMENT ON COLUMN tec.l_transportationdata.arrivaldt IS $$Arrival date$$;
 COMMENT ON COLUMN tec.l_transportationdata.travelpurpose IS $$Purpose of travel$$;
-\COPY tec.l_transportationdata FROM 'data/TEC_LA_CSV/LaTran.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.l_TransportationData FROM 'data/TEC_LA_CSV/LaTran.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-ALTER TABLE tec.l_transportationdata
+ALTER TABLE tec.l_TransportationData
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
-	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_CoverSheetLaData NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
 
-CREATE INDEX ON tec.l_transportationdata (reportinfoident);
+CREATE INDEX ON tec.l_TransportationData (reportinfoident);
 

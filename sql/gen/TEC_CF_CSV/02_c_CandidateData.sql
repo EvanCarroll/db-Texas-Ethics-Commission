@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_candidatedata
+\echo LOADING c_CandidateData
 
 
-CREATE TABLE tec.c_candidatedata (
+CREATE TABLE tec.c_CandidateData (
 	recordType                              text,
 	formTypeCd                              text,
 	schedFormTypeCd                         text,
@@ -60,7 +60,7 @@ CREATE TABLE tec.c_candidatedata (
 	candidateSeekOfficeCountyDescr          text,
 	PRIMARY KEY (expendPersentId)
 );
-COMMENT ON TABLE tec.c_candidatedata IS $$Candidate benefiting from a direct campaign expenditure. A direct campaign expenditure to benefit a candidate is not a political contribution to that candidate. Instead, a direct campaign expenditure is a campaign expenditure made on someone else's behalf and without the prior consent or approval of that person. A given EXPN record can have zero or more related CAND records. Any CAND records are written to the file immediately after their related EXPN record. File: cand.csv$$;
+COMMENT ON TABLE tec.c_CandidateData IS $$Candidate benefiting from a direct campaign expenditure. A direct campaign expenditure to benefit a candidate is not a political contribution to that candidate. Instead, a direct campaign expenditure is a campaign expenditure made on someone else's behalf and without the prior consent or approval of that person. A given EXPN record can have zero or more related CAND records. Any CAND records are written to the file immediately after their related EXPN record. File: cand.csv$$;
 COMMENT ON COLUMN tec.c_candidatedata.recordtype IS $$Record type code - always CAND$$;
 COMMENT ON COLUMN tec.c_candidatedata.formtypecd IS $$TEC form used$$;
 COMMENT ON COLUMN tec.c_candidatedata.schedformtypecd IS $$TEC Schedule Used$$;
@@ -101,19 +101,19 @@ COMMENT ON COLUMN tec.c_candidatedata.candidateseekofficeplace IS $$Candidate of
 COMMENT ON COLUMN tec.c_candidatedata.candidateseekofficedescr IS $$Candidate office sought description$$;
 COMMENT ON COLUMN tec.c_candidatedata.candidateseekofficecountycd IS $$Candidate office sought county code$$;
 COMMENT ON COLUMN tec.c_candidatedata.candidateseekofficecountydescr IS $$Candidate office sought county description$$;
-\COPY tec.c_candidatedata FROM 'data/TEC_CF_CSV/cand.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.c_CandidateData FROM 'data/TEC_CF_CSV/cand.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-CREATE INDEX ON tec.c_candidatedata (filerIdent, filerTypeCd);
+CREATE INDEX ON tec.c_CandidateData (filerIdent, filerTypeCd);
 
-ALTER TABLE tec.c_candidatedata
-	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_coversheet1data NOT VALID,
+ALTER TABLE tec.c_CandidateData
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
 	ADD FOREIGN KEY (expendCatCd) REFERENCES tec.c_expendcategory NOT VALID,
 	ADD FOREIGN KEY (candidateHoldOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (candidateHoldOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (candidateSeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (candidateSeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
 
-CREATE INDEX ON tec.c_candidatedata (reportinfoident);
+CREATE INDEX ON tec.c_CandidateData (reportinfoident);
 

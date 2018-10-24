@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_coversheet3data
+\echo LOADING c_CoverSheet3Data
 
 
-CREATE TABLE tec.c_coversheet3data (
+CREATE TABLE tec.c_CoverSheet3Data (
 	recordType                              text,
 	formTypeCd                              text,
 	reportInfoIdent                         int,
@@ -46,7 +46,7 @@ CREATE TABLE tec.c_coversheet3data (
 	activitySeekOfficeCountyDescr           text,
 	PRIMARY KEY (committeeActivityId)
 );
-COMMENT ON TABLE tec.c_coversheet3data IS $$Cover Sheet 3 - Committee purpose. The committee purpose is reported at the top of Cover Sheet Page 2 FORMNAME = CEC, GPAC, JSPAC, MCEC, MPAC, SCSPAC, SPAC, SPACSS. File: purpose.csv$$;
+COMMENT ON TABLE tec.c_CoverSheet3Data IS $$Cover Sheet 3 - Committee purpose. The committee purpose is reported at the top of Cover Sheet Page 2 FORMNAME = CEC, GPAC, JSPAC, MCEC, MPAC, SCSPAC, SPAC, SPACSS. File: purpose.csv$$;
 COMMENT ON COLUMN tec.c_coversheet3data.recordtype IS $$Record type code - always CVR3$$;
 COMMENT ON COLUMN tec.c_coversheet3data.formtypecd IS $$TEC form used$$;
 COMMENT ON COLUMN tec.c_coversheet3data.reportinfoident IS $$Unique report #$$;
@@ -73,18 +73,18 @@ COMMENT ON COLUMN tec.c_coversheet3data.activityseekofficeplace IS $$Activity of
 COMMENT ON COLUMN tec.c_coversheet3data.activityseekofficedescr IS $$Activity office sought description$$;
 COMMENT ON COLUMN tec.c_coversheet3data.activityseekofficecountycd IS $$Activity office sought county code$$;
 COMMENT ON COLUMN tec.c_coversheet3data.activityseekofficecountydescr IS $$Activity office sought county description$$;
-\COPY tec.c_coversheet3data FROM 'data/TEC_CF_CSV/purpose.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.c_CoverSheet3Data FROM 'data/TEC_CF_CSV/purpose.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-CREATE INDEX ON tec.c_coversheet3data (filerIdent, filerTypeCd);
+CREATE INDEX ON tec.c_CoverSheet3Data (filerIdent, filerTypeCd);
 
-ALTER TABLE tec.c_coversheet3data
-	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_coversheet1data NOT VALID,
+ALTER TABLE tec.c_CoverSheet3Data
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
 	ADD FOREIGN KEY (activityHoldOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (activityHoldOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (activitySeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (activitySeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
 
-CREATE INDEX ON tec.c_coversheet3data (reportinfoident);
+CREATE INDEX ON tec.c_CoverSheet3Data (reportinfoident);
 

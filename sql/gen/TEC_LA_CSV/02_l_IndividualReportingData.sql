@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING l_individualreportingdata
+\echo LOADING l_IndividualReportingData
 
 
-CREATE TABLE tec.l_individualreportingdata (
+CREATE TABLE tec.l_IndividualReportingData (
 	recordType                              text,
 	formTypeCd                              text,
 	reportTypeCd                            text,
@@ -46,7 +46,7 @@ CREATE TABLE tec.l_individualreportingdata (
 	onbehalfPrimaryPhoneExt                 text,
 	PRIMARY KEY (lobbyExpendOnbehalfId)
 );
-COMMENT ON TABLE tec.l_individualreportingdata IS $$Form LA Cover Sheet Box 9 - Indivduals Reporting For Entity. NOTE: Form LA Instructions for this box state Check 'YES' if you are reporting expenditures at the request of an entity that has chosen not to register pursuant to Ethics Commission rule 34.45. If you check 'YES' provide the name, address and phone number of the entity. Checking  'YES' indicates that you are reporting not only expenditures attributable to you but also expenditures attributable to the entity listed. File: LaI4E.csv$$;
+COMMENT ON TABLE tec.l_IndividualReportingData IS $$Form LA Cover Sheet Box 9 - Indivduals Reporting For Entity. NOTE: Form LA Instructions for this box state Check 'YES' if you are reporting expenditures at the request of an entity that has chosen not to register pursuant to Ethics Commission rule 34.45. If you check 'YES' provide the name, address and phone number of the entity. Checking  'YES' indicates that you are reporting not only expenditures attributable to you but also expenditures attributable to the entity listed. File: LaI4E.csv$$;
 COMMENT ON COLUMN tec.l_individualreportingdata.recordtype IS $$Record type code - always I4E$$;
 COMMENT ON COLUMN tec.l_individualreportingdata.formtypecd IS $$TEC form used$$;
 COMMENT ON COLUMN tec.l_individualreportingdata.reporttypecd IS $$Report type$$;
@@ -73,14 +73,14 @@ COMMENT ON COLUMN tec.l_individualreportingdata.onbehalfmailingregion IS $$On-be
 COMMENT ON COLUMN tec.l_individualreportingdata.onbehalfprimaryusaphoneflag IS $$On-behalf of primary phone number - Y if number is a USA phone, Notherwise$$;
 COMMENT ON COLUMN tec.l_individualreportingdata.onbehalfprimaryphonenumber IS $$On-behalf of primary phone number$$;
 COMMENT ON COLUMN tec.l_individualreportingdata.onbehalfprimaryphoneext IS $$On-behalf of primary phone extension$$;
-\COPY tec.l_individualreportingdata FROM 'data/TEC_LA_CSV/LaI4E.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.l_IndividualReportingData FROM 'data/TEC_LA_CSV/LaI4E.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-ALTER TABLE tec.l_individualreportingdata
+ALTER TABLE tec.l_IndividualReportingData
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
-	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_coversheetladata NOT VALID,
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_CoverSheetLaData NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID,
 	ADD FOREIGN KEY (onbehalfMailingCountyCd) REFERENCES tec.codes_counties NOT VALID;
 
-CREATE INDEX ON tec.l_individualreportingdata (reportinfoident);
+CREATE INDEX ON tec.l_IndividualReportingData (reportinfoident);
 

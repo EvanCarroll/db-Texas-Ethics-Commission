@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_creditdata
+\echo LOADING c_CreditData
 
 
-CREATE TABLE tec.c_creditdata (
+CREATE TABLE tec.c_CreditData (
 	recordType                              text,
 	formTypeCd                              text,
 	schedFormTypeCd                         text,
@@ -48,7 +48,7 @@ CREATE TABLE tec.c_creditdata (
 	payorStreetRegion                       text,
 	PRIMARY KEY ( creditInfoId )
 );
-COMMENT ON TABLE tec.c_creditdata IS $$Credits - Schedule K - Interest, credits, gains, refunds, and contributions returned to filer. File: credits.csv$$;
+COMMENT ON TABLE tec.c_CreditData IS $$Credits - Schedule K - Interest, credits, gains, refunds, and contributions returned to filer. File: credits.csv$$;
 COMMENT ON COLUMN tec.c_creditdata.recordtype IS $$Record type code - always CRED$$;
 COMMENT ON COLUMN tec.c_creditdata.formtypecd IS $$TEC form used$$;
 COMMENT ON COLUMN tec.c_creditdata.schedformtypecd IS $$TEC Schedule Used$$;
@@ -77,15 +77,15 @@ COMMENT ON COLUMN tec.c_creditdata.payorstreetcountycd IS $$Payor street address
 COMMENT ON COLUMN tec.c_creditdata.payorstreetcountrycd IS $$Payor street address - country (e.g. USA, UMI, MEX, CAN)$$;
 COMMENT ON COLUMN tec.c_creditdata.payorstreetpostalcode IS $$Payor street address - postal code - for USA addresses only$$;
 COMMENT ON COLUMN tec.c_creditdata.payorstreetregion IS $$Payor street address - region for country other than USA$$;
-\COPY tec.c_creditdata FROM 'data/TEC_CF_CSV/credits.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.c_CreditData FROM 'data/TEC_CF_CSV/credits.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-CREATE INDEX ON tec.c_creditdata (filerIdent, filerTypeCd);
+CREATE INDEX ON tec.c_CreditData (filerIdent, filerTypeCd);
 
-ALTER TABLE tec.c_creditdata
-	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_coversheet1data NOT VALID,
+ALTER TABLE tec.c_CreditData
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
 	ADD FOREIGN KEY (payorStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
 
-CREATE INDEX ON tec.c_creditdata (reportinfoident);
+CREATE INDEX ON tec.c_CreditData (reportinfoident);
 

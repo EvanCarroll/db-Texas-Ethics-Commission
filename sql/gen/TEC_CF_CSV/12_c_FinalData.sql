@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-\echo LOADING c_finaldata
+\echo LOADING c_FinalData
 
 
-CREATE TABLE tec.c_finaldata (
+CREATE TABLE tec.c_FinalData (
 	recordType                              text,
 	formTypeCd                              text,
 	reportInfoIdent                         int,
@@ -30,7 +30,7 @@ CREATE TABLE tec.c_finaldata (
 	finalRetainedAssetsFlag                 bool,
 	finalOfficeholderAckFlag                bool
 );
-COMMENT ON TABLE tec.c_finaldata IS $$Final reports. File: final.csv$$;
+COMMENT ON TABLE tec.c_FinalData IS $$Final reports. File: final.csv$$;
 COMMENT ON COLUMN tec.c_finaldata.recordtype IS $$Record type code - always FINL$$;
 COMMENT ON COLUMN tec.c_finaldata.formtypecd IS $$TEC form used$$;
 COMMENT ON COLUMN tec.c_finaldata.reportinfoident IS $$Unique report #$$;
@@ -42,14 +42,14 @@ COMMENT ON COLUMN tec.c_finaldata.filername IS $$Filer name$$;
 COMMENT ON COLUMN tec.c_finaldata.finalunexpendcontribflag IS $$Unexpended contributions indicator$$;
 COMMENT ON COLUMN tec.c_finaldata.finalretainedassetsflag IS $$Retained assets indicator$$;
 COMMENT ON COLUMN tec.c_finaldata.finalofficeholderackflag IS $$Office holder ack indicator$$;
-\COPY tec.c_finaldata FROM 'data/TEC_CF_CSV/finals.csv' WITH ( FORMAT CSV , HEADER true );
+\COPY tec.c_FinalData FROM 'data/TEC_CF_CSV/finals.csv' WITH ( FORMAT CSV , HEADER true );
 
 
-CREATE INDEX ON tec.c_finaldata (filerIdent, filerTypeCd);
+CREATE INDEX ON tec.c_FinalData (filerIdent, filerTypeCd);
 
-ALTER TABLE tec.c_finaldata
-	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_coversheet1data NOT VALID,
-	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
+ALTER TABLE tec.c_FinalData
+	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
+	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
 
-CREATE INDEX ON tec.c_finaldata (reportinfoident);
+CREATE INDEX ON tec.c_FinalData (reportinfoident);
 
