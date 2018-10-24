@@ -123,21 +123,27 @@ VALUES
 	( 'PFSPART9'          ,  'Y', 'PFSPART9'           ,'PFSPart 9 Trust Income' ),
 	( 'PFSPARTSNA'        ,  'Y', 'PFSPARTSNA'         ,'Parts Marked ''Not Applicable'' By Filer' ),
 	( 'SPKUCFS'           ,  'Y', 'SPKUC F(S)'         ,'Expenditures (Speaker)' ),
-	( 'SUBTOTALSASIFSPAC' ,  'Y', 'SUBTOTALS ASIFSPAC' ,'N/A' ),
-	( 'SUBTOTALSCEC'      ,  'Y', 'SUBTOTALS - CEC'    ,'N/A' ),
-	( 'SUBTOTALSCOH'      ,  'Y', 'SUBTOTALS - C/OH'   ,'N/A' ),
-	( 'SUBTOTALSDCE'      ,  'Y', 'SUBTOTALS - DCE'    ,'N/A' ),
-	( 'SUBTOTALSGPAC'     ,  'Y', 'SUBTOTALS - GPAC'   ,'N/A' ),
-	( 'SUBTOTALSJCOH'     ,  'Y', 'SUBTOTALS - JC/OH'  ,'N/A' ),
-	( 'SUBTOTALSJSPAC'    ,  'Y', 'SUBTOTALS - JSPAC'  ,'N/A' ),
-	( 'SUBTOTALSLEG'      ,  'Y', 'SUBTOTALS - LEG'    ,'N/A' ),
-	( 'SUBTOTALSMCEC'     ,  'Y', 'SUBTOTALS - MCEC'   ,'N/A' ),
-	( 'SUBTOTALSMPAC'     ,  'Y', 'SUBTOTALS - MPAC'   ,'N/A' ),
-	( 'SUBTOTALSPTYCORP'  ,  'Y', 'SUBTOTALS - PTYCORP','N/A' ),
-	( 'SUBTOTALSSCCOH'    ,  'Y', 'SUBTOTALS - SC C/OH','N/A' ),
-	( 'SUBTOTALSSCSPAC'   ,  'Y', 'SUBTOTALS - SC SPAC','N/A' ),
-	( 'SUBTOTALSSPAC'     ,  'Y', 'SUBTOTALS - SPAC'   ,'N/A' ),
-	( 'SUBTOTALSSPK'      ,  'Y', 'SUBTOTALS - SPK'    ,'N/A' ),
+
+	-- None of these are coded with ^SUBTOTALS, so let's remove it.
+	-- Further, *many of these are in fact coded in the system in formtypecd fields
+		( 'ASIFSPAC' ,  'Y', 'SUBTOTALS ASIFSPAC' ,'N/A' ),
+		( 'CEC'      ,  'Y', 'SUBTOTALS - CEC'    ,'N/A' ),
+		( 'COH'      ,  'Y', 'SUBTOTALS - C/OH'   ,'N/A' ),
+		( 'DCE'      ,  'Y', 'SUBTOTALS - DCE'    ,'N/A' ),
+		( 'GPAC'     ,  'Y', 'SUBTOTALS - GPAC'   ,'N/A' ),
+		( 'JCOH'     ,  'Y', 'SUBTOTALS - JC/OH'  ,'N/A' ),
+		( 'JSPAC'    ,  'Y', 'SUBTOTALS - JSPAC'  ,'N/A' ),
+		-- That makes LEG a dupe with the above
+		--( 'LEG'      ,  'Y', 'SUBTOTALS - LEG'    ,'N/A' ),
+		( 'MCEC'     ,  'Y', 'SUBTOTALS - MCEC'   ,'N/A' ),
+		( 'MPAC'     ,  'Y', 'SUBTOTALS - MPAC'   ,'N/A' ),
+		( 'PTYCORP'  ,  'Y', 'SUBTOTALS - PTYCORP','N/A' ),
+		( 'SCCOH'    ,  'Y', 'SUBTOTALS - SC C/OH','N/A' ),
+		( 'SCSPAC'   ,  'Y', 'SUBTOTALS - SC SPAC','N/A' ),
+		( 'SPAC'     ,  'Y', 'SUBTOTALS - SPAC'   ,'N/A' ),
+		-- That makes SPK a dupe with the above
+		--( 'SPK'      ,  'Y', 'SUBTOTALS - SPK'    ,'N/A' ),
+
 	( 'T'                 ,  'Y', 'T'                  ,'Out Of State Travel' ),
 	( 'TEXTANNOT'         ,  'Y', 'TEXTANNOT'          ,'Text Annotation' ),
 	( 'TN'                ,  'Y', 'TN'                 ,'Lobby Termination Notice' );
