@@ -155,18 +155,6 @@ BEGIN;
 		DROP COLUMN reportTypeCd1, DROP COLUMN reportTypeCd2, DROP COLUMN reportTypeCd3, DROP COLUMN reportTypeCd4, DROP COLUMN reportTypeCd5,
 		DROP COLUMN reportTypeCd6, DROP COLUMN reportTypeCd7, DROP COLUMN reportTypeCd8, DROP COLUMN reportTypeCd9, DROP COLUMN reportTypeCd10;
 
-
-	--UPDATE c_CoverSheet1Data
-	--	SET filerholdofficecd = CASE WHEN filerholdofficecd = 'COMPTROLLR' THEN 'COMPTROLLER' ELSE filerholdofficecd END,
-	--		filerseekofficecd = CASE WHEN filerseekofficecd = 'COMPTROLLR' THEN 'COMPTROLLER' ELSE filerseekofficecd END
-	--	WHERE filerholdofficecd = 'COMPTROLLR'
-	--		OR filerseekofficecd = 'COMPTROLLR';
-	--UPDATE c_CoverSheet1Data
-	--	SET filerholdofficecd = CASE WHEN filerholdofficecd = 'CRIMAL_DISTATTY' THEN 'CRIMINAL_DISTATTY' ELSE filerholdofficecd END,
-	--		filerseekofficecd = CASE WHEN filerseekofficecd = 'CRIMAL_DISTATTY' THEN 'CRIMINAL_DISTATTY' ELSE filerseekofficecd END
-	--	WHERE filerholdofficecd = 'CRIMAL_DISTATTY'
-	--		OR filerseekofficecd = 'CRIMAL_DISTATTY';
-
 COMMIT;
 
 --
