@@ -51,7 +51,7 @@ CREATE TABLE tec.c_ExpendData (
 	payeeStreetCity                         text,
 	payeeStreetStateCd                      text,
 	payeeStreetCountyCd                     text,
-	payeeStreetCountryCd                    text,
+	payeeStreetCountryCd                    char(3),
 	payeeStreetPostalCode                   text,
 	payeeStreetRegion                       text,
 	PRIMARY KEY ( expendInfoId )
@@ -118,6 +118,7 @@ ALTER TABLE tec.c_ExpendData
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
 	ADD FOREIGN KEY (expendCatCd) REFERENCES tec.c_expendcategory NOT VALID,
 	ADD FOREIGN KEY (payeeStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (payeeStreetCountryCd) REFERENCES tec.codes_country NOT VALID,
 	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
 
 CREATE INDEX ON tec.c_ExpendData (reportinfoident);

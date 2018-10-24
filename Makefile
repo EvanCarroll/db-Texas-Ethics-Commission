@@ -28,7 +28,8 @@ textify: $(DIR_TEC_DOCS)/cf_new.txt $(DIR_TEC_DOCS)/cf_old.txt
 
 download:
 	curl --progress-bar \
-		-o "$(DIR_TEC_DOCS)/TX_ERF13_7.pdf"                   "https://www.ethics.state.tx.us/software/TX_ERF13_7.pdf"                   \
+		-o "$(DIR_TEC_DOCS)/TX_ERF13_7.pdf"                   "https://www.ethics.state.tx.us/software/TX_ERF13_7.pdf"                                \
+		-o "$(DIR_TEC_DOCS)/HowToImportContributionsAndExpenditures.pdf" "https://www.ethics.state.tx.us/whatsnew/HowToImportContributionsAndExpenditures.pdf"  \
 		-o "$(DIR_TEC_DOCS)/CampaignFinanceCSVFileFormat.pdf" "https://www.ethics.state.tx.us/software/CampaignFinanceCSVFileFormat.pdf" \
 		-o "$(DIR_TEC_DOCS)/1295CertificatesCSVFormat.pdf"    "https://www.ethics.state.tx.us/tedd/1295CertificatesCSVFormat.pdf"        \
 		-o "$(DIR_DATA)/TEC_LA_CSV.zip"                       "https://www.ethics.state.tx.us/tedd/TEC_LA_CSV.zip"                       \

@@ -43,7 +43,7 @@ CREATE TABLE tec.c_CreditData (
 	payorStreetCity                         text,
 	payorStreetStateCd                      text,
 	payorStreetCountyCd                     text,
-	payorStreetCountryCd                    text,
+	payorStreetCountryCd                    char(3),
 	payorStreetPostalCode                   text,
 	payorStreetRegion                       text,
 	PRIMARY KEY ( creditInfoId )
@@ -85,6 +85,7 @@ CREATE INDEX ON tec.c_CreditData (filerIdent, filerTypeCd);
 ALTER TABLE tec.c_CreditData
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
 	ADD FOREIGN KEY (payorStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (payorStreetCountryCd) REFERENCES tec.codes_country NOT VALID,
 	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
 
 CREATE INDEX ON tec.c_CreditData (reportinfoident);

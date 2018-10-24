@@ -52,7 +52,7 @@ CREATE TABLE tec.c_LoanData (
 	lenderStreetCity                        text,
 	lenderStreetStateCd                     text,
 	lenderStreetCountyCd                    text,
-	lenderStreetCountryCd                   text,
+	lenderStreetCountryCd                   char(3),
 	lenderStreetPostalCode                  text,
 	lenderStreetRegion                      text,
 	lenderEmployer                          text,
@@ -309,11 +309,17 @@ CREATE INDEX ON tec.c_LoanData (filerIdent, filerTypeCd);
 ALTER TABLE tec.c_LoanData
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
 	ADD FOREIGN KEY (lenderStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (lenderStreetCountryCd) REFERENCES tec.codes_country NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd1) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (guarantorStreetCountryCd1) REFERENCES tec.codes_country NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd2) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (guarantorStreetCountryCd2) REFERENCES tec.codes_country NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd3) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (guarantorStreetCountryCd3) REFERENCES tec.codes_country NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd4) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (guarantorStreetCountryCd4) REFERENCES tec.codes_country NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd5) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (guarantorStreetCountryCd5) REFERENCES tec.codes_country NOT VALID,
 	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
 
 CREATE INDEX ON tec.c_LoanData (reportinfoident);

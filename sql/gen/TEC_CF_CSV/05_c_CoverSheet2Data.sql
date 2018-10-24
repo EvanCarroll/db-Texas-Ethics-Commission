@@ -40,7 +40,7 @@ CREATE TABLE tec.c_CoverSheet2Data (
 	notifierStreetCity                      text,
 	notifierStreetStateCd                   text,
 	notifierStreetCountyCd                  text,
-	notifierStreetCountryCd                 text,
+	notifierStreetCountryCd                 char(3),
 	notifierStreetPostalCode                text,
 	notifierStreetRegion                    text,
 	treasPersentTypeCd                      text,
@@ -55,7 +55,7 @@ CREATE TABLE tec.c_CoverSheet2Data (
 	treasStreetCity                         text,
 	treasStreetStateCd                      text,
 	treasStreetCountyCd                     text,
-	treasStreetCountryCd                    text,
+	treasStreetCountryCd                    char(3),
 	treasStreetPostalCode                   text,
 	treasStreetRegion                       text,
 	PRIMARY KEY (committeeActivityId)
@@ -109,7 +109,9 @@ CREATE INDEX ON tec.c_CoverSheet2Data (filerIdent, filerTypeCd);
 ALTER TABLE tec.c_CoverSheet2Data
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
 	ADD FOREIGN KEY (notifierStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (notifierStreetCountryCd) REFERENCES tec.codes_country NOT VALID,
 	ADD FOREIGN KEY (treasStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (treasStreetCountryCd) REFERENCES tec.codes_country NOT VALID,
 	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
 
 CREATE INDEX ON tec.c_CoverSheet2Data (reportinfoident);

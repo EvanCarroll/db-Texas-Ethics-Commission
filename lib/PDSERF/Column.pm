@@ -61,6 +61,9 @@ sub pg_type {
 		}
 		else { $coltype = 'bool'; }
 	}
+	elsif ( $self->name =~ /CountryCd$/ ) {
+		$coltype = 'char(3)';
+	}
 	elsif ( defined $types->{$self->type} ) {
 		$coltype = $types->{$self->type};
 	}
@@ -114,6 +117,9 @@ sub fkey_constraint {
 	
 	elsif ( $self->name =~ /CountyCd\d*$/ ) {
 		return sprintf( $fmt, 'codes_counties' );
+	}
+	elsif ( $self->name =~ /CountryCd\d*$/ ) {
+		return sprintf( $fmt, 'codes_country' );
 	}
 	elsif ( $self->name =~ /reportTypeCd\d*$/ ) {
 		return sprintf( $fmt, 'codes_reports' );

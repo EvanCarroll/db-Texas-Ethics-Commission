@@ -47,7 +47,7 @@ CREATE TABLE tec.l_TransportationData (
 	lodgingStreetAddr2                      text,
 	lodgingStreetCity                       text,
 	lodgingStreetStateCd                    text,
-	lodgingStreetCountryCd                  text,
+	lodgingStreetCountryCd                  char(3),
 	lodgingStreetPostalCode                 text,
 	lodgingStreetRegion                     text,
 	checkInDt                               date,
@@ -109,7 +109,8 @@ COMMENT ON COLUMN tec.l_transportationdata.travelpurpose IS $$Purpose of travel$
 ALTER TABLE tec.l_TransportationData
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_CoverSheetLaData NOT VALID,
-	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
+	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID,
+	ADD FOREIGN KEY (lodgingStreetCountryCd) REFERENCES tec.codes_country NOT VALID;
 
 CREATE INDEX ON tec.l_TransportationData (reportinfoident);
 

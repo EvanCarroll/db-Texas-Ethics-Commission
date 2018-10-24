@@ -50,7 +50,7 @@ CREATE TABLE tec.l_EntertainmentData (
 	entertainmentStreetAddr2                text,
 	entertainmentStreetCity                 text,
 	entertainmentStreetStateCd              text,
-	entertainmentStreetCountryCd            text,
+	entertainmentStreetCountryCd            char(3),
 	entertainmentStreetPostalCode           text,
 	entertainmentStreetRegion               text,
 	PRIMARY KEY (lobbyActivityId)
@@ -97,7 +97,8 @@ COMMENT ON COLUMN tec.l_entertainmentdata.entertainmentstreetregion IS $$Enterta
 ALTER TABLE tec.l_EntertainmentData
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_CoverSheetLaData NOT VALID,
-	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
+	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID,
+	ADD FOREIGN KEY (entertainmentStreetCountryCd) REFERENCES tec.codes_country NOT VALID;
 
 CREATE INDEX ON tec.l_EntertainmentData (reportinfoident);
 

@@ -43,7 +43,7 @@ CREATE TABLE tec.c_PledgeData (
 	pledgerStreetCity                       text,
 	pledgerStreetStateCd                    text,
 	pledgerStreetCountyCd                   text,
-	pledgerStreetCountryCd                  text,
+	pledgerStreetCountryCd                  char(3),
 	pledgerStreetPostalCode                 text,
 	pledgerStreetRegion                     text,
 	pledgerEmployer                         text,
@@ -105,6 +105,7 @@ CREATE INDEX ON tec.c_PledgeData (filerIdent, filerTypeCd);
 ALTER TABLE tec.c_PledgeData
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
 	ADD FOREIGN KEY (pledgerStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (pledgerStreetCountryCd) REFERENCES tec.codes_country NOT VALID,
 	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
 
 CREATE INDEX ON tec.c_PledgeData (reportinfoident);

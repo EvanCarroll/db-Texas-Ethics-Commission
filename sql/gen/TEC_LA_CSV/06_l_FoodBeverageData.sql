@@ -48,7 +48,7 @@ CREATE TABLE tec.l_FoodBeverageData (
 	restaurantName                          text,
 	restaurantStreetCity                    text,
 	restaurantStreetStateCd                 text,
-	restaurantStreetCountryCd               text,
+	restaurantStreetCountryCd               char(3),
 	restaurantStreetPostalCode              text,
 	restaurantStreetRegion                  text,
 	PRIMARY KEY (lobbyActivityId)
@@ -93,7 +93,8 @@ COMMENT ON COLUMN tec.l_foodbeveragedata.restaurantstreetregion IS $$Restaurant 
 ALTER TABLE tec.l_FoodBeverageData
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_CoverSheetLaData NOT VALID,
-	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
+	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID,
+	ADD FOREIGN KEY (restaurantStreetCountryCd) REFERENCES tec.codes_country NOT VALID;
 
 CREATE INDEX ON tec.l_FoodBeverageData (reportinfoident);
 

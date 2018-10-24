@@ -46,7 +46,7 @@ AND NOT EXISTS (
 		AND kcu.column_name   = c.column_name
 )
 AND table_schema = 'tec'
-AND column_name LIKE any(ARRAY['%id', '%cd']);
+AND column_name ~ any(ARRAY['.*id\d*$', '.*cd\d*$']);
 ```
 
 This is our list to work towards for completion. You can further generate a
@@ -76,7 +76,7 @@ AND NOT EXISTS (
     AND kcu.column_name   = c.column_name
 )
 AND table_schema = 'tec'
-AND column_name LIKE any(ARRAY['%id', '%cd'])
+AND column_name ~ any(ARRAY['.*id\d*$', '.*cd\d*$']);
 	AND column_name = 'formtypecd'
 GROUP BY table_catalog;
 ```
