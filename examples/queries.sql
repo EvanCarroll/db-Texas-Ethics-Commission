@@ -5,6 +5,20 @@ WHERE filernamelast = 'Bush'
 	AND filernamefirst = 'George P.';
 
 
+-- Top 10 Largest Fundraising Campaigns
+SELECT
+	filer.filerident,
+	filer.filername,
+	sum(cd.contributionamount)
+FROM tec.c_filerdata filer
+JOIN tec.c_coversheet1data cs USING (filerident, filertypecd)
+JOIN tec.c_contributiondata cd USING (reportinfoident)
+GROUP BY filer.filerident, filer.filername
+ORDER BY sum(cd.contributionamount) DESC
+FETCH FIRST 10 ROWS ONLY;
+
+
+
 \echo Reports files with the TEC
 SELECT filer.filername
 	, fileddt
