@@ -95,11 +95,17 @@ COMMENT ON COLUMN tec.c_spacdata.candtreaseffstopdt IS $$Candidate treasurer end
 \COPY tec.c_spacdata FROM 'data/TEC_CF_CSV/spacs.csv' WITH ( FORMAT CSV , HEADER true );
 
 
+CREATE INDEX ON tec.c_spacdata (spacFilerIdent, spacFilerTypeCd);
+
+CREATE INDEX ON tec.c_spacdata (candidateFilerIdent, candidateFilerTypeCd);
+
 ALTER TABLE tec.c_spacdata
 	ADD FOREIGN KEY (candidateHoldOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (candidateHoldOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (candidateSeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (candidateSeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (ctaSeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
-	ADD FOREIGN KEY (ctaSeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID;
+	ADD FOREIGN KEY (ctaSeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
+	ADD FOREIGN KEY (spacFilerIdent, spacFilerTypeCd) REFERENCES tec.c_filerdata NOT VALID,
+	ADD FOREIGN KEY (candidateFilerIdent, candidateFilerTypeCd) REFERENCES tec.c_filerdata NOT VALID;
 

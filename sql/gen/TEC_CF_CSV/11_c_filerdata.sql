@@ -289,6 +289,7 @@ COMMENT ON COLUMN tec.c_filerdata.chairprimaryphoneext IS $$Chair primary phone 
 
 
 ALTER TABLE tec.c_filerdata
+	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID,
 	ADD FOREIGN KEY (ctaSeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (ctaSeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (filerStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
@@ -301,6 +302,5 @@ ALTER TABLE tec.c_filerdata
 	ADD FOREIGN KEY (treasMailingCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (assttreasStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (chairStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (chairMailingCountyCd) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
+	ADD FOREIGN KEY (chairMailingCountyCd) REFERENCES tec.codes_counties NOT VALID;
 

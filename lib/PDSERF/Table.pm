@@ -60,33 +60,39 @@ has 'post_statements' => (
 			, (map $_->fkey_constraint , @{$self->columns});
 		my @post;
 	
-		if ( $self->col_by_name('filerIdent') ) {
+		if (
+			$self->name ne 'c_filerdata'
+			and $self->name =~ /^c/
+			and $self->col_by_pattern(qr/[fF]ilerTypeCd$/)
+		) {
+			
+			my @cols = @{ $self->col_by_pattern(qr/[fF]ilerTypeCd$/) };
+			foreach my $col ( @cols ) {
+				my $typecd = $col->name;
+				$typecd =~ /(.*?)FilerTypeCd/;
+				my $prefix = $1//'';
 
-			if ( $self->col_by_name('filerTypeCd') ) {
-
-				if ( $self->name =~ /^c_/ && $self->name ne 'c_filerdata') {
+				if ( my $col = $self->col_by_pattern(qr/^$prefix[fF]ilerIdent$/) ) {
+					my $identname = $col->[0]->name;
 					push @fkey_constraints, sprintf(
 						'ADD FOREIGN KEY (%s) REFERENCES %s NOT VALID',
-						"filerIdent, filerTypeCd",
-						sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, "c_filerdata" )
+						sprintf( '%s, %s', $identname, $typecd ),
+						sprintf('%s.%s', PDSERF::Client::INSTALL_SCHEMA, 'c_filerdata' )
 					);
 					push @post, sprintf(
-						"CREATE INDEX ON %s (filerIdent, filerTypeCd);",
-						$self->fully_qualified_identifier
+						"CREATE INDEX ON %s (%s, %s);",
+						$self->fully_qualified_identifier,
+						$identname,
+						$typecd
 					)
-				}
+				}	
 				else {
-					push @fkey_constraints, sprintf(
-						'ADD FOREIGN KEY (%s) REFERENCES %s NOT VALID',
-						"filerTypeCd",
-						sprintf("%s.%s", PDSERF::Client::INSTALL_SCHEMA, "codes_filertype" )
+					die sprintf(
+						"ERROR: We should never have a %s, without a typeident in %s\n",
+						$typecd,
+						$self->name
 					);
 				}
-		
-
-			}
-			else {
-				die "We should never have a filerident, without a typecd\n"
 			}
 
 		}
@@ -250,6 +256,11 @@ sub psql_copy {
 sub col_by_name {
 	my ( $self, $colname ) = @_;
 	return grep $_->name eq $colname, @{$self->columns}
+}
+
+sub col_by_pattern {
+	my ( $self, $colname ) = @_;
+	return [grep $_->name =~ $colname, @{$self->columns}]
 }
 
 1;

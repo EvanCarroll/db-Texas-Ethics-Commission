@@ -118,6 +118,13 @@ sub fkey_constraint {
 	elsif ( $self->name =~ /reportTypeCd\d*$/ ) {
 		return sprintf( $fmt, 'codes_reports' );
 	}
+
+	if (
+		$self->name =~ 'filerTypeCd' and
+		$self->table->name eq 'c_filerdata' || $self->table->name =~ /^l_/
+	) {
+		return sprintf( $fmt, 'codes_filertype' );
+	}
 	## Compare `SELECT distinct formtypecd FROM tec.c_coversheet1data;` to tbl
 	## elsif ( $self->name =~ /formTypeCd$/ ) {
 	## 	return sprintf( $fmt, 'codes_forms' );
