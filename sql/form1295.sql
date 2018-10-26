@@ -15,8 +15,9 @@
 \echo You should have received a copy of the GNU Affero General Public License
 \echo along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-DROP TABLE tec.form1295_box123;
-DROP TABLE tec.form1295_interested_party;
+DROP TABLE IF EXISTS tec.form1295_box123 ,
+	tec.form1295_interested_party
+	CASCADE;
 
 CREATE TABLE tec.form1295_box123 (
 	recordType           text  ,            -- Record Type (identifies this record)  Value: BOX123
@@ -28,7 +29,7 @@ CREATE TABLE tec.form1295_box123 (
 	businessName         text  ,            -- Name of business entity that filed this certificate. This field is surrounded by double quotes.
 	businessCityName     text  ,            -- Business location city of business entity that filed this certificate.  This field is surrounded by double quotes.
 	businessStateCode    text  ,            -- Business location state of business entity that filed this certificate
-	businessCountryCode  char(3)  ,         -- Business location country of business entity that filed this certificate
+	businessCountryCode  char(3) REFERENCES tec.codes_country , -- Business location country of business entity that filed this certificate
 	govtContractNumber   text  ,            -- Identification number used by the governmental entity or state agency for identification of the contract for which this certificate has been filed. This field is surrounded by double quotes.
 	goodsServicesDescr   text               -- Description of the goods or services to be provided under the contract associated with this certificate, This field is surrounded by double quotes.
 );
@@ -78,7 +79,7 @@ CREATE TABLE tec.form1295_interested_party (
 	partyFirstName        text ,                                -- First name of individual interested party. This field is surrounded by double quotes.
 	partyCity             text ,                                -- Business location city of interested party. This field is surrounded by double quotes.
 	partyStateCode        text ,                                -- Business location state of interested party
-	partyCountryCode      char(3) ,                             -- Business location country of interested party
+	partyCountryCode      char(3) REFERENCES tec.codes_country, -- Business location country of interested party
 	controllingInterest   bool ,                                -- Value: Y or N
 	intermediaryInterest  bool                                  -- Value: Y or N
 );
