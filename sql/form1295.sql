@@ -15,19 +15,22 @@
 \echo You should have received a copy of the GNU Affero General Public License
 \echo along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+DROP TABLE tec.form1295_box123;
+DROP TABLE tec.form1295_interested_party;
+
 CREATE TABLE tec.form1295_box123 (
-	recordType           text  , -- Record Type (identifies this record)  Value: BOX123
-	certificateNumber    text  , -- Certificate number
-	reportNumber         text  , -- Unique report number
-	acknowledgeDate      text  , -- Date the government entity or state agency acknowledged this certificate.  Value: YYYY-MM-DD
-	governmentName       text  , -- Name of governmental entity or state agency that is a party to the contract for which this certificate has been filed.  This field is surrounded by double quotes.
-	governmentTypeCd     text  , -- GOVT_ENTITY, AGENCY
-	businessName         text  , -- Name of business entity that filed this certificate. This field is surrounded by double quotes.
-	businessCityName     text  , -- Business location city of business entity that filed this certificate.  This field is surrounded by double quotes.
-	businessStateCode    text  , -- Business location state of business entity that filed this certificate
-	businessCountryCode  text  , -- Business location country of business entity that filed this certificate
-	govtContractNumber   text  , -- Identification number used by the governmental entity or state agency for identification of the contract for which this certificate has been filed. This field is surrounded by double quotes.
-	goodsServicesDescr   text    -- Description of the goods or services to be provided under the contract associated with this certificate, This field is surrounded by double quotes.
+	recordType           text  ,            -- Record Type (identifies this record)  Value: BOX123
+	certificateNumber    text  ,            -- Certificate number
+	reportNumber         int   PRIMARY KEY, -- Unique report number
+	acknowledgeDate      text  ,            -- Date the government entity or state agency acknowledged this certificate.  Value: YYYY-MM-DD
+	governmentName       text  ,            -- Name of governmental entity or state agency that is a party to the contract for which this certificate has been filed.  This field is surrounded by double quotes.
+	governmentTypeCd     text  ,            -- GOVT_ENTITY, AGENCY
+	businessName         text  ,            -- Name of business entity that filed this certificate. This field is surrounded by double quotes.
+	businessCityName     text  ,            -- Business location city of business entity that filed this certificate.  This field is surrounded by double quotes.
+	businessStateCode    text  ,            -- Business location state of business entity that filed this certificate
+	businessCountryCode  char(3)  ,         -- Business location country of business entity that filed this certificate
+	govtContractNumber   text  ,            -- Identification number used by the governmental entity or state agency for identification of the contract for which this certificate has been filed. This field is surrounded by double quotes.
+	goodsServicesDescr   text               -- Description of the goods or services to be provided under the contract associated with this certificate, This field is surrounded by double quotes.
 );
 
 COMMENT ON TABLE  tec.form1295_box123                     IS $$There is a single BOX123 record for each acknowledged certificate.$$;
@@ -66,18 +69,18 @@ COMMENT ON COLUMN tec.form1295_box123.goodsServicesDescr  IS $$Description of th
 ----------------------------------------------------------------------------------------------------
 
 CREATE TABLE tec.form1295_interested_party (
-	recordType            text , -- Record Type (identifies this record)  Value: PARTY
-	certificateNumber     text , -- Certificate number
-	reportNumber          text , -- Unique report number
-	partyTypeCode         text , -- ENTITY, INDIVIDUAL
-	partyOrgName          text , -- Organization name of entity interested party. This field is surrounded by double quotes.
-	partyLastName         text , -- Last name of individual interested party. This field is surrounded by double quotes.
-	partyFirstName        text , -- First name of individual interested party. This field is surrounded by double quotes.
-	partyCity             text , -- Business location city of interested party. This field is surrounded by double quotes.
-	partyStateCode        text , -- Business location state of interested party
-	partyCountryCode      text , -- Business location country of interested party
-	controllingInterest   bool , -- Value: Y or N
-	intermediaryInterest  bool   -- Value: Y or N
+	recordType            text ,                                -- Record Type (identifies this record)  Value: PARTY
+	certificateNumber     text ,                                -- Certificate number
+	reportNumber          int  REFERENCES tec.form1295_box123,  -- Unique report number
+	partyTypeCode         text ,                                -- ENTITY, INDIVIDUAL
+	partyOrgName          text ,                                -- Organization name of entity interested party. This field is surrounded by double quotes.
+	partyLastName         text ,                                -- Last name of individual interested party. This field is surrounded by double quotes.
+	partyFirstName        text ,                                -- First name of individual interested party. This field is surrounded by double quotes.
+	partyCity             text ,                                -- Business location city of interested party. This field is surrounded by double quotes.
+	partyStateCode        text ,                                -- Business location state of interested party
+	partyCountryCode      char(3) ,                             -- Business location country of interested party
+	controllingInterest   bool ,                                -- Value: Y or N
+	intermediaryInterest  bool                                  -- Value: Y or N
 );
 
 COMMENT ON TABLE tec.form1295_interested_party IS $$There are zero or more interested party records for each acknowledged certificate.$$;
@@ -109,3 +112,5 @@ COMMENT ON COLUMN tec.form1295_interested_party.intermediaryInterest  IS $$Value
 -- 12       intermediaryInterest  String       1        Value: Y or N
 
 \COPY tec.form1295_interested_party FROM './data/1295Certificates_PARTY.csv' WITH ( FORMAT CSV, HEADER true )
+
+CREATE INDEX ON tec.form1295_interested_party ( reportNumber );
