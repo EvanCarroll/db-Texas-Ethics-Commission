@@ -14,7 +14,7 @@
 
 .PHONY: all clean unzip devgen
 	
-all: download unzip 1295_seperator.pl
+all: download unzip perlscripts
 
 DIR_DATA=./data
 DIR_TEC_DOCS=$(DIR_DATA)/tec_docs
@@ -32,6 +32,7 @@ download:
 		-o "$(DIR_TEC_DOCS)/HowToImportContributionsAndExpenditures.pdf" "https://www.ethics.state.tx.us/whatsnew/HowToImportContributionsAndExpenditures.pdf"  \
 		-o "$(DIR_TEC_DOCS)/CampaignFinanceCSVFileFormat.pdf" "https://www.ethics.state.tx.us/software/CampaignFinanceCSVFileFormat.pdf" \
 		-o "$(DIR_TEC_DOCS)/1295CertificatesCSVFormat.pdf"    "https://www.ethics.state.tx.us/tedd/1295CertificatesCSVFormat.pdf"        \
+		-o "$(DIR_DATA)/1295Certificates.csv"                 "https://www.ethics.state.tx.us/tedd/1295Certificates.csv"                 \
 		-o "$(DIR_DATA)/TEC_LA_CSV.zip"                       "https://www.ethics.state.tx.us/tedd/TEC_LA_CSV.zip"                       \
 		-o "$(DIR_DATA)/TEC_CF_CSV.zip"                       "https://www.ethics.state.tx.us/tedd/TEC_CF_CSV.zip";
 
@@ -48,4 +49,5 @@ unzip:
 clean:
 	rm -vf "$(DIR_TEC_DOCS)/cf_new.txt" "$(DIR_TEC_DOCS)/cf_old.txt" "$(DIR_DATA)/*.zip"
 
-#1295CertificatesCSVFormat.pdf
+perlscripts:
+	perl scripts/1295_seperator.pl
