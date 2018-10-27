@@ -73,7 +73,7 @@ Repo download and database setup (example in bash):
 ```
 $ git clone https://github.com/EvanCarroll/db-Texas-Ethics-Commission.git
 $ cd ./db-Texas-Ethics-Commission
-$ make download
+$ make
 $ createdb mydb
 $ psql -d mydb -f ./runme.sql
 $ make clean
