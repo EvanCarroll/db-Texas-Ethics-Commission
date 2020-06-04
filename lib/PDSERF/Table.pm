@@ -59,6 +59,26 @@ has 'post_statements' => (
 		my @fkey_constraints = grep defined
 			, (map $_->fkey_constraint , @{$self->columns});
 		my @post;
+
+		# Does not support multicol hash
+		# if ( $self->col_by_pattern(qr/[fF]ilerTypeCd$/)) {
+		# 	my @cols = @{ $self->col_by_pattern(qr/[fF]ilerTypeCd$/) };
+		# 	foreach my $col ( @cols ) {
+		# 		my $typecd = $col->name;
+		# 		$typecd =~ /(.*?)FilerTypeCd/;
+		# 		my $prefix = $1//'';
+
+		# 		if ( my $col = $self->col_by_pattern(qr/^$prefix[fF]ilerIdent$/) ) {
+		# 			my $identname = $col->[0]->name;
+		# 			push @post, sprintf(
+		# 				"CREATE INDEX ON %s USING HASH (%s, %s);",
+		# 				$self->fully_qualified_identifier,
+		# 				$identname,
+		# 				$typecd
+		# 			);
+		# 		}
+		# 	}
+		# }
 	
 		if (
 			$self->name ne 'c_FilerData'
@@ -84,7 +104,7 @@ has 'post_statements' => (
 						$self->fully_qualified_identifier,
 						$identname,
 						$typecd
-					)
+					);
 				}	
 				else {
 					die sprintf(

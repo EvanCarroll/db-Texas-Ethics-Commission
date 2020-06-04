@@ -16,6 +16,9 @@
 
 \prompt agree_eula Do you agree to those terms? [Yes] or [No]
 
+
+SET SEARCH_PATH = 'tec';
+
 DROP SCHEMA IF EXISTS tec CASCADE;
 CREATE SCHEMA tec;
 COMMENT ON SCHEMA tec IS $$Texas Ethics Comission dataset$$;
