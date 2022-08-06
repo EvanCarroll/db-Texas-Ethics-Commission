@@ -12,29 +12,33 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.PHONY: all clean unzip devgen
+.PHONY: all clean unzip devgen perlinstall perlscripts mkdir
 
 all: download unzip perlscripts
 
 DIR_DATA=./data
-DIR_TEC_DOCS=$(DIR_DATA)/tec_docs
+DIR_TEC_DOCS=${DIR_DATA}/tec_docs
+TEC_URL=https://ethics.state.tx.us/data
 
-devgen: download unzip textify gen_schema.pl
+devgen: download unzip textify perlinstall gen_schema.pl
 
 %.pl:
 	perl "scripts/$@"
 
 textify: $(DIR_TEC_DOCS)/cf_new.txt $(DIR_TEC_DOCS)/cf_old.txt
 
+mkdir:
+	- mkdir ${DIR_DATA} ${DIR_TEC_DOCS} 2>/dev/null || true
+
 download:
 	curl --progress-bar \
-		-o "$(DIR_TEC_DOCS)/TX_ERF13_7.pdf"                   "https://www.ethics.state.tx.us/software/TX_ERF13_7.pdf"                                \
-		-o "$(DIR_TEC_DOCS)/HowToImportContributionsAndExpenditures.pdf" "https://www.ethics.state.tx.us/whatsnew/HowToImportContributionsAndExpenditures.pdf"  \
-		-o "$(DIR_TEC_DOCS)/CampaignFinanceCSVFileFormat.pdf" "https://www.ethics.state.tx.us/software/CampaignFinanceCSVFileFormat.pdf" \
-		-o "$(DIR_TEC_DOCS)/1295CertificatesCSVFormat.pdf"    "https://www.ethics.state.tx.us/tedd/1295CertificatesCSVFormat.pdf"        \
-		-o "$(DIR_DATA)/1295Certificates.csv"                 "https://www.ethics.state.tx.us/tedd/1295Certificates.csv"                 \
-		-o "$(DIR_DATA)/TEC_LA_CSV.zip"                       "https://www.ethics.state.tx.us/tedd/TEC_LA_CSV.zip"                       \
-		-o "$(DIR_DATA)/TEC_CF_CSV.zip"                       "https://www.ethics.state.tx.us/tedd/TEC_CF_CSV.zip";
+		-o "${DIR_TEC_DOCS}/TX_ERF13_7.pdf"                              "${TEC_URL}/search/cf/TX_ERF13_7.pdf"                                \
+		-o "${DIR_TEC_DOCS}/HowToImportContributionsAndExpenditures.pdf" "${TEC_URL}/filinginfo/HowToImportContributionsAndExpenditures.pdf"  \
+		-o "${DIR_TEC_DOCS}/CampaignFinanceCSVFileFormat.pdf"            "${TEC_URL}/search/cf/CampaignFinanceCSVFileFormat.pdf"              \
+		-o "${DIR_TEC_DOCS}/1295CertificatesCSVFormat.pdf"               "${TEC_URL}/search/1295/1295CertificatesCSVFormat.pdf"               \
+		-o "${DIR_DATA}/1295Certificates.csv"                            "${TEC_URL}/search/1295Certificates.csv"                             \
+		-o "${DIR_DATA}/TEC_LA_CSV.zip"                                  "${TEC_URL}/search/lobby/TEC_LA_CSV.zip"                             \
+		-o "${DIR_DATA}/TEC_CF_CSV.zip"                                  "${TEC_URL}/search/cf/TEC_CF_CSV.zip";
 
 unzip:
 	unzip -o -d "${DIR_DATA}/TEC_LA_CSV" "${DIR_DATA}/TEC_LA_CSV.zip"
@@ -47,10 +51,11 @@ unzip:
 	ps2txt "$(DIR_TEC_DOCS)/CampaignFinanceCSVFileFormat.pdf" > "$@"
 
 clean:
-	rm -vf "$(DIR_TEC_DOCS)/cf_new.txt" "$(DIR_TEC_DOCS)/cf_old.txt" "$(DIR_DATA)/*.zip"
+	git clean -fx data/
 
 perlinstall:
-	cpanm Moose DataExtract::FixedWidth
+	perl -MMoose -e1 2>/dev/null || cpanm Moose
+	perl -MDataExtract::FixedWidth -e1 2>/dev/null || cpanm DataExtract::FixedWidth
 
 perlscripts:
 	perl scripts/1295_seperator.pl

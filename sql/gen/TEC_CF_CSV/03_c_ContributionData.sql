@@ -165,6 +165,72 @@ COMMENT ON COLUMN tec.c_contributiondata.contributorparent2lawfirmname IS $$Cont
 
 \COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_36.csv' WITH ( FORMAT CSV , HEADER true );
 
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_37.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_38.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_39.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_40.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_41.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_42.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_43.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_44.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_45.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_46.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_47.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_48.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_49.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_50.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_51.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_52.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_53.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_54.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_55.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_56.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_57.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_58.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_59.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_60.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_61.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_62.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_63.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_64.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_65.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_66.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_67.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_68.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_69.csv' WITH ( FORMAT CSV , HEADER true );
+
 \COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/cont_ss.csv' WITH ( FORMAT CSV , HEADER true );
 
 \COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/cont_t.csv' WITH ( FORMAT CSV , HEADER true );

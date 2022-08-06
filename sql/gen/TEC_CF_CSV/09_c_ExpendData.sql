@@ -109,6 +109,10 @@ COMMENT ON COLUMN tec.c_expenddata.payeestreetregion IS $$Payee street address -
 
 \COPY tec.c_ExpendData FROM 'data/TEC_CF_CSV/expend_08.csv' WITH ( FORMAT CSV , HEADER true );
 
+\COPY tec.c_ExpendData FROM 'data/TEC_CF_CSV/expend_09.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ExpendData FROM 'data/TEC_CF_CSV/expend_10.csv' WITH ( FORMAT CSV , HEADER true );
+
 \COPY tec.c_ExpendData FROM 'data/TEC_CF_CSV/expn_t.csv' WITH ( FORMAT CSV , HEADER true );
 
 
