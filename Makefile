@@ -36,7 +36,7 @@ download:
 		-o "${DIR_TEC_DOCS}/HowToImportContributionsAndExpenditures.pdf" "${TEC_URL}/filinginfo/HowToImportContributionsAndExpenditures.pdf"  \
 		-o "${DIR_TEC_DOCS}/CampaignFinanceCSVFileFormat.pdf"            "${TEC_URL}/search/cf/CampaignFinanceCSVFileFormat.pdf"              \
 		-o "${DIR_TEC_DOCS}/1295CertificatesCSVFormat.pdf"               "${TEC_URL}/search/1295/1295CertificatesCSVFormat.pdf"               \
-		-o "${DIR_DATA}/1295Certificates.csv"                            "${TEC_URL}/search/1295Certificates.csv"                             \
+		-o "${DIR_DATA}/1295Certificates.csv"                            "${TEC_URL}/search/1295/1295Certificates.csv"                        \
 		-o "${DIR_DATA}/TEC_LA_CSV.zip"                                  "${TEC_URL}/search/lobby/TEC_LA_CSV.zip"                             \
 		-o "${DIR_DATA}/TEC_CF_CSV.zip"                                  "${TEC_URL}/search/cf/TEC_CF_CSV.zip";
 
