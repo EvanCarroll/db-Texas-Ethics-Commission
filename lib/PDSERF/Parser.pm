@@ -16,17 +16,25 @@
 
 package PDSERF::Parser;
 
-use feature ':5.26';
+use feature ':5.36';
 use strict;
 use warnings;
 
 use PDSERF::Table;
 use DataExtract::FixedWidth;
 
-sub parse {
-	my $args = shift;
+sub parse( $args ) {
 	my $fh = $args->{fh};
-	local $/ = "\r\n";
+
+	local $/ = do {
+		if ( $args->{archive} eq 'l' ) {
+			"\r\n";
+		}
+		else {
+			"\n";
+		}
+	};
+
 
 	my @sections;
 	while ( my $line = $fh->getline ) {

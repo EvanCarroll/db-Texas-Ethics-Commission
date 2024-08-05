@@ -29,7 +29,7 @@ CREATE TABLE tec.c_PledgeData (
 	filerName                               text,
 	pledgeInfoId                            bigint,
 	pledgeDt                                date,
-	pledgeAmount                            numeric(10,2),
+	pledgeAmount                            numeric(12,2),
 	pledgeDescr                             text,
 	itemizeFlag                             bool,
 	travelFlag                              bool,
@@ -51,6 +51,7 @@ CREATE TABLE tec.c_PledgeData (
 	pledgerJobTitle                         text,
 	pledgerPacFein                          text,
 	pledgerOosPacFlag                       bool,
+	pledgerLawFirmName                      text,
 	pledgerSpouseLawFirmName                text,
 	pledgerParent1LawFirmName               text,
 	pledgerParent2LawFirmName               text,
@@ -90,6 +91,7 @@ COMMENT ON COLUMN tec.c_pledgedata.pledgeroccupation IS $$Pledger occupation$$;
 COMMENT ON COLUMN tec.c_pledgedata.pledgerjobtitle IS $$Pledger job title$$;
 COMMENT ON COLUMN tec.c_pledgedata.pledgerpacfein IS $$For PAC pledger the FEIN$$;
 COMMENT ON COLUMN tec.c_pledgedata.pledgeroospacflag IS $$Indicates if pledger is an out-of-state PAC$$;
+COMMENT ON COLUMN tec.c_pledgedata.pledgerlawfirmname IS $$Pledger law firm name$$;
 COMMENT ON COLUMN tec.c_pledgedata.pledgerspouselawfirmname IS $$Pledger spouse law firm name$$;
 COMMENT ON COLUMN tec.c_pledgedata.pledgerparent1lawfirmname IS $$Pledger parent #1 law firm name$$;
 COMMENT ON COLUMN tec.c_pledgedata.pledgerparent2lawfirmname IS $$Pledger parent #2 law firm name$$;

@@ -29,7 +29,7 @@ CREATE TABLE tec.c_CreditData (
 	filerName                               text,
 	creditInfoId                            bigint,
 	creditDt                                date,
-	creditAmount                            numeric(10,2),
+	creditAmount                            numeric(12,2),
 	creditDescr                             text,
 	payorPersentTypeCd                      text,
 	payorNameOrganization                   text,

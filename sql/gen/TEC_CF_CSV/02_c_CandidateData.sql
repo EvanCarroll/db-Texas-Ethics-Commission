@@ -30,7 +30,7 @@ CREATE TABLE tec.c_CandidateData (
 	expendInfoId                            bigint,
 	expendPersentId                         bigint,
 	expendDt                                date,
-	expendAmount                            numeric(10,2),
+	expendAmount                            numeric(12,2),
 	expendDescr                             text,
 	expendCatCd                             text,
 	expendCatDescr                          text,

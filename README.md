@@ -75,7 +75,7 @@ $ git clone https://github.com/EvanCarroll/db-Texas-Ethics-Commission.git
 $ cd ./db-Texas-Ethics-Commission
 $ make
 $ createdb mydb
-$ psql -d mydb -f ./runme.sql
+$ psql -d mydb -f ./runme.sql 2>&1 | tee out.log
 $ make clean
 ```
 

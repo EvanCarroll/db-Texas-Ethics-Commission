@@ -31,7 +31,7 @@ CREATE TABLE tec.c_TravelData (
 	parentType                              text,
 	parentId                                bigint,
 	parentDt                                date,
-	parentAmount                            numeric(10,2),
+	parentAmount                            numeric(12,2),
 	parentFullName                          text,
 	transportationTypeCd                    text,
 	transportationTypeDescr                 text,

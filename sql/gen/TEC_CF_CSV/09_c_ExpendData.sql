@@ -29,7 +29,7 @@ CREATE TABLE tec.c_ExpendData (
 	filerName                               text,
 	expendInfoId                            bigint,
 	expendDt                                date,
-	expendAmount                            numeric(10,2),
+	expendAmount                            numeric(12,2),
 	expendDescr                             text,
 	expendCatCd                             text,
 	expendCatDescr                          text,
@@ -54,6 +54,8 @@ CREATE TABLE tec.c_ExpendData (
 	payeeStreetCountryCd                    char(3),
 	payeeStreetPostalCode                   text,
 	payeeStreetRegion                       text,
+	creditCardIssuer                        text,
+	repaymentDt                             date,
 	PRIMARY KEY ( expendInfoId )
 );
 COMMENT ON TABLE tec.c_ExpendData IS $$Expenditures - Schedules F/G/H/I - Expenditures from special pre-election (formerly Telegram) reports are stored in the file expn_t. They are kept separate from the expends file to avoid creating duplicates, because they are supposed to be re-reported on the next regular campaign finance report. Files: expend_##.csv, expn_t.csv$$;
@@ -93,6 +95,8 @@ COMMENT ON COLUMN tec.c_expenddata.payeestreetcountycd IS $$Payee street address
 COMMENT ON COLUMN tec.c_expenddata.payeestreetcountrycd IS $$Payee street address - country (e.g. USA, UMI, MEX, CAN)$$;
 COMMENT ON COLUMN tec.c_expenddata.payeestreetpostalcode IS $$Payee street address - postal code - for USA addresses only$$;
 COMMENT ON COLUMN tec.c_expenddata.payeestreetregion IS $$Payee street address - region for country other than USA$$;
+COMMENT ON COLUMN tec.c_expenddata.creditcardissuer IS $$Financial institution issuing credit card$$;
+COMMENT ON COLUMN tec.c_expenddata.repaymentdt IS $$Repayment date$$;
 \COPY tec.c_ExpendData FROM 'data/TEC_CF_CSV/expend_01.csv' WITH ( FORMAT CSV , HEADER true );
 
 \COPY tec.c_ExpendData FROM 'data/TEC_CF_CSV/expend_02.csv' WITH ( FORMAT CSV , HEADER true );
@@ -112,6 +116,10 @@ COMMENT ON COLUMN tec.c_expenddata.payeestreetregion IS $$Payee street address -
 \COPY tec.c_ExpendData FROM 'data/TEC_CF_CSV/expend_09.csv' WITH ( FORMAT CSV , HEADER true );
 
 \COPY tec.c_ExpendData FROM 'data/TEC_CF_CSV/expend_10.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ExpendData FROM 'data/TEC_CF_CSV/expend_11.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ExpendData FROM 'data/TEC_CF_CSV/expend_12.csv' WITH ( FORMAT CSV , HEADER true );
 
 \COPY tec.c_ExpendData FROM 'data/TEC_CF_CSV/expn_t.csv' WITH ( FORMAT CSV , HEADER true );
 

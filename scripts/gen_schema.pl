@@ -36,6 +36,7 @@ my @files = (
 );
 
 foreach my $file ( @files ) {
+	say "Processing $file->{FILE}";
 
 	my $fh = IO::File->new(
 		File::Spec->catfile(PDSERF::Client::INROOT, $file->{DIR}, $file->{FILE}),
@@ -43,17 +44,16 @@ foreach my $file ( @files ) {
 	);
 
 	foreach my $t ( @{PDSERF::Parser::parse({fh=>$fh, archive => $file->{ARCHIVE}})} ) {
-		say "Generating " . $t->name;
+		printf( "[%s] Generating %s\n", $file->{FILE}, $t->name);
 		my $indir  = File::Spec->catdir( PDSERF::Client::INROOT, $file->{DIR} );
 		my $outdir = File::Spec->catdir( PDSERF::Client::OUTROOT, 'gen', $file->{DIR} );
 		File::Path::make_path( $outdir, error => $_ );
-		my $fh = IO::File->new(
-			File::Spec->catfile(
+		my $file = File::Spec->catfile(
 				$outdir,
 				sprintf("%02s_%s.sql", $t->order, $t->name)
-			),
-			'w'
 		);
+		say "\twriting to $file";
+		my $fh = IO::File->new( $file, 'w' );
 		$fh->write( PDSERF::Client::LICENSE );
 		$fh->write( sprintf( "\\echo LOADING %s\n", $t->name ) );
 		$fh->write( $t->pg_ddl );

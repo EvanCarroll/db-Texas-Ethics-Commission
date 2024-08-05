@@ -29,7 +29,7 @@ CREATE TABLE tec.c_LoanData (
 	filerName                               text,
 	loanInfoId                              bigint,
 	loanDt                                  date,
-	loanAmount                              numeric(10,2),
+	loanAmount                              numeric(12,2),
 	loanDescr                               text,
 	interestRate                            text,
 	maturityDt                              date,
@@ -37,11 +37,11 @@ CREATE TABLE tec.c_LoanData (
 	collateralDescr                         text,
 	loanStatusCd                            text,
 	paymentMadeFlag                         bool,
-	paymentAmount                           numeric(10,2),
+	paymentAmount                           numeric(12,2),
 	paymentSource                           text,
 	loanGuaranteedFlag                      bool,
 	financialInstitutionFlag                bool,
-	loanGuaranteeAmount                     numeric(10,2),
+	loanGuaranteeAmount                     numeric(12,2),
 	lenderPersentTypeCd                     text,
 	lenderNameOrganization                  text,
 	lenderNameLast                          text,
@@ -60,6 +60,7 @@ CREATE TABLE tec.c_LoanData (
 	lenderJobTitle                          text,
 	lenderPacFein                           text,
 	lenderOosPacFlag                        bool,
+	lenderLawFirmName                       text,
 	lenderSpouseLawFirmName                 text,
 	lenderParent1LawFirmName                text,
 	lenderParent2LawFirmName                text,
@@ -79,6 +80,7 @@ CREATE TABLE tec.c_LoanData (
 	guarantorEmployer1                      text,
 	guarantorOccupation1                    text,
 	guarantorJobTitle1                      text,
+	guarantorLawFirmName1                   text,
 	guarantorSpouseLawFirmName1             text,
 	guarantorParent1LawFirmName1            text,
 	guarantorParent2LawFirmName1            text,
@@ -98,6 +100,7 @@ CREATE TABLE tec.c_LoanData (
 	guarantorEmployer2                      text,
 	guarantorOccupation2                    text,
 	guarantorJobTitle2                      text,
+	guarantorLawFirmName2                   text,
 	guarantorSpouseLawFirmName2             text,
 	guarantorParent1LawFirmName2            text,
 	guarantorParent2LawFirmName2            text,
@@ -117,6 +120,7 @@ CREATE TABLE tec.c_LoanData (
 	guarantorEmployer3                      text,
 	guarantorOccupation3                    text,
 	guarantorJobTitle3                      text,
+	guarantorLawFirmName3                   text,
 	guarantorSpouseLawFirmName3             text,
 	guarantorParent1LawFirmName3            text,
 	guarantorParent2LawFirmName3            text,
@@ -136,6 +140,7 @@ CREATE TABLE tec.c_LoanData (
 	guarantorEmployer4                      text,
 	guarantorOccupation4                    text,
 	guarantorJobTitle4                      text,
+	guarantorLawFirmName4                   text,
 	guarantorSpouseLawFirmName4             text,
 	guarantorParent1LawFirmName4            text,
 	guarantorParent2LawFirmName4            text,
@@ -155,6 +160,7 @@ CREATE TABLE tec.c_LoanData (
 	guarantorEmployer5                      text,
 	guarantorOccupation5                    text,
 	guarantorJobTitle5                      text,
+	guarantorLawFirmName5                   text,
 	guarantorSpouseLawFirmName5             text,
 	guarantorParent1LawFirmName5            text,
 	guarantorParent2LawFirmName5            text,
@@ -203,6 +209,7 @@ COMMENT ON COLUMN tec.c_loandata.lenderoccupation IS $$Lender occupation$$;
 COMMENT ON COLUMN tec.c_loandata.lenderjobtitle IS $$Lender job title$$;
 COMMENT ON COLUMN tec.c_loandata.lenderpacfein IS $$FEC ID of out-of-state PAC lender$$;
 COMMENT ON COLUMN tec.c_loandata.lenderoospacflag IS $$Indicates if lender is an out-of-state PAC$$;
+COMMENT ON COLUMN tec.c_loandata.lenderlawfirmname IS $$Lender law firm name$$;
 COMMENT ON COLUMN tec.c_loandata.lenderspouselawfirmname IS $$Lender spouse law firm name$$;
 COMMENT ON COLUMN tec.c_loandata.lenderparent1lawfirmname IS $$Lender parent #1 law firm name$$;
 COMMENT ON COLUMN tec.c_loandata.lenderparent2lawfirmname IS $$Lender parent #2 law firm name$$;
@@ -222,6 +229,7 @@ COMMENT ON COLUMN tec.c_loandata.guarantorstreetregion1 IS $$1: Guarantor street
 COMMENT ON COLUMN tec.c_loandata.guarantoremployer1 IS $$1: Guarantor employer$$;
 COMMENT ON COLUMN tec.c_loandata.guarantoroccupation1 IS $$1: Guarantor occupation$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorjobtitle1 IS $$1: Guarantor job title$$;
+COMMENT ON COLUMN tec.c_loandata.guarantorlawfirmname1 IS $$1: Guarantor law firm name$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorspouselawfirmname1 IS $$1: Guarantor spouse law firm name$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorparent1lawfirmname1 IS $$1: Guarantor parent #1 law firm name$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorparent2lawfirmname1 IS $$1: Guarantor parent #2 law firm name$$;
@@ -241,6 +249,7 @@ COMMENT ON COLUMN tec.c_loandata.guarantorstreetregion2 IS $$2: Guarantor street
 COMMENT ON COLUMN tec.c_loandata.guarantoremployer2 IS $$2: Guarantor employer$$;
 COMMENT ON COLUMN tec.c_loandata.guarantoroccupation2 IS $$2: Guarantor occupation$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorjobtitle2 IS $$2: Guarantor job title$$;
+COMMENT ON COLUMN tec.c_loandata.guarantorlawfirmname2 IS $$2: Guarantor law firm name$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorspouselawfirmname2 IS $$2: Guarantor spouse law firm name$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorparent1lawfirmname2 IS $$2: Guarantor parent #1 law firm name$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorparent2lawfirmname2 IS $$2: Guarantor parent #2 law firm name$$;
@@ -260,6 +269,7 @@ COMMENT ON COLUMN tec.c_loandata.guarantorstreetregion3 IS $$3: Guarantor street
 COMMENT ON COLUMN tec.c_loandata.guarantoremployer3 IS $$3: Guarantor employer$$;
 COMMENT ON COLUMN tec.c_loandata.guarantoroccupation3 IS $$3: Guarantor occupation$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorjobtitle3 IS $$3: Guarantor job title$$;
+COMMENT ON COLUMN tec.c_loandata.guarantorlawfirmname3 IS $$3: Guarantor law firm name$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorspouselawfirmname3 IS $$3: Guarantor spouse law firm name$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorparent1lawfirmname3 IS $$3: Guarantor parent #1 law firm name$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorparent2lawfirmname3 IS $$3: Guarantor parent #2 law firm name$$;
@@ -279,6 +289,7 @@ COMMENT ON COLUMN tec.c_loandata.guarantorstreetregion4 IS $$4: Guarantor street
 COMMENT ON COLUMN tec.c_loandata.guarantoremployer4 IS $$4: Guarantor employer$$;
 COMMENT ON COLUMN tec.c_loandata.guarantoroccupation4 IS $$4: Guarantor occupation$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorjobtitle4 IS $$4: Guarantor job title$$;
+COMMENT ON COLUMN tec.c_loandata.guarantorlawfirmname4 IS $$4: Guarantor law firm name$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorspouselawfirmname4 IS $$4: Guarantor spouse law firm name$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorparent1lawfirmname4 IS $$4: Guarantor parent #1 law firm name$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorparent2lawfirmname4 IS $$4: Guarantor parent #2 law firm name$$;
@@ -298,6 +309,7 @@ COMMENT ON COLUMN tec.c_loandata.guarantorstreetregion5 IS $$5: Guarantor street
 COMMENT ON COLUMN tec.c_loandata.guarantoremployer5 IS $$5: Guarantor employer$$;
 COMMENT ON COLUMN tec.c_loandata.guarantoroccupation5 IS $$5: Guarantor occupation$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorjobtitle5 IS $$5: Guarantor job title$$;
+COMMENT ON COLUMN tec.c_loandata.guarantorlawfirmname5 IS $$5: Guarantor law firm name$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorspouselawfirmname5 IS $$5: Guarantor spouse law firm name$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorparent1lawfirmname5 IS $$5: Guarantor parent #1 law firm name$$;
 COMMENT ON COLUMN tec.c_loandata.guarantorparent2lawfirmname5 IS $$5: Guarantor parent #2 law firm name$$;

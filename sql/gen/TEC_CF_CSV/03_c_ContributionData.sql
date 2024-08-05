@@ -29,7 +29,7 @@ CREATE TABLE tec.c_ContributionData (
 	filerName                               text,
 	contributionInfoId                      bigint,
 	contributionDt                          date,
-	contributionAmount                      numeric(10,2),
+	contributionAmount                      numeric(12,2),
 	contributionDescr                       text,
 	itemizeFlag                             bool,
 	travelFlag                              bool,
@@ -51,6 +51,7 @@ CREATE TABLE tec.c_ContributionData (
 	contributorJobTitle                     text,
 	contributorPacFein                      text,
 	contributorOosPacFlag                   bool,
+	contributorLawFirmName                  text,
 	contributorSpouseLawFirmName            text,
 	contributorParent1LawFirmName           text,
 	contributorParent2LawFirmName           text,
@@ -90,6 +91,7 @@ COMMENT ON COLUMN tec.c_contributiondata.contributoroccupation IS $$Contributor 
 COMMENT ON COLUMN tec.c_contributiondata.contributorjobtitle IS $$Contributor job title$$;
 COMMENT ON COLUMN tec.c_contributiondata.contributorpacfein IS $$FEC ID of out-of-state PAC contributor$$;
 COMMENT ON COLUMN tec.c_contributiondata.contributoroospacflag IS $$Indicates if contributor is an out-of-state PAC$$;
+COMMENT ON COLUMN tec.c_contributiondata.contributorlawfirmname IS $$Contributor law firm name$$;
 COMMENT ON COLUMN tec.c_contributiondata.contributorspouselawfirmname IS $$Contributor spouse law firm name$$;
 COMMENT ON COLUMN tec.c_contributiondata.contributorparent1lawfirmname IS $$Contributor parent #1 law firm name$$;
 COMMENT ON COLUMN tec.c_contributiondata.contributorparent2lawfirmname IS $$Contributor parent #2 law firm name$$;
@@ -230,6 +232,38 @@ COMMENT ON COLUMN tec.c_contributiondata.contributorparent2lawfirmname IS $$Cont
 \COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_68.csv' WITH ( FORMAT CSV , HEADER true );
 
 \COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_69.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_70.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_71.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_72.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_73.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_74.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_75.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_76.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_77.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_78.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_79.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_80.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_81.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_82.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_83.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_84.csv' WITH ( FORMAT CSV , HEADER true );
+
+\COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/contribs_85.csv' WITH ( FORMAT CSV , HEADER true );
 
 \COPY tec.c_ContributionData FROM 'data/TEC_CF_CSV/cont_ss.csv' WITH ( FORMAT CSV , HEADER true );
 
