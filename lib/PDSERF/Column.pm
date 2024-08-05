@@ -44,7 +44,7 @@ sub pg_type {
 	my $self = shift;
 	
 	state $types = {
-		BigDecimal => 'numeric(10,2)',
+		BigDecimal => 'numeric(12,2)',
 		String     => 'text',
 		Long       => 'bigint'
 	};
