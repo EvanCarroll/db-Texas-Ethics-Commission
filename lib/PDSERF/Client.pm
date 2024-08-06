@@ -30,7 +30,7 @@ use constant {
 
 use constant LICENSE => <<'EOF';
 -- Schema generation for the Texas Ethics Commission
--- Copyright (C) 2018  Evan Carroll
+-- Copyright (C) 2024  Evan Carroll
 -- 
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU Affero General Public License as

@@ -1,5 +1,5 @@
 -- Schema generation for the Texas Ethics Commission
--- Copyright (C) 2018  Evan Carroll
+-- Copyright (C) 2024  Evan Carroll
 -- 
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU Affero General Public License as
@@ -319,6 +319,7 @@ COMMENT ON COLUMN tec.c_loandata.guarantorparent2lawfirmname5 IS $$5: Guarantor 
 CREATE INDEX ON tec.c_LoanData (filerIdent, filerTypeCd);
 
 ALTER TABLE tec.c_LoanData
+	ADD FOREIGN KEY (formTypeCd) REFERENCES tec.codes_forms NOT VALID,
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
 	ADD FOREIGN KEY (lenderStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (lenderStreetCountryCd) REFERENCES tec.codes_country NOT VALID,

@@ -96,6 +96,8 @@ sub fully_qualified_identifier {
 
 sub fkey_constraint {
 	my $self  = shift;
+
+	# This points to the schema.table, which targets the pkey implicitly
 	my $fmt = sprintf(
 		'ADD FOREIGN KEY (%s) REFERENCES %s.%%s NOT VALID',
 		$self->name,
@@ -132,9 +134,9 @@ sub fkey_constraint {
 		return sprintf( $fmt, 'codes_filertype' );
 	}
 	## Compare `SELECT distinct formtypecd FROM tec.c_coversheet1data;` to tbl
-	## elsif ( $self->name =~ /formTypeCd$/ ) {
-	## 	return sprintf( $fmt, 'codes_forms' );
-	## }
+	elsif ( $self->name =~ /formTypeCd$/ ) {
+		return sprintf( $fmt, 'codes_forms' );
+	}
 	elsif ( $self->name =~ /totalTypeCd$/ ) {
 		return sprintf( $fmt, 'codes_total' );
 	}

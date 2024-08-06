@@ -1,5 +1,5 @@
 -- Schema generation for the Texas Ethics Commission
--- Copyright (C) 2018  Evan Carroll
+-- Copyright (C) 2024  Evan Carroll
 -- 
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU Affero General Public License as
@@ -127,6 +127,7 @@ COMMENT ON COLUMN tec.c_expenddata.repaymentdt IS $$Repayment date$$;
 CREATE INDEX ON tec.c_ExpendData (filerIdent, filerTypeCd);
 
 ALTER TABLE tec.c_ExpendData
+	ADD FOREIGN KEY (formTypeCd) REFERENCES tec.codes_forms NOT VALID,
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
 	ADD FOREIGN KEY (expendCatCd) REFERENCES tec.c_expendcategory NOT VALID,
 	ADD FOREIGN KEY (payeeStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,

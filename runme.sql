@@ -26,9 +26,8 @@ COMMENT ON SCHEMA tec IS $$Texas Ethics Comission dataset$$;
 
 \echo LOADING CODES GENERATED FROM PDF
 
-\i sql/how_to_import/country.sql
-
 \i sql/cf_new/1_filertype.sql
+\i sql/cf_new/02_data/4_countries.sql
 \i sql/cf_new/02_data/5_office.sql
 \i sql/cf_new/02_data/6_reports.sql
 \i sql/cf_new/02_data/7_forms.sql
@@ -72,25 +71,24 @@ COMMENT ON SCHEMA tec IS $$Texas Ethics Comission dataset$$;
 
 SET SEARCH_PATH TO tec;
 
-UPDATE tec.c_filerdata
-	SET ctaseekofficecd = NULL
-	WHERE ctaseekofficecd = 'COL_MULTI_2';
-
-UPDATE tec.c_filerdata
-	SET filerholdofficecd = NULL
-	WHERE filerholdofficecd = 'COL_MULTI_2';
+-- UPDATE tec.c_filerdata
+-- 	SET ctaseekofficecd = NULL
+-- 	WHERE ctaseekofficecd = 'COL_MULTI_2';
+-- 
+-- UPDATE tec.c_filerdata
+-- 	SET filerholdofficecd = NULL
+-- 	WHERE filerholdofficecd = 'COL_MULTI_2';
 
 UPDATE tec.tec.c_filerdata
-	SET contestseekofficecd = NULL
+	SET contestseekofficecd = 'COL_MULTI_2'
 	WHERE contestseekofficecd = ' COL_MULTI_2';
-
 UPDATE tec.tec.c_filerdata
 	SET contestseekofficecd = 'LANDCOMM'
 	WHERE contestseekofficecd = ' LANDCOMM';
-
-UPDATE c_coversheet3data
-	SET activityseekofficecd = NULL
-	WHERE activityseekofficecd = 'COL_MULTI_1';
+-- 
+-- UPDATE c_coversheet3data
+-- 	SET activityseekofficecd = NULL
+-- 	WHERE activityseekofficecd = 'COL_MULTI_1';
 
 -- data integrity problems
 UPDATE c_CandidateData
@@ -163,7 +161,7 @@ DECLARE
 BEGIN
 	--SET CONSTRAINTS ALL DEFERRED;
 	FOR _sql IN SELECT FORMAT(
-			$sql$ UPDATE %I.%I.%I SET %I = NULL WHERE %I IN ( 'UNKNOWN', '', 'COL_MULTI_1', 'COL_MULTI_2' ); $sql$,
+			$sql$ UPDATE %I.%I.%I SET %I = NULL WHERE %I IN ( 'UNKNOWN', '' ); $sql$,
 			table_catalog,
 			table_schema,
 			table_name,

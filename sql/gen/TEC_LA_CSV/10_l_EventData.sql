@@ -1,5 +1,5 @@
 -- Schema generation for the Texas Ethics Commission
--- Copyright (C) 2018  Evan Carroll
+-- Copyright (C) 2024  Evan Carroll
 -- 
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU Affero General Public License as
@@ -89,6 +89,7 @@ COMMENT ON COLUMN tec.l_eventdata.beneficiarynameshort IS $$For INDIVIDUAL, the 
 
 
 ALTER TABLE tec.l_EventData
+	ADD FOREIGN KEY (formTypeCd) REFERENCES tec.codes_forms NOT VALID,
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_CoverSheetLaData NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;

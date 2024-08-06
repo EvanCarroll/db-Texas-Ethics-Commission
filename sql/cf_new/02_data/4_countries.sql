@@ -2,7 +2,9 @@ CREATE TABLE tec.codes_country (
 	country_id  char(3) PRIMARY KEY,
 	name        text    UNIQUE
 );
+COMMENT ON TABLE tec.codes_country IS $$Taken from https://www.ethics.state.tx.us/data/search/cf/CFS-Codes.txt$$;
 COMMENT ON TABLE tec.codes_country IS $$ Campaign Finance Import Guide (revised 09/25/2018) APPENDIX D:  Address Country Codes $$;
+
 INSERT INTO tec.codes_country( country_id, name )
 VALUES
 	( 'USA', 'United States' ),
