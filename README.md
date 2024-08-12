@@ -29,11 +29,16 @@ down as
 
 You can find the readmes from the Texas Ethics Commission added in this project here:
 
-* [Contribution Data Readme](./data/TEC_CF_CSV/ReadMe.txt)
-* [Lobby Data Readme](./data/TEC_LA_CSV/LobbyLAR-ReadMe.txt)
-* [Form 1295](./data/tec_docs/1295CertificatesCSVFormat.pdf)
-* [Texas PDSERF/Plus
-Electronic Reporting Format](./data/tec_docs/TX_ERF13_7.pdf)
+* [Campaign Finance](https://ethics.state.tx.us/search/cf/)
+	* [ReadMe](https://ethics.state.tx.us/data/search/cf/CFS-ReadMe.txt) [cache in the repo](./data/TEC_CF_CSV/ReadMe.txt)
+	* [Codes](https://ethics.state.tx.us/data/search/cf/CFS-Codes.txt)
+	* [CSV Record Format - Old Reports](https://ethics.state.tx.us/data/search/cf/TX_ERF13_7.pdf) [cache in the repo](./data/tec_docs/TX_ERF13_7.pdf)
+	* [CSV Record Format - New Reports](https://ethics.state.tx.us/data/search/cf/CampaignFinanceCSVFileFormat.pdf)
+* [Lobby Database](https://ethics.state.tx.us/search/lobby/)
+	* [ReadMe](https://ethics.state.tx.us/data/search/lobby/LobbyLAR-ReadMe.txt) [cache in the repo](./data/TEC_LA_CSV/LobbyLAR-ReadMe.txt)
+* [Form 1295](https://www.ethics.state.tx.us/search/1295/)
+	* [CSV Record Format](https://www.ethics.state.tx.us/data/search/1295/1295CertificatesCSVFormat.pdf) [cache in the repo](./data/tec_docs/1295CertificatesCSVFormat.pdf)
+	* [1295 Online Form](https://www.ethics.state.tx.us/data/forms/1295/1295.pdf)
 
 Coverage
 ====
@@ -70,7 +75,8 @@ Installation
 Requirements: PostgreSQL, git, curl
 
 Repo download and database setup (example in bash):
-```
+
+```shell
 $ git clone https://github.com/EvanCarroll/db-Texas-Ethics-Commission.git
 $ cd ./db-Texas-Ethics-Commission
 $ make
