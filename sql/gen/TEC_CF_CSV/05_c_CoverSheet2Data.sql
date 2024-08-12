@@ -109,6 +109,7 @@ CREATE INDEX ON tec.c_CoverSheet2Data (filerIdent, filerTypeCd);
 ALTER TABLE tec.c_CoverSheet2Data
 	ADD FOREIGN KEY (formTypeCd) REFERENCES tec.codes_forms NOT VALID,
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
+	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID,
 	ADD FOREIGN KEY (notifierStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (notifierStreetCountryCd) REFERENCES tec.codes_country NOT VALID,
 	ADD FOREIGN KEY (treasStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,

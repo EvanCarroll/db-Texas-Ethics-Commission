@@ -17,7 +17,7 @@
 package PDSERF::Column;
 
 use strict;
-use feature ':5.26';
+use feature ':5.36';
 use autodie;
 
 use PDSERF::Client ();
@@ -31,8 +31,7 @@ has 'length' => ( isa => 'Int', is => 'ro', required => 1 );
 has 'mask'   => ( isa => 'Str', is => 'ro', required => 1 );
 has 'order'  => ( isa => 'Int', is => 'ro' );
 
-sub pg_ddl {
-	my $self = shift;
+sub pg_ddl ($self) {
 	sprintf(
 		"\t%-40s%-20s",
 		$self->name,
@@ -40,8 +39,7 @@ sub pg_ddl {
 	);
 }
 
-sub pg_type {
-	my $self = shift;
+sub pg_type ($self) {
 	
 	state $types = {
 		BigDecimal => 'numeric(12,2)',
@@ -61,6 +59,10 @@ sub pg_type {
 		}
 		else { $coltype = 'bool'; }
 	}
+	elsif ( $self->name =~ /ExpendCd$/ ) {
+		$coltype = 'bool';
+
+	}
 	elsif ( $self->name =~ /CountryCd$/ ) {
 		$coltype = 'char(3)';
 	}
@@ -74,8 +76,7 @@ sub pg_type {
 }
 
 
-sub pg_comment {
-	my $self = shift;
+sub pg_comment ($self) {
 	sprintf(
 		"COMMENT ON COLUMN %s IS \$\$%s\$\$;\n",
 		$self->fully_qualified_identifier,
@@ -83,8 +84,7 @@ sub pg_comment {
 	);
 }
 
-sub fully_qualified_identifier {
-	my $self = shift;
+sub fully_qualified_identifier ($self) {
 	my $fqn =  sprintf(
 		"%s.%s.%s",
 		PDSERF::Client::INSTALL_SCHEMA,
@@ -94,8 +94,7 @@ sub fully_qualified_identifier {
 	lc($fqn);
 }
 
-sub fkey_constraint {
-	my $self  = shift;
+sub fkey_constraint ($self) {
 
 	# This points to the schema.table, which targets the pkey implicitly
 	my $fmt = sprintf(
@@ -104,6 +103,7 @@ sub fkey_constraint {
 		PDSERF::Client::INSTALL_SCHEMA
 	);
 
+	# ExpendCd is only 'Y' or 'N'
 	if ( $self->name =~ /expendCatCd$/ ) {
 		return sprintf( $fmt, 'c_expendcategory' );
 	}
@@ -126,14 +126,15 @@ sub fkey_constraint {
 	elsif ( $self->name =~ /reportTypeCd\d*$/ ) {
 		return sprintf( $fmt, 'codes_reports' );
 	}
-
-	if (
-		$self->name =~ 'filerTypeCd' and
-		$self->table->name eq 'c_FilerData' || $self->table->name =~ /^l_/
+	elsif (
+		$self->name =~ /filerTypeCd$/
+		# $self->table->name eq 'c_FilerData' || $self->table->name =~ /^l_/
 	) {
 		return sprintf( $fmt, 'codes_filertype' );
 	}
-	## Compare `SELECT distinct formtypecd FROM tec.c_coversheet1data;` to tbl
+	# elsif ( $self->name =~ /schedFormTypeCd$/ ) {
+	# 	return sprintf( $fmt, 'codes_schedule' );
+	# }
 	elsif ( $self->name =~ /formTypeCd$/ ) {
 		return sprintf( $fmt, 'codes_forms' );
 	}
@@ -142,6 +143,9 @@ sub fkey_constraint {
 	}
 	elsif ( $self->name =~ /OfficeCd$/ ) {
 		return sprintf( $fmt, 'codes_office' );
+	}
+	elsif ( $self->name =~ /Cd$/ ) {
+		warn sprintf("Unhandled foreign key detected for table %s: %s", $self->table->name, $self->name );
 	}
 	return undef;
 }

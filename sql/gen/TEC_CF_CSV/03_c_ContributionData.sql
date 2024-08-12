@@ -275,6 +275,7 @@ CREATE INDEX ON tec.c_ContributionData (filerIdent, filerTypeCd);
 ALTER TABLE tec.c_ContributionData
 	ADD FOREIGN KEY (formTypeCd) REFERENCES tec.codes_forms NOT VALID,
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
+	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID,
 	ADD FOREIGN KEY (contributorStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (contributorStreetCountryCd) REFERENCES tec.codes_country NOT VALID,
 	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;

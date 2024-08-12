@@ -4,6 +4,7 @@ CREATE TABLE tec.codes_reports (
 	report_id   text PRIMARY KEY,
 	report_name text
 );
+
 INSERT INTO tec.codes_reports
 VALUES
 	( '500EXCEED'       ,'Exceeded $500 limit' ),

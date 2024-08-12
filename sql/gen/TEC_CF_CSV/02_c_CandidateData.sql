@@ -35,7 +35,7 @@ CREATE TABLE tec.c_CandidateData (
 	expendCatCd                             text,
 	expendCatDescr                          text,
 	itemizeFlag                             bool,
-	politicalExpendCd                       text,
+	politicalExpendCd                       bool,
 	reimburseIntendedFlag                   bool,
 	srcCorpContribFlag                      bool,
 	capitalLivingexpFlag                    char(1),
@@ -109,6 +109,7 @@ CREATE INDEX ON tec.c_CandidateData (filerIdent, filerTypeCd);
 ALTER TABLE tec.c_CandidateData
 	ADD FOREIGN KEY (formTypeCd) REFERENCES tec.codes_forms NOT VALID,
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
+	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID,
 	ADD FOREIGN KEY (expendCatCd) REFERENCES tec.c_expendcategory NOT VALID,
 	ADD FOREIGN KEY (candidateHoldOfficeCd) REFERENCES tec.codes_office NOT VALID,
 	ADD FOREIGN KEY (candidateHoldOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,

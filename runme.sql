@@ -27,6 +27,7 @@ COMMENT ON SCHEMA tec IS $$Texas Ethics Comission dataset$$;
 \echo LOADING CODES GENERATED FROM PDF
 
 \i sql/cf_new/1_filertype.sql
+\i sql/cf_new/02_data/3_schedules.sql
 \i sql/cf_new/02_data/4_countries.sql
 \i sql/cf_new/02_data/5_office.sql
 \i sql/cf_new/02_data/6_reports.sql
@@ -80,8 +81,10 @@ SET SEARCH_PATH TO tec;
 -- 	WHERE filerholdofficecd = 'COL_MULTI_2';
 
 UPDATE tec.tec.c_filerdata
-	SET contestseekofficecd = 'COL_MULTI_2'
-	WHERE contestseekofficecd = ' COL_MULTI_2';
+	SET contestseekofficecd = trim(contestseekofficecd)
+	WHERE contestseekofficecd like ' %'
+	OR contestseekofficecd like '% '
+;
 UPDATE tec.tec.c_filerdata
 	SET contestseekofficecd = 'LANDCOMM'
 	WHERE contestseekofficecd = ' LANDCOMM';
@@ -89,6 +92,10 @@ UPDATE tec.tec.c_filerdata
 -- UPDATE c_coversheet3data
 -- 	SET activityseekofficecd = NULL
 -- 	WHERE activityseekofficecd = 'COL_MULTI_1';
+
+UPDATE c_coversheet1data
+	SET formtypecd = NULL
+	WHERE formtypecd = 'UNK';
 
 -- data integrity problems
 UPDATE c_CandidateData
@@ -100,6 +107,10 @@ UPDATE c_CandidateData
 UPDATE c_CoverSheet1Data
 	SET filerholdofficecd = NULL
 	WHERE filerholdofficecd = 'T';
+
+UPDATE c_traveldata
+	SET schedformtypecd = NULL
+	WHERE schedformtypecd = 'T';
 
 UPDATE c_CandidateData
 	SET CandidateHoldOfficeCd = 'COMPTROLLER'
@@ -171,6 +182,34 @@ BEGIN
 		FROM information_schema.columns
 		WHERE table_schema = 'tec'
 			AND column_name LIKE ANY(ARRAY['%officecd'])
+		ORDER BY table_catalog, table_schema, table_name
+	LOOP
+		RAISE NOTICE '%', _sql;
+		EXECUTE _sql;
+		GET DIAGNOSTICS rows_affected = ROW_COUNT;
+		RAISE NOTICE '	Rows Affected: %', rows_affected;
+		COMMIT;
+	END LOOP;
+END
+$$ LANGUAGE plpgsql;
+
+DO $$
+DECLARE
+	_sql text;
+	rows_affected INT;
+BEGIN
+	--SET CONSTRAINTS ALL DEFERRED;
+	FOR _sql IN SELECT FORMAT(
+			$sql$ UPDATE %I.%I.%I SET %I = NULL WHERE %I IN ( 'UNKNOWN' ); $sql$,
+			table_catalog,
+			table_schema,
+			table_name,
+			column_name,
+			column_name
+		)
+		FROM information_schema.columns
+		WHERE table_schema = 'tec'
+			AND column_name LIKE ANY(ARRAY['schedformtypecd'])
 		ORDER BY table_catalog, table_schema, table_name
 	LOOP
 		RAISE NOTICE '%', _sql;

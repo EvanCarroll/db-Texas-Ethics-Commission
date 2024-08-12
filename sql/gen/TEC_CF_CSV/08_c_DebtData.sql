@@ -207,6 +207,7 @@ CREATE INDEX ON tec.c_DebtData (filerIdent, filerTypeCd);
 ALTER TABLE tec.c_DebtData
 	ADD FOREIGN KEY (formTypeCd) REFERENCES tec.codes_forms NOT VALID,
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
+	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID,
 	ADD FOREIGN KEY (lenderStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (lenderStreetCountryCd) REFERENCES tec.codes_country NOT VALID,
 	ADD FOREIGN KEY (guarantorStreetCountyCd1) REFERENCES tec.codes_counties NOT VALID,

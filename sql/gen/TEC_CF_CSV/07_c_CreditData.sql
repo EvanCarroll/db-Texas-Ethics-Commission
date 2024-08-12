@@ -85,6 +85,7 @@ CREATE INDEX ON tec.c_CreditData (filerIdent, filerTypeCd);
 ALTER TABLE tec.c_CreditData
 	ADD FOREIGN KEY (formTypeCd) REFERENCES tec.codes_forms NOT VALID,
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
+	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID,
 	ADD FOREIGN KEY (payorStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (payorStreetCountryCd) REFERENCES tec.codes_country NOT VALID,
 	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
