@@ -46,22 +46,27 @@ Coverage
 This module loads has full coverage of the meta-data, and data of the TEC.
 
 * Lobby Reports (tables `l_*`)
+    ```text
+    tec.l_awardmementodata         tec.l_foodbeveragedata
+    tec.l_coversheetladata         tec.l_giftdata
+    tec.l_docketdata               tec.l_individualreportingdata
+    tec.l_entertainmentdata        tec.l_subjectmatterdata
+    tec.l_eventdata                tec.l_transportationdata
+    ```
 * Campaign Finance Reports (tables `c_*`)
+    ```text
+    tec.c_assetdata         tec.c_creditdata        tec.c_finaldata
+    tec.c_candidatedata     tec.c_debtdata          tec.c_loandata
+    tec.c_contributiondata  tec.c_expendcategory    tec.c_pledgedata
+    tec.c_coversheet1data   tec.c_expenddata        tec.c_spacdata
+    tec.c_coversheet2data   tec.c_expendrepayment   tec.c_traveldata
+    tec.c_coversheet3data   tec.c_filerdata
+    ```
 * 1295 Certs
+    ```text
+    tec.form1295_box123            tec.form1295_interested_party
+    ```
 
-```
-tec.c_assetdata                tec.c_finaldata                tec.form1295_interested_party
-tec.c_candidatedata            tec.c_loandata                 tec.l_awardmementodata
-tec.c_contributiondata         tec.codes_counties             tec.l_coversheetladata
-tec.c_coversheet1data          tec.codes_forms                tec.l_docketdata
-tec.c_coversheet2data          tec.codes_office               tec.l_entertainmentdata
-tec.c_coversheet3data          tec.codes_reports              tec.l_eventdata
-tec.c_creditdata               tec.codes_total                tec.l_foodbeveragedata
-tec.c_debtdata                 tec.c_pledgedata               tec.l_giftdata
-tec.c_expendcategory           tec.c_spacdata                 tec.l_individualreportingdata
-tec.c_expenddata               tec.c_traveldata               tec.l_subjectmatterdata
-tec.c_filerdata                tec.form1295_box123            tec.l_transportationdata
-```
 
 Links
 ====
