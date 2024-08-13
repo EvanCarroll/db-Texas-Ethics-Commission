@@ -44,9 +44,12 @@ VALUES
 	( 'STATEEDU'                 , 'State Board of Education' ),
 	( 'STATEREP'                 , 'State Representative' ),
 	( 'STATESEN'                 , 'State Senator' ),
-	( 'X'                        , 'Legacy Only' )
+	( 'X'                        , 'Legacy Only' ),
+
+	( 'DISTATTY_HR'              , 'District Attorney, Harris Co.' ),
+	( 'DISTATTY_MULTI_KL_KN'     , 'District Attorney, Kleberg and Kenedy Co.' )
 ;
 
 -- Needs both SJC and SCJ, not found in original set
 INSERT INTO codes_offices (office_code)
-VALUES ('DISTATTY_HR'), ('JUSTICEAPP'), ('SJC'), ('SCJ'), ('JUDGECRIM'), ('DISTATTY_MULTI_KL_KN');
+VALUES ('JUSTICEAPP'), ('SJC'), ('SCJ'), ('JUDGECRIM');

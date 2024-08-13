@@ -74,14 +74,6 @@ COMMENT ON SCHEMA tec IS $$Texas Ethics Comission dataset$$;
 
 SET SEARCH_PATH TO tec;
 
--- UPDATE tec.c_filerdata
--- 	SET ctaseekofficecd = NULL
--- 	WHERE ctaseekofficecd = 'COL_MULTI_2';
--- 
--- UPDATE tec.c_filerdata
--- 	SET filerholdofficecd = NULL
--- 	WHERE filerholdofficecd = 'COL_MULTI_2';
-
 UPDATE tec.c_contributiondata
 	SET contributornamesuffixcd = NULL
 	WHERE contributornamesuffixcd IN ( 'MR', 'MS', 'PA-C', 'DMIN' );
@@ -113,19 +105,7 @@ UPDATE tec.c_traveldata SET travellernameprefixcd = NULL WHERE travellernamepref
 UPDATE tec.c_candidatedata SET candidatenamesuffixcd = NULL WHERE candidatenamesuffixcd IN ( 'MR', 'MS' );
 UPDATE tec.c_candidatedata SET candidatenameprefixcd = NULL WHERE candidatenameprefixcd = 'ME';
 
-UPDATE tec.tec.c_filerdata
-	SET contestseekofficecd = trim(contestseekofficecd)
-	WHERE contestseekofficecd like ' %'
-	OR contestseekofficecd like '% '
 ;
-UPDATE tec.tec.c_filerdata
-	SET contestseekofficecd = 'LANDCOMM'
-	WHERE contestseekofficecd = ' LANDCOMM';
--- 
--- UPDATE c_coversheet3data
--- 	SET activityseekofficecd = NULL
--- 	WHERE activityseekofficecd = 'COL_MULTI_1';
-
 UPDATE c_coversheet1data
 	SET formtypecd = NULL
 	WHERE formtypecd = 'UNK';
@@ -144,6 +124,11 @@ UPDATE c_CoverSheet1Data
 UPDATE c_traveldata
 	SET schedformtypecd = NULL
 	WHERE schedformtypecd = 'T';
+
+UPDATE c_filerdata
+	SET contestseekofficecd = trim(contestseekofficecd)
+	WHERE contestseekofficecd like ' %'
+	OR contestseekofficecd like '% ';
 
 UPDATE c_CandidateData
 	SET CandidateHoldOfficeCd = 'COMPTROLLER'
