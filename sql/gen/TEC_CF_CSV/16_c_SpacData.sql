@@ -100,11 +100,11 @@ CREATE INDEX ON tec.c_SpacData (spacFilerIdent, spacFilerTypeCd);
 CREATE INDEX ON tec.c_SpacData (candidateFilerIdent, candidateFilerTypeCd);
 
 ALTER TABLE tec.c_SpacData
-	ADD FOREIGN KEY (candidateHoldOfficeCd) REFERENCES tec.codes_office NOT VALID,
+	ADD FOREIGN KEY (candidateHoldOfficeCd) REFERENCES tec.codes_offices NOT VALID,
 	ADD FOREIGN KEY (candidateHoldOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (candidateSeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
+	ADD FOREIGN KEY (candidateSeekOfficeCd) REFERENCES tec.codes_offices NOT VALID,
 	ADD FOREIGN KEY (candidateSeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (ctaSeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
+	ADD FOREIGN KEY (ctaSeekOfficeCd) REFERENCES tec.codes_offices NOT VALID,
 	ADD FOREIGN KEY (ctaSeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (spacFilerIdent, spacFilerTypeCd) REFERENCES tec.c_FilerData NOT VALID,
 	ADD FOREIGN KEY (candidateFilerIdent, candidateFilerTypeCd) REFERENCES tec.c_FilerData NOT VALID;

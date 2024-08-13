@@ -131,8 +131,10 @@ ALTER TABLE tec.c_ExpendData
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID,
 	ADD FOREIGN KEY (expendCatCd) REFERENCES tec.c_expendcategory NOT VALID,
+	ADD FOREIGN KEY (payeeNameSuffixCd) REFERENCES tec.codes_name_suffixes NOT VALID,
+	ADD FOREIGN KEY (payeeNamePrefixCd) REFERENCES tec.codes_name_prefixes NOT VALID,
 	ADD FOREIGN KEY (payeeStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (payeeStreetCountryCd) REFERENCES tec.codes_country NOT VALID,
+	ADD FOREIGN KEY (payeeStreetCountryCd) REFERENCES tec.codes_countries NOT VALID,
 	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
 
 CREATE INDEX ON tec.c_ExpendData (reportinfoident);

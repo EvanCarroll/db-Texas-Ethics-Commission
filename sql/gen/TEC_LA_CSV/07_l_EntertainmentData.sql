@@ -99,7 +99,9 @@ ALTER TABLE tec.l_EntertainmentData
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.l_CoverSheetLaData NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID,
-	ADD FOREIGN KEY (entertainmentStreetCountryCd) REFERENCES tec.codes_country NOT VALID;
+	ADD FOREIGN KEY (recipientNameSuffixCd) REFERENCES tec.codes_name_suffixes NOT VALID,
+	ADD FOREIGN KEY (recipientNamePrefixCd) REFERENCES tec.codes_name_prefixes NOT VALID,
+	ADD FOREIGN KEY (entertainmentStreetCountryCd) REFERENCES tec.codes_countries NOT VALID;
 
 CREATE INDEX ON tec.l_EntertainmentData (reportinfoident);
 

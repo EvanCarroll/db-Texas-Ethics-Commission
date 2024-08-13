@@ -1,11 +1,11 @@
-DROP TABLE IF EXISTS tec.codes_office;
+DROP TABLE IF EXISTS codes_offices;
 
-CREATE TABLE tec.codes_office (
-	office_id   text PRIMARY KEY,
+CREATE TABLE codes_offices (
+	office_code text PRIMARY KEY,
 	office_name text
 );
 
-INSERT INTO tec.codes_office
+INSERT INTO codes_offices
 VALUES
 	-- List from https://www.ethics.state.tx.us/data/search/cf/CFS-Codes.txt
 	( 'AGRICULTUR'               , 'Agriculture Commissioner' ),
@@ -48,5 +48,5 @@ VALUES
 ;
 
 -- Needs both SJC and SCJ, not found in original set
-INSERT INTO tec.codes_office (office_id)
+INSERT INTO codes_offices (office_code)
 VALUES ('DISTATTY_HR'), ('JUSTICEAPP'), ('SJC'), ('SCJ'), ('JUDGECRIM'), ('DISTATTY_MULTI_KL_KN');

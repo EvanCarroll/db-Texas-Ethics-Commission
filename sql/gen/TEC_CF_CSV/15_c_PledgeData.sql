@@ -108,8 +108,10 @@ ALTER TABLE tec.c_PledgeData
 	ADD FOREIGN KEY (formTypeCd) REFERENCES tec.codes_forms NOT VALID,
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID,
+	ADD FOREIGN KEY (pledgerNameSuffixCd) REFERENCES tec.codes_name_suffixes NOT VALID,
+	ADD FOREIGN KEY (pledgerNamePrefixCd) REFERENCES tec.codes_name_prefixes NOT VALID,
 	ADD FOREIGN KEY (pledgerStreetCountyCd) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (pledgerStreetCountryCd) REFERENCES tec.codes_country NOT VALID,
+	ADD FOREIGN KEY (pledgerStreetCountryCd) REFERENCES tec.codes_countries NOT VALID,
 	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
 
 CREATE INDEX ON tec.c_PledgeData (reportinfoident);

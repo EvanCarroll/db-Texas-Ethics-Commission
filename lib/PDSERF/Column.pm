@@ -121,10 +121,16 @@ sub fkey_constraint ($self) {
 		return sprintf( $fmt, 'codes_counties' );
 	}
 	elsif ( $self->name =~ /CountryCd\d*$/ ) {
-		return sprintf( $fmt, 'codes_country' );
+		return sprintf( $fmt, 'codes_countries' );
 	}
 	elsif ( $self->name =~ /reportTypeCd\d*$/ ) {
 		return sprintf( $fmt, 'codes_reports' );
+	}
+	elsif ( $self->name =~ /NamePrefixCd$/ ) {
+		return sprintf( $fmt, 'codes_name_prefixes' );
+	}
+	elsif ( $self->name =~ /NameSuffixCd$/ ) {
+		return sprintf( $fmt, 'codes_name_suffixes' );
 	}
 	elsif (
 		$self->name =~ /filerTypeCd$/
@@ -139,10 +145,10 @@ sub fkey_constraint ($self) {
 		return sprintf( $fmt, 'codes_forms' );
 	}
 	elsif ( $self->name =~ /totalTypeCd$/ ) {
-		return sprintf( $fmt, 'codes_total' );
+		return sprintf( $fmt, 'codes_totals' );
 	}
 	elsif ( $self->name =~ /OfficeCd$/ ) {
-		return sprintf( $fmt, 'codes_office' );
+		return sprintf( $fmt, 'codes_offices' );
 	}
 	elsif ( $self->name =~ /Cd$/ ) {
 		warn sprintf("Unhandled foreign key detected for table %s: %s", $self->table->name, $self->name );

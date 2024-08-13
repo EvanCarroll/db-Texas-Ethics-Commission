@@ -1,11 +1,11 @@
-DROP TABLE IF EXISTS tec.codes_reports;
+DROP TABLE IF EXISTS codes_reports;
 
-CREATE TABLE tec.codes_reports (
+CREATE TABLE codes_reports (
 	report_id   text PRIMARY KEY,
 	report_name text
 );
 
-INSERT INTO tec.codes_reports
+INSERT INTO codes_reports
 VALUES
 	( '500EXCEED'       ,'Exceeded $500 limit' ),
 	( 'A10DAYAFT'       ,'10th day after campaign treasurer termination' ),

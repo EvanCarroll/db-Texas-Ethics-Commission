@@ -1,11 +1,11 @@
-DROP TABLE IF EXISTS tec.codes_forms;
+DROP TABLE IF EXISTS codes_forms;
 
 -- https://www.ethics.state.tx.us/data/search/cf/CFS-Codes.txt
-CREATE TABLE tec.codes_forms (
+CREATE TABLE codes_forms (
 	form_id          text PRIMARY KEY,
 	form_description text
 );
-INSERT INTO tec.codes_forms
+INSERT INTO codes_forms
 VALUES
 	-- From https://www.ethics.state.tx.us/data/search/cf/CFS-Codes.txt
 	( 'COH',            'Candidate/Officeholder' ),

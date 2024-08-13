@@ -1,10 +1,10 @@
-DROP TABLE IF EXISTS tec.codes_total;
+DROP TABLE IF EXISTS codes_totals;
 
-CREATE TABLE tec.codes_total (
-	total_id           text PRIMARY KEY,
+CREATE TABLE codes_totals (
+	total_code           text PRIMARY KEY,
 	total_description  text
 );
-INSERT INTO tec.codes_total
+INSERT INTO codes_totals(total_code, total_description)
 VALUES
 	( 'LOBB_CAT_AWARDS'        , 'Awards & Momentos' ),
 	( 'LOBB_CAT_ENTERTAIN'     , 'Entertainment' ),
@@ -62,4 +62,5 @@ VALUES
 	( 'TOT_LOAN_PRINCIPAL'     , 'Total Principal Amount Of All Outstanding Loans As Of The Last Day of the Reporting Period' ),
 	( 'TOT_PLEDGE'             , 'Total Amount Of Pledges.' ),
 	( 'TOT_UNEXPEND_CNTRB'     , 'Total Amount Of Unexpended Political Contributions' ),
-	( 'TOT_UNPAID_INCUR_OBLIG' , 'Total of Unitemized Unpaid Incurred Obligations' );
+	( 'TOT_UNPAID_INCUR_OBLIG' , 'Total of Unitemized Unpaid Incurred Obligations' )
+;

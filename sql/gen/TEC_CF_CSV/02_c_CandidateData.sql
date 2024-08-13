@@ -111,9 +111,11 @@ ALTER TABLE tec.c_CandidateData
 	ADD FOREIGN KEY (reportInfoIdent) REFERENCES tec.c_CoverSheet1Data NOT VALID,
 	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID,
 	ADD FOREIGN KEY (expendCatCd) REFERENCES tec.c_expendcategory NOT VALID,
-	ADD FOREIGN KEY (candidateHoldOfficeCd) REFERENCES tec.codes_office NOT VALID,
+	ADD FOREIGN KEY (candidateNameSuffixCd) REFERENCES tec.codes_name_suffixes NOT VALID,
+	ADD FOREIGN KEY (candidateNamePrefixCd) REFERENCES tec.codes_name_prefixes NOT VALID,
+	ADD FOREIGN KEY (candidateHoldOfficeCd) REFERENCES tec.codes_offices NOT VALID,
 	ADD FOREIGN KEY (candidateHoldOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
-	ADD FOREIGN KEY (candidateSeekOfficeCd) REFERENCES tec.codes_office NOT VALID,
+	ADD FOREIGN KEY (candidateSeekOfficeCd) REFERENCES tec.codes_offices NOT VALID,
 	ADD FOREIGN KEY (candidateSeekOfficeCountyCd) REFERENCES tec.codes_counties NOT VALID,
 	ADD FOREIGN KEY (filerIdent, filerTypeCd) REFERENCES tec.c_FilerData NOT VALID;
 

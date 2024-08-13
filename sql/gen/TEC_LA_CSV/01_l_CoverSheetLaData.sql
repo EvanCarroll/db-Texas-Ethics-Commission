@@ -119,5 +119,7 @@ COMMENT ON COLUMN tec.l_coversheetladata.docketsmemo IS $$Dockets memo$$;
 ALTER TABLE tec.l_CoverSheetLaData
 	ADD FOREIGN KEY (formTypeCd) REFERENCES tec.codes_forms NOT VALID,
 	ADD FOREIGN KEY (reportTypeCd) REFERENCES tec.codes_reports NOT VALID,
-	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID;
+	ADD FOREIGN KEY (filerTypeCd) REFERENCES tec.codes_filertype NOT VALID,
+	ADD FOREIGN KEY (filerNameSuffixCd) REFERENCES tec.codes_name_suffixes NOT VALID,
+	ADD FOREIGN KEY (filerNamePrefixCd) REFERENCES tec.codes_name_prefixes NOT VALID;
 

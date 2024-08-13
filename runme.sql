@@ -27,13 +27,15 @@ COMMENT ON SCHEMA tec IS $$Texas Ethics Comission dataset$$;
 \echo LOADING CODES GENERATED FROM PDF
 
 \i sql/cf_new/1_filertype.sql
+\i sql/cf_new/02_data/1_1_name_prefixes.sql
+\i sql/cf_new/02_data/1_2_name_suffixes.sql
 \i sql/cf_new/02_data/3_schedules.sql
 \i sql/cf_new/02_data/4_countries.sql
-\i sql/cf_new/02_data/5_office.sql
+\i sql/cf_new/02_data/5_offices.sql
 \i sql/cf_new/02_data/6_reports.sql
 \i sql/cf_new/02_data/7_forms.sql
 \i sql/cf_new/02_data/8_counties.sql
-\i sql/cf_new/02_data/9_total.sql
+\i sql/cf_new/02_data/9_totals.sql
 
 \echo LOADING FORM 1295 [1295Certificates.csv]
 \i sql/form1295.sql
@@ -79,6 +81,37 @@ SET SEARCH_PATH TO tec;
 -- UPDATE tec.c_filerdata
 -- 	SET filerholdofficecd = NULL
 -- 	WHERE filerholdofficecd = 'COL_MULTI_2';
+
+UPDATE tec.c_contributiondata
+	SET contributornamesuffixcd = NULL
+	WHERE contributornamesuffixcd IN ( 'MR', 'MS', 'PA-C', 'DMIN' );
+
+UPDATE tec.c_contributiondata
+	SET contributornameprefixcd = NULL
+	WHERE contributornameprefixcd IN ( 'AMB', 'AMBASSADOR', 'TITLE', 'ME' );
+
+UPDATE tec.l_coversheetladata SET filernameprefixcd = NULL WHERE filernameprefixcd = 'ME';
+
+UPDATE tec.tec.c_expenddata
+	SET payeenamesuffixcd = NULL
+	WHERE payeenamesuffixcd IN ( 'MR', 'MS' );
+
+UPDATE tec.tec.c_expenddata SET payeenameprefixcd = NULL WHERE payeenameprefixcd IN ( 'TITLE', 'ME', 'RADM', 'AMBASSADOR' );
+UPDATE tec.l_foodbeveragedata SET recipientnamesuffixcd = NULL WHERE recipientnamesuffixcd = 'MR';
+UPDATE tec.l_awardmementodata SET recipientnamesuffixcd = NULL WHERE recipientnamesuffixcd = 'MR';
+UPDATE tec.l_eventdata SET recipientnamesuffixcd = NULL WHERE recipientnamesuffixcd = 'MR';
+UPDATE tec.c_coversheet1data SET filernamesuffixcd = NULL WHERE filernamesuffixcd = 'MR';
+UPDATE tec.c_coversheet1data SET filernameprefixcd = NULL WHERE filernameprefixcd = 'TITLE';
+UPDATE tec.c_coversheet1data SET treasnamesuffixcd = NULL WHERE treasnamesuffixcd = 'MR';
+UPDATE tec.c_coversheet1data SET chairnamesuffixcd = NULL WHERE chairnamesuffixcd = 'MR';
+UPDATE tec.c_coversheet1data SET treasnameprefixcd = 'MR' WHERE treasnameprefixcd = 'Mr.';
+UPDATE tec.c_coversheet2data SET treasnameprefixcd = NULL WHERE treasnameprefixcd IN ( 'ME' );
+UPDATE tec.c_loandata SET lendernamesuffixcd = NULL WHERE lendernamesuffixcd = 'MR';
+UPDATE tec.c_pledgedata SET pledgernamesuffixcd = NULL WHERE pledgernamesuffixcd = 'MR';
+UPDATE tec.c_pledgedata SET pledgernameprefixcd = NULL WHERE pledgernameprefixcd = 'AMBASSADOR';
+UPDATE tec.c_traveldata SET travellernameprefixcd = NULL WHERE travellernameprefixcd = 'AMBASSADOR';
+UPDATE tec.c_candidatedata SET candidatenamesuffixcd = NULL WHERE candidatenamesuffixcd IN ( 'MR', 'MS' );
+UPDATE tec.c_candidatedata SET candidatenameprefixcd = NULL WHERE candidatenameprefixcd = 'ME';
 
 UPDATE tec.tec.c_filerdata
 	SET contestseekofficecd = trim(contestseekofficecd)

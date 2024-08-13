@@ -1,11 +1,11 @@
-CREATE TABLE tec.codes_country (
-	country_id  char(3) PRIMARY KEY,
-	name        text    UNIQUE
+CREATE TABLE codes_countries (
+	country_code    char(3) PRIMARY KEY,
+	country_name    text    UNIQUE
 );
-COMMENT ON TABLE tec.codes_country IS $$Taken from https://www.ethics.state.tx.us/data/search/cf/CFS-Codes.txt$$;
-COMMENT ON TABLE tec.codes_country IS $$ Campaign Finance Import Guide (revised 09/25/2018) APPENDIX D:  Address Country Codes $$;
+COMMENT ON TABLE codes_countries IS $$Taken from https://www.ethics.state.tx.us/data/search/cf/CFS-Codes.txt$$;
+COMMENT ON TABLE codes_countries IS $$ Campaign Finance Import Guide (revised 09/25/2018) APPENDIX D:  Address Country Codes $$;
 
-INSERT INTO tec.codes_country( country_id, name )
+INSERT INTO codes_countries( country_code, country_name )
 VALUES
 	( 'USA', 'United States' ),
 	( 'CAN', 'Canada' ),
@@ -253,4 +253,5 @@ VALUES
 	( 'VIR', 'Virgin Islands, U.S.' ),
 	( 'WLF', 'Wallis and Futuna' ),
 	( 'ESH', 'Western Sahara' ),
-	( 'YEM', 'Yemen' );
+	( 'YEM', 'Yemen' )
+;

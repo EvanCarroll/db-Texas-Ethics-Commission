@@ -1,10 +1,10 @@
-DROP TABLE IF EXISTS tec.codes_counties;
+DROP TABLE IF EXISTS codes_counties;
 
-CREATE TABLE tec.codes_counties (
-	county_id   text PRIMARY KEY,
+CREATE TABLE codes_counties (
+	county_code text PRIMARY KEY,
 	county_name text UNIQUE
 );
-INSERT INTO tec.codes_counties
+INSERT INTO codes_counties
 VALUES
 	( 'AD'  , 'Andrews' ),
 	( 'AG'  , 'Angelina' ),

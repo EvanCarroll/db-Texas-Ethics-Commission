@@ -1,16 +1,16 @@
-DROP TABLE IF EXISTS codes_schedule;
+DROP TABLE IF EXISTS codes_schedules;
 
 CREATE TYPE schedule_category
 	AS ENUM ( 'CONTRIBUTION', 'CREDIT', 'EXPENDITURE', 'LOAN', 'PLEDGE' );
 
-CREATE TABLE codes_schedule (
-	schedule_id       text PRIMARY KEY,
+CREATE TABLE codes_schedules (
+	schedule_code     text PRIMARY KEY,
 	schedule_name     text,
-	schedule_category tec.schedule_category
+	schedule_category schedule_category
 );
 
 
-INSERT INTO codes_schedule
+INSERT INTO codes_schedules
 VALUES
 	( 'A1'     , 'Monetary Political Contributions'                                             , 'CONTRIBUTION' ),
 	( 'A2'     , 'Non-Monetary (In-Kind) Political Contributions'                               , 'CONTRIBUTION' ),
