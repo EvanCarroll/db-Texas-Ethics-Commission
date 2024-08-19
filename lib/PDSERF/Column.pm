@@ -59,9 +59,14 @@ sub pg_type ($self) {
 		}
 		else { $coltype = 'bool'; }
 	}
+	elsif ( $self->name =~ /year$/i ) {
+		$coltype = 'smallint';
+	}
+	elsif ( $self->name =~ /dt$/i ) {
+		$coltype = 'date';
+	}
 	elsif ( $self->name =~ /ExpendCd$/ ) {
 		$coltype = 'bool';
-
 	}
 	elsif ( $self->name =~ /CountryCd$/ ) {
 		$coltype = 'char(3)';

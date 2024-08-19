@@ -22,7 +22,7 @@ CREATE TABLE tec.l_DocketData (
 	formTypeCd                              text,
 	reportTypeCd                            text,
 	reportInfoIdent                         int,
-	applicableYear                          text,
+	applicableYear                          smallint,
 	filerIdent                              int,
 	filerTypeCd                             text,
 	filerName                               text,
