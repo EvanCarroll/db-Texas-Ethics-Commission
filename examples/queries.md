@@ -1,11 +1,13 @@
-\echo Information on the candidate
-SELECT *
-FROM tec.c_filerdata
-WHERE filernamelast = 'Bush'
-	AND filernamefirst = 'George P.';
+Basic
+====
 
 
--- Top 10 Largest Fundraising Campaigns
+Information on the candidate
+----
+
+Top 10 Largest Fundraising Campaigns
+
+```sql
 SELECT
 	filer.filerident,
 	filer.filername,
@@ -16,10 +18,26 @@ JOIN tec.c_contributiondata cd USING (reportinfoident)
 GROUP BY filer.filerident, filer.filername
 ORDER BY sum(cd.contributionamount) DESC
 FETCH FIRST 10 ROWS ONLY;
+```
+
+George P Bush
+====
+
+Candidate Information
+----
+
+```sql
+SELECT *
+FROM tec.c_filerdata
+WHERE filernamelast = 'Bush'
+	AND filernamefirst = 'George P.';
+```
 
 
+Reports filed with TEC for George P Bush
+----
 
-\echo Reports files with the TEC
+```sql
 SELECT filer.filername
 	, fileddt
 	, periodstartdt
@@ -34,10 +52,13 @@ JOIN tec.c_coversheet1data AS cs
 WHERE filer.filernamelast = 'Bush'
 	AND filer.filernamefirst = 'George P.'
 ORDER BY fileddt;
+```
 
 
+Contributions to George P. Bush
+----
 
-\echo Contributions
+```sql
 SELECT filer.filername
 	, contributoroccupation
 	, contributorjobtitle
@@ -56,10 +77,14 @@ INNER JOIN tec.c_contributiondata AS cd
 WHERE filer.filernamelast = 'Bush'
 	AND filer.filernamefirst = 'George P.'
 ORDER BY contributiondt;
+```
 
 
 
-\echo Expenses
+Campaign Expenses
+----
+
+```sql
 SELECT
 	cs.filername
 	, ed.receiveddt
@@ -93,10 +118,12 @@ LEFT OUTER JOIN tec.c_expendcategory AS ec
 WHERE filer.filernamelast = 'Bush'
 	AND filer.filernamefirst = 'George P.'
 ORDER BY ed.expenddt;
+```
 
-	
-	
-\echo External entities that spend money on the candidate
+External entities that spend money on the candidate
+----
+
+```sql
 -- filerident is not for the candidate, filed by third parties
 SELECT candidatenamelast
 	, candidatenamefirst
@@ -112,10 +139,13 @@ JOIN tec.c_expendcategory AS cat
 WHERE candidatenamelast LIKE '%Bush%'
 	AND candidatenamefirst LIKE '%George P%'
 ORDER BY expenddt;
+```
 
 
+Pledges to George P. Bush
+----
 
-\echo Pledges
+```sql
 SELECT filer.filername, pledgedt, pledgeroccupation, pledgerstreetcity, pledgernamefirst, pledgernamelast, pledgeamount
 FROM tec.c_filerdata AS filer
 INNER JOIN tec.c_coversheet1data AS cs
@@ -124,6 +154,7 @@ INNER JOIN tec.c_pledgedata
 	USING (reportinfoident)
 WHERE filer.filernamelast = 'Bush'
 	AND filer.filernamefirst = 'George P.';
+```
 
 
 -- Small mostly dead tables
