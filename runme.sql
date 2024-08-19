@@ -60,19 +60,7 @@ COMMENT ON SCHEMA tec IS $$Texas Ethics Comission dataset$$;
 \i sql/gen/TEC_CF_CSV/10_c_ExpendRepayment.sql
 
 
-\echo LOADING LOBY REPORTS [TEC_LA_CSV.zip]
-\i sql/gen/TEC_LA_CSV/01_l_CoverSheetLaData.sql
-\i sql/gen/TEC_LA_CSV/02_l_IndividualReportingData.sql
-\i sql/gen/TEC_LA_CSV/03_l_SubjectMatterData.sql
-\i sql/gen/TEC_LA_CSV/04_l_DocketData.sql
-\i sql/gen/TEC_LA_CSV/05_l_TransportationData.sql
-\i sql/gen/TEC_LA_CSV/06_l_FoodBeverageData.sql
-\i sql/gen/TEC_LA_CSV/07_l_EntertainmentData.sql
-\i sql/gen/TEC_LA_CSV/08_l_GiftData.sql
-\i sql/gen/TEC_LA_CSV/09_l_AwardMementoData.sql
-\i sql/gen/TEC_LA_CSV/10_l_EventData.sql
-
-SET SEARCH_PATH TO tec;
+\i sql/lobby.sql
 
 UPDATE tec.c_contributiondata
 	SET contributornamesuffixcd = NULL
@@ -82,16 +70,12 @@ UPDATE tec.c_contributiondata
 	SET contributornameprefixcd = NULL
 	WHERE contributornameprefixcd IN ( 'AMB', 'AMBASSADOR', 'TITLE', 'ME' );
 
-UPDATE tec.l_coversheetladata SET filernameprefixcd = NULL WHERE filernameprefixcd = 'ME';
 
 UPDATE tec.tec.c_expenddata
 	SET payeenamesuffixcd = NULL
 	WHERE payeenamesuffixcd IN ( 'MR', 'MS' );
 
 UPDATE tec.tec.c_expenddata SET payeenameprefixcd = NULL WHERE payeenameprefixcd IN ( 'TITLE', 'ME', 'RADM', 'AMBASSADOR' );
-UPDATE tec.l_foodbeveragedata SET recipientnamesuffixcd = NULL WHERE recipientnamesuffixcd = 'MR';
-UPDATE tec.l_awardmementodata SET recipientnamesuffixcd = NULL WHERE recipientnamesuffixcd = 'MR';
-UPDATE tec.l_eventdata SET recipientnamesuffixcd = NULL WHERE recipientnamesuffixcd = 'MR';
 UPDATE tec.c_coversheet1data SET filernamesuffixcd = NULL WHERE filernamesuffixcd = 'MR';
 UPDATE tec.c_coversheet1data SET filernameprefixcd = NULL WHERE filernameprefixcd = 'TITLE';
 UPDATE tec.c_coversheet1data SET treasnamesuffixcd = NULL WHERE treasnamesuffixcd = 'MR';
