@@ -52,4 +52,4 @@ VALUES
 
 -- Needs both SJC and SCJ, not found in original set
 INSERT INTO codes_offices (office_code)
-VALUES ('JUSTICEAPP'), ('SJC'), ('SCJ'), ('JUDGECRIM'), ('AGUASUDDIR'), ('JUDGE_BUS');
+VALUES ('JUSTICEAPP'), ('SJC'), ('SCJ'), ('JUDGECRIM'), ('AGUASUDDIR'), ('JUDGE_BUS'), ('JUDGEDIST_BUS');

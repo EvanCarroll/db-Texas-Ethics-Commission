@@ -248,6 +248,35 @@ BEGIN;
 
 COMMIT;
 
+-- Uppercase all StateCd columns before validating FK constraints
+DO $$
+DECLARE
+	_sql text;
+	rows_affected INT;
+BEGIN
+	FOR _sql IN SELECT FORMAT(
+			'UPDATE %I.%I SET %I = UPPER(%I) WHERE %I IS DISTINCT FROM UPPER(%I);',
+			table_schema,
+			table_name,
+			column_name,
+			column_name,
+			column_name,
+			column_name
+		)
+		FROM information_schema.columns
+		WHERE table_schema = 'tec'
+			AND column_name LIKE '%statecd'
+		ORDER BY table_schema, table_name
+	LOOP
+		RAISE NOTICE '%', _sql;
+		EXECUTE _sql;
+		GET DIAGNOSTICS rows_affected = ROW_COUNT;
+		RAISE NOTICE '	Rows Affected: %', rows_affected;
+		COMMIT;
+	END LOOP;
+END
+$$ LANGUAGE plpgsql;
+
 --
 -- Now let's try to validate all the constriants.
 --

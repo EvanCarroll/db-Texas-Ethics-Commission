@@ -44,7 +44,9 @@ CREATE TABLE tec.c_CoverSheet3Data (
 	activitySeekOfficeDescr                 text,
 	activitySeekOfficeCountyCd              text,
 	activitySeekOfficeCountyDescr           text,
-        commActivityName       text,
+
+	-- XXX: THIS IS MANUALLY OVERRIDE DATA NOT IN CSV
+  commActivityName                        text,
 	PRIMARY KEY (committeeActivityId)
 );
 COMMENT ON TABLE tec.c_CoverSheet3Data IS $$Cover Sheet 3 - Committee purpose. The committee purpose is reported at the top of Cover Sheet Page 2 FORMNAME = CEC, GPAC, JSPAC, MCEC, MPAC, SCSPAC, SPAC, SPACSS. File: purpose.csv$$;

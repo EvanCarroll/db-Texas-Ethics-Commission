@@ -27,9 +27,9 @@ VALUES
 
 DROP TABLE IF EXISTS codes_states;
 CREATE TABLE codes_states (
-	state_code varchar(15) PRIMARY KEY,  -- some records have longer codes than 2 characters, so we need to allow for that
- 	state_name varchar(50)
-);	
+	state_code char(2) PRIMARY KEY,
+	state_name text
+);
 
 INSERT INTO codes_states (state_code, state_name)
 VALUES
@@ -43,21 +43,21 @@ VALUES
 ('CA','CALIFORNIA'),
 ('PW','CAROLINE ISLANDS'),
 ('CO','COLORADO'),
-('CT','CONNETICUT'),
+('CT','CONNECTICUT'),
 ('DE','DELAWARE'),
 ('DC','DISTRICT OF COLUMBIA'),
-('FM','FEDERATED STATE'),
+('FM','FEDERATED STATES OF MICRONESIA'),
 ('FL','FLORIDA'),
 ('GA','GEORGIA'),
 ('GU','GUAM'),
 ('HI','HAWAII'),
-('ID','IDOHA'),
+('ID','IDAHO'),
 ('IL','ILLINOIS'),
 ('IN','INDIANA'),
 ('IA','IOWA'),
 ('KS','KANSAS'),
 ('KY','KENTUCKY'),
-('LA','LOUSIANA'),
+('LA','LOUISIANA'),
 ('ME','MAINE'),
 ('MB','MANITOBA'),
 ('MP','MARIANA ISLANDS'),
@@ -112,42 +112,37 @@ VALUES
 ('XX','UNKNOWN')
 ;
 
--- Unknown state code values added 2026 01
+-- Additional 2-character codes found in TEC data
 INSERT INTO codes_states (state_code, state_name)
 VALUES
-('NL','UNKNOWN'),
-('UM','UNKNOWN'),
+('NL','NETHERLANDS'),
+('UM','US MINOR OUTLYING ISLANDS'),
 ('TE','UNKNOWN'),
-('BA','UNKNOWN'),
-('CZ','UNKNOWN'),
-('LY','UNKNOWN'),
-('HESSEN','UNKNOWN'),
+('BA','BOSNIA AND HERZEGOVINA'),
+('CZ','CZECH REPUBLIC'),
+('LY','LIBYA'),
 ('DA','UNKNOWN'),
-('18','UNKNOWN'),
-('68','UNKNOWN'),
-('0','UNKNOWN'),
 ('HO','UNKNOWN'),
-('KA', 'UNKNOWN'),
-('BR', 'UNKNOWN'),
-('ONTARIO', 'UNKNOWN'),
-('EL', 'UNKNOWN')
-;
-
--- Additional need to handle additional unexpected values in the data (preexisting values added 2026 01)
-INSERT INTO codes_states (state_code, state_name)
-SELECT DISTINCT v.state_code, 'UNKNOWN'
-FROM (
-    VALUES
-    ('EN'),('ZZ'),('LY'),
-    ('HESSEN'),('AE'),('DA'),('GU'),('18'),
-    ('NL'),('68'),('0'),('HO'),
-    ('KA'),('BR'),('ONTARIO'),
-    ('EL'),('XX'),('MP'),('SA'),('VI'),('ZH'),('DE'),
-    ('HESSE'),('BO'),('12'),('AA'),('AB'),('LO'),
-    ('PR'),('CY'),('#'),('FI'),
-    ('SU'),('SP'),('OM'),
-    ('KI'),('24'),('AP'),('78'),('UM'),('TH'),('BA'),
-    ('GB'),('QL'),('TE'),('98'),('GR'),
-    ('FS'),('ON'), (' TX'),('UN'),('RZ'),('X'),('??'),('AP'),('T'),('BE'),('X7')
-) AS v(state_code)
+('KA','UNKNOWN'),
+('BR','BRAZIL'),
+('EL','UNKNOWN'),
+('EN','UNKNOWN'),
+('SA','SAUDI ARABIA'),
+('ZH','UNKNOWN'),
+('BO','BOLIVIA'),
+('LO','UNKNOWN'),
+('CY','CYPRUS'),
+('FI','FINLAND'),
+('SU','UNKNOWN'),
+('SP','SPAIN'),
+('OM','OMAN'),
+('KI','KIRIBATI'),
+('TH','THAILAND'),
+('GB','GREAT BRITAIN'),
+('QL','QUEENSLAND'),
+('GR','GREECE'),
+('FS','UNKNOWN'),
+('UN','UNKNOWN'),
+('RZ','UNKNOWN'),
+('BE','BELGIUM')
 ON CONFLICT (state_code) DO NOTHING;

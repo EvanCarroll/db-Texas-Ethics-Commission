@@ -66,8 +66,7 @@ sub pg_type ($self) {
 		$coltype = 'date';
 	}
 	elsif ( $self->name =~ /ExpendCd$/ ) {
-		#$coltype = 'bool';
-		$coltype = 'char(1)'; # ExpendCd is 'Y' or 'N'
+		$coltype = 'bool';
 	}
 	elsif ( $self->name =~ /CountryCd$/ ) {
 		$coltype = 'char(3)';
@@ -167,9 +166,6 @@ sub fkey_constraint ($self) {
 		return sprintf( $fmt, 'codes_persent_types' );
 	}
 	# Handle specific code tables
-	elsif ( $self->name =~ /^politicalExpendCd$/ ) {
-		return sprintf( $fmt, 'codes_political_expend' );
-	}
 	elsif ( $self->name =~ /^subjectCategoryCd$/ ) {
 		return sprintf( $fmt, 'codes_subject_category' );
 	}
