@@ -248,6 +248,23 @@ BEGIN;
 
 COMMIT;
 
+-- Fix UNKNOWN values in columns that reference codes tables where UNKNOWN was removed
+-- These must be set to NULL before FK constraints are validated
+UPDATE tec.c_coversheet1data SET sourcecategorycd = NULL WHERE sourcecategorycd = 'UNKNOWN';
+UPDATE tec.l_coversheetladata SET sourcecategorycd = NULL WHERE sourcecategorycd = 'UNKNOWN';
+UPDATE tec.c_loandata SET loanstatuscd = NULL WHERE loanstatuscd = 'UNKNOWN';
+UPDATE tec.c_spacdata SET spacpositioncd = NULL WHERE spacpositioncd = 'UNKNOWN';
+UPDATE tec.l_foodbeveragedata SET activityamountcd = NULL WHERE activityamountcd = 'UNKNOWN';
+UPDATE tec.l_entertainmentdata SET activityamountcd = NULL WHERE activityamountcd = 'UNKNOWN';
+UPDATE tec.l_giftdata SET activityamountcd = NULL WHERE activityamountcd = 'UNKNOWN';
+UPDATE tec.l_awardmementodata SET activityamountcd = NULL WHERE activityamountcd = 'UNKNOWN';
+
+-- Fix invalid state codes before UPPER() transformation and FK validation
+-- ONTARIO is a Canadian province, should be ON
+UPDATE tec.c_contributiondata SET contributorstreetstatecd = 'ON' WHERE contributorstreetstatecd = 'ONTARIO';
+-- Fix mixed case state codes
+UPDATE tec.c_coversheet1data SET treasstreetstatecd = 'TX' WHERE treasstreetstatecd = 'Tx';
+
 -- Uppercase all StateCd columns before validating FK constraints
 DO $$
 DECLARE

@@ -12,7 +12,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.PHONY: all clean unzip devgen perlinstall perlscripts mkdir
+.PHONY: all clean unzip devgen perlinstall fixups perlscripts mkdir
 
 all: download unzip combinecerts perlscripts 
 
@@ -66,8 +66,9 @@ clean:
 	git clean -fx data/
 
 perlinstall:
-	cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib); perl -MMoose -e1 2>/dev/null || cpanm install Moose
-	cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib); perl -MDataExtract::FixedWidth -e1 2>/dev/null || cpanm install DataExtract::FixedWidth
+	cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib); perl -MMoose -e1 2>/dev/null || cpanm Moose
+	cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib); perl -MDataExtract::FixedWidth -e1 2>/dev/null || cpanm DataExtract::FixedWidth
+	cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib); perl -MText::CSV -e1 2>/dev/null || cpanm Text::CSV
 
 perlscripts:
 	cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib); perl scripts/1295_seperator.pl
@@ -76,14 +77,11 @@ fixups:
 	echo "Running fixups"
 	sed -i -e 's/ LANDCOMM/LANDCOMM/g'                            \
 		-e 's/" NONE"/"NONE"/g' data/TEC_CF_CSV/*.csv # strip leading space
+## Pad CSV rows with missing trailing columns to match header
+	perl scripts/pad_csv_columns.pl data/TEC_CF_CSV/filers.csv
 	echo 'EXCAT,UNKNOWN,"User added UNKNOWN"' >> data/TEC_CF_CSV/expn_catg.csv
 ## Clear filerIdent field if it contains an email address (field 2, should be integer)
-	perl -F',' -i.bak -lane '\
-		if ($$F[1] =~ /@/) { \
-			warn "CLEARING: filerIdent detected email address [$$F[1]]\n"; \
-			$$F[1] = ""; \
-		} \
-		print join(",", @F);' data/TEC_CF_CSV/filers.csv && rm -f data/TEC_CF_CSV/filers.csv.bak
+	perl -F',' -i.bak -lane 'if ($$F[1] =~ /@/) { warn "CLEARING: filerIdent detected email address [$$F[1]]\n"; $$F[1] = ""; } print join(",", @F);' data/TEC_CF_CSV/filers.csv && rm -f data/TEC_CF_CSV/filers.csv.bak
 ## fix up the CFS-ReadMe.txt file's missing missing commActivityName column definition found in the purpose.csv, and update 06_c_CoverSheet3Data.sql to match the new column definition
 	./scripts/purpose_csv_fix.sh sql/gen/TEC_CF_CSV/06_c_CoverSheet3Data.sql		
 	echo "FINISHED Make fixups"

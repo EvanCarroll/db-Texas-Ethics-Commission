@@ -27,6 +27,10 @@ COMMENT ON TABLE tec.c_ExpendCategory IS $$Expenditure category codes. File: exp
 COMMENT ON COLUMN tec.c_expendcategory.recordtype IS $$Record type code - always EXCAT$$;
 COMMENT ON COLUMN tec.c_expendcategory.expendcategorycodevalue IS $$Expenditure category code$$;
 COMMENT ON COLUMN tec.c_expendcategory.expendcategorycodelabel IS $$Expenditure category description$$;
-\COPY tec.c_ExpendCategory FROM 'data/TEC_CF_CSV/expn_catg.csv' WITH ( FORMAT CSV , HEADER true );
+
+CREATE TEMP TABLE _expn_catg (LIKE tec.c_ExpendCategory);
+\COPY _expn_catg FROM 'data/TEC_CF_CSV/expn_catg.csv' WITH ( FORMAT CSV , HEADER true );
+INSERT INTO tec.c_ExpendCategory SELECT * FROM _expn_catg WHERE expendCategoryCodeValue <> 'UNKNOWN' ON CONFLICT DO NOTHING;
+DROP TABLE _expn_catg;
 
 
